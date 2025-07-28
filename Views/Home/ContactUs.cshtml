@@ -1,0 +1,279 @@
+﻿@using JyotiIyerCPA.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ContactViewModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<!-- Contact Hero Section -->
+<section class="contact-hero py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold text-dark mb-4">Contact Us</h1>
+                <p class="lead text-muted">Get in touch with us today. We're here to help with all your accounting and financial needs.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information & Form Section -->
+<section class="contact-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Information -->
+            <div class="col-lg-4 mb-5">
+                <div class="contact-info">
+                    <h3 class="mb-4">Get In Touch</h3>
+                    <p class="text-muted mb-4">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+
+                    <div class="contact-item mb-4">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5>Office Address</h5>
+                            <p class="text-muted mb-0">123 Business Avenue<br>Suite 100<br>Your City, State 12345</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone text-primary"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5>Phone Number</h5>
+                            <p class="text-muted mb-0">
+                                <a href="tel:+15551234567" class="text-decoration-none">(555) 123-4567</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope text-primary"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5>Email Address</h5>
+                            <p class="text-muted mb-0">
+                                <a href="mailto:info@jyotiiyercpa.com" class="text-decoration-none">info@jyotiiyercpa.com</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock text-primary"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5>Business Hours</h5>
+                            <p class="text-muted mb-1">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            <p class="text-muted mb-1">Saturday: 9:00 AM - 2:00 PM</p>
+                            <p class="text-muted mb-0">Sunday: By Appointment Only</p>
+                        </div>
+                    </div>
+
+                    <div class="social-links mt-4">
+                        <h5 class="mb-3">Follow Us</h5>
+                        <a href="#" class="social-link me-3" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin fa-2x"></i>
+                        </a>
+                        <a href="#" class="social-link me-3" aria-label="Facebook">
+                            <i class="fab fa-facebook fa-2x"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-8">
+                <div class="contact-form">
+                    <h3 class="mb-4">Send Us a Message</h3>
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            @TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <form asp-action="ContactUs" method="post" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Name" class="form-label">Full Name *</label>
+                                <input asp-for="Name" class="form-control" placeholder="Enter your full name" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label">Email Address *</label>
+                                <input asp-for="Email" class="form-control" placeholder="Enter your email address" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Phone" class="form-label">Phone Number *</label>
+                                <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Subject" class="form-label">Subject *</label>
+                                <select asp-for="Subject" class="form-select">
+                                    <option value="">Select a subject</option>
+                                    <option value="Tax Preparation">Tax Preparation</option>
+                                    <option value="Bookkeeping Services">Bookkeeping Services</option>
+                                    <option value="Financial Consulting">Financial Consulting</option>
+                                    <option value="Business Formation">Business Formation</option>
+                                    <option value="Audit Services">Audit Services</option>
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span asp-validation-for="Subject" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Message" class="form-label">Message *</label>
+                            <textarea asp-for="Message" class="form-control" rows="6"
+                                      placeholder="Please describe how we can help you..."></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
+                                <label class="form-check-label" for="newsletter">
+                                    I would like to receive updates and newsletters about tax tips and financial advice.
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="section-title text-center mb-5">Frequently Asked Questions</h2>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faq1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                What documents do I need for tax preparation?
+                            </button>
+                        </h3>
+                        <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1"
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                You'll need W-2s, 1099s, receipts for deductions, previous year's tax return,
+                                and any other relevant financial documents. We'll provide you with a comprehensive
+                                checklist once you schedule your appointment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faq2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                How much do your services cost?
+                            </button>
+                        </h3>
+                        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2"
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Our fees vary depending on the complexity of your needs. We offer competitive,
+                                transparent pricing and will provide you with a detailed quote before beginning any work.
+                                Contact us for a free consultation and estimate.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faq3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                Do you offer year-round support?
+                            </button>
+                        </h3>
+                        <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3"
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes! While tax season is our busiest time, we provide accounting and financial
+                                services throughout the year. This includes bookkeeping, financial planning,
+                                business consulting, and tax planning services.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h3 class="accordion-header" id="faq4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                How secure is my financial information?
+                            </button>
+                        </h3>
+                        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4"
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We take data security very seriously. All client information is encrypted and stored
+                                securely. We follow industry best practices and comply with all relevant privacy
+                                regulations to protect your sensitive financial data.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section (Optional - you can replace with actual map embed) -->
+<section class="map-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title text-center mb-5">Visit Our Office</h2>
+                <div class="map-placeholder bg-light rounded">
+                    <div class="map-content text-center py-5">
+                        <i class="fas fa-map-marked-alt fa-4x text-primary mb-3"></i>
+                        <h4>Our Location</h4>
+                        <p class="text-muted">123 Business Avenue, Suite 100<br>Your City, State 12345</p>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-primary">
+                            <i class="fas fa-directions me-2"></i>Get Directions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Form enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            form.addEventListener('submit', function() {
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+                submitBtn.disabled = true;
+            });
+        });
+    </script>
+}

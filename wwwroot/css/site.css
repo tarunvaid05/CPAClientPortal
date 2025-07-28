@@ -1,0 +1,782 @@
+/* Custom CSS for Jyoti Iyer CPA Website */
+
+:root {
+    --primary-color: #dc3545; /* Red from logo */
+    --secondary-color: #212529; /* Black from logo */
+    --light-gray: #f8f9fa;
+    --dark-gray: #6c757d;
+    --white: #ffffff;
+    --font-family: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--secondary-color);
+    padding-top: 80px; /* Account for fixed navbar */
+}
+
+/* Navbar Styles */
+.navbar {
+    transition: all 0.3s ease;
+    padding: 1rem 0;
+}
+
+    .navbar.scrolled {
+        padding: 0.5rem 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+.logo-img {
+    height: 50px;
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled .logo-img {
+    height: 40px;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--secondary-color) !important;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+    .nav-link:hover {
+        color: var(--primary-color) !important;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 50%;
+        background-color: var(--primary-color);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-logo {
+    max-width: 400px;
+    animation: fadeInRight 1s ease-out 0.3s both;
+}
+
+.hero-buttons .btn {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+    .hero-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 500;
+    padding: 12px 30px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #c82333;
+        border-color: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    }
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 500;
+    padding: 12px 30px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+    .btn-outline-primary:hover {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    }
+
+/* Section Styles */
+.section-title {
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 3px;
+        background-color: var(--primary-color);
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+/* Qualifications Section */
+.qualification-card {
+    text-align: center;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+    .qualification-card:hover {
+        transform: translateY(-5px);
+    }
+
+.qualification-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Services Section */
+.service-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #e9ecef;
+    position: relative;
+    overflow: hidden;
+}
+
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(220, 53, 69, 0.1), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .service-card:hover::before {
+        left: 100%;
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border-color: var(--primary-color);
+    }
+
+.service-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.service-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.service-preview {
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+}
+
+.service-arrow {
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: var(--primary-color);
+}
+
+.service-card:hover .service-arrow {
+    opacity: 1;
+    transform: translateX(5px);
+}
+
+/* Testimonials */
+.testimonial-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    margin: 0 1rem;
+}
+
+.carousel-inner {
+    overflow: visible;
+}
+
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    color: var(--primary-color);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Client Portal */
+.login-card .card {
+    border: none;
+    border-radius: 15px;
+}
+
+.login-logo {
+    width: 80px;
+    height: 80px;
+}
+
+.portal-features li {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.benefit-card {
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Contact Form */
+.contact-form {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.1);
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+
+/* Footer */
+.footer {
+    background-color: var(--secondary-color) !important;
+}
+
+.footer-logo {
+    width: 60px;
+    height: 60px;
+}
+
+.footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+    .footer a:hover {
+        color: var(--primary-color) !important;
+    }
+
+.social-links a {
+    transition: all 0.3s ease;
+}
+
+    .social-links a:hover {
+        transform: translateY(-2px);
+    }
+
+/* About Us Page Styles */
+.about-logo {
+    max-width: 300px;
+    animation: fadeInRight 1s ease-out 0.3s both;
+}
+
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 1rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--primary-color);
+    }
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0;
+    width: 1rem;
+    height: 1rem;
+    background: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px var(--primary-color);
+}
+
+.timeline-content h4 {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Expertise Cards */
+.expertise-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+    display: flex;
+    align-items: flex-start;
+}
+
+    .expertise-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border-color: var(--primary-color);
+    }
+
+.expertise-icon {
+    font-size: 2.5rem;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+
+.expertise-content h4 {
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.expertise-list {
+    list-style: none;
+    padding: 0;
+}
+
+    .expertise-list li {
+        padding: 0.25rem 0;
+        color: var(--dark-gray);
+    }
+
+        .expertise-list li::before {
+            content: '•';
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+/* Membership Cards */
+.membership-card {
+    text-align: center;
+    padding: 2rem 1rem;
+    transition: all 0.3s ease;
+}
+
+    .membership-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .membership-card h5 {
+        font-weight: 600;
+        color: var(--secondary-color);
+        margin-bottom: 0.5rem;
+    }
+
+/* Value Cards */
+.value-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    height: 100%;
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+    .value-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .value-card h4 {
+        color: var(--secondary-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+/* Contact Us Page Styles */
+.contact-info {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(220, 53, 69, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+    .contact-icon i {
+        font-size: 1.2rem;
+    }
+
+.contact-details h5 {
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.contact-details a {
+    color: var(--dark-gray);
+    transition: color 0.3s ease;
+}
+
+    .contact-details a:hover {
+        color: var(--primary-color);
+    }
+
+/* Social Links */
+.social-link {
+    color: var(--dark-gray);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+    .social-link:hover {
+        color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+
+/* Enhanced Contact Form */
+.form-label {
+    font-weight: 500;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+
+    .form-control::placeholder {
+        color: #adb5bd;
+    }
+
+/* FAQ Section */
+.accordion-item {
+    border: 1px solid #e9ecef;
+    border-radius: 10px !important;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.accordion-button {
+    background: white;
+    border: none;
+    font-weight: 500;
+    color: var(--secondary-color);
+    padding: 1.5rem;
+}
+
+    .accordion-button:not(.collapsed) {
+        background: var(--primary-color);
+        color: white;
+        box-shadow: none;
+    }
+
+    .accordion-button:focus {
+        box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+
+    .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+    .accordion-button:not(.collapsed)::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+.accordion-body {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    color: var(--dark-gray);
+    line-height: 1.6;
+}
+
+/* Map Section */
+.map-placeholder {
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #dee2e6;
+}
+
+.map-content {
+    text-align: center;
+}
+
+    .map-content h4 {
+        color: var(--secondary-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+/* Alert Styles */
+.alert-success {
+    background-color: rgba(25, 135, 84, 0.1);
+    border-color: rgba(25, 135, 84, 0.2);
+    color: #0f5132;
+    border-radius: 10px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus styles for keyboard navigation */
+.btn:focus,
+.nav-link:focus,
+.form-control:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        text-align: center;
+    }
+
+    .hero-logo {
+        max-width: 250px;
+        margin-top: 2rem;
+    }
+
+    .about-logo {
+        max-width: 200px;
+        margin-top: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .qualification-card,
+    .service-card,
+    .benefit-card {
+        margin-bottom: 2rem;
+    }
+
+    /* About Us Mobile Styles */
+    .timeline {
+        padding-left: 1rem;
+    }
+
+        .timeline::before {
+            left: 0.5rem;
+        }
+
+    .timeline-item {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-marker {
+        left: -1.5rem;
+    }
+
+    .expertise-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .expertise-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    /* Contact Us Mobile Styles */
+    .contact-info {
+        position: static;
+        margin-bottom: 2rem;
+    }
+
+    .contact-form {
+        padding: 2rem;
+    }
+
+    .value-card {
+        margin-bottom: 2rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .service-card,
+    .expertise-card,
+    .contact-info,
+    .contact-form {
+        border: 2px solid var(--secondary-color);
+    }
+
+    .btn-primary {
+        border: 2px solid var(--secondary-color);
+    }
+
+    .timeline::before {
+        background: var(--secondary-color);
+    }
+
+    .timeline-marker {
+        background: var(--secondary-color);
+        box-shadow: 0 0 0 3px var(--secondary-color);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .footer,
+    .cta-section,
+    .social-links {
+        display: none !important;
+    }
+
+    .main-content {
+        padding-top: 0 !important;
+    }
+
+    .contact-form,
+    .map-section {
+        display: none !important;
+    }
+
+    body {
+        padding-top: 0;
+    }
+}

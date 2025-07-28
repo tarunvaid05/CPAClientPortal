@@ -1,0 +1,64 @@
+﻿@using ClientPortal.Models
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- Dashboard Header -->
+<div class="dashboard-header mb-4">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="dashboard-title">Welcome back, @Model.AdminName</h1>
+            <p class="text-muted">Manage and view your clients' tax documents</p>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Stats Cards -->
+<div class="row mb-4">
+    <div class="col-md-6 mb-3">
+        <div class="stat-card">
+            <div class="stat-icon bg-primary">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="stat-content">
+                <h3>@Model.UploadStats.CurrentTaxYear</h3>
+                <p>Tax Year</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="stat-card" id="total-uploads-card">
+            <div class="stat-icon bg-info">
+                <i class="fas fa-upload"></i>
+            </div>
+            <div class="stat-content">
+                <div class="stat-content-main">
+                    <div class="stat-text">
+                        <h3 id="uploadCount">@Model.UploadStats.TotalUploadsThisWeek</h3>
+                        <p id="uploadPeriod">Total Uploads This Week</p>
+                    </div>
+                    <div class="upload-filter-controls" style="padding-right: 80px; min-width: 425px;">
+                        <select class="form-select form-select-sm mb-2" id="periodFilter" onchange="updateUploadStats()" style="min-width: 425px;">
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                            <option value="year">This Year</option>
+                        </select>
+                        <input type="date" class="form-control form-control-sm" id="startDate" onchange="updateUploadStats()" style="min-width: 425px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Area -->
+<div class="row">
+    <!-- Client Management Section -->
+    <div class="col-lg-8 mb-4" >
+        <div class="client-section">
+            <div class="section-header d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h3><i class="fas fa-users me-2"></i>Client Management</h3>
+                    <p class="text-muted

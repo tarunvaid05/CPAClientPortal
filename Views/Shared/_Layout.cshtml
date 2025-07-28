@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Jyoti Iyer CPA</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm fixed-top">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/LogoNoText.png" alt="Jyoti Iyer CPA Logo" class="logo-img" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ClientPortal">Client Portal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="main-content">
+        @RenderBody()
+    </main>
+
+    <footer class="footer bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="~/images/LogoNoText.png" alt="Jyoti Iyer CPA Logo" class="footer-logo mb-3" />
+                    <p class="text-light">Professional accounting services you can trust. Helping individuals and businesses achieve their financial goals.</p>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h5 class="text-primary">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="@Url.Action("Index", "Home")" class="text-light">Home</a></li>
+                        <li><a href="@Url.Action("AboutUs", "Home")" class="text-light">About Us</a></li>
+                        <li><a href="@Url.Action("Services", "Home")" class="text-light">Services</a></li>
+                        <li><a href="@Url.Action("ContactUs", "Home")" class="text-light">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="text-primary">Services</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Tax Preparation</a></li>
+                        <li><a href="#" class="text-light">Bookkeeping</a></li>
+                        <li><a href="#" class="text-light">Financial Consulting</a></li>
+                        <li><a href="#" class="text-light">Business Formation</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="text-primary">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="text-light"><i class="fas fa-phone me-2"></i> (555) 123-4567</li>
+                        <li class="text-light"><i class="fas fa-envelope me-2"></i> info@jyotiiyercpa.com</li>
+                        <li class="text-light"><i class="fas fa-map-marker-alt me-2"></i> 123 Business Ave, Suite 100</li>
+                    </ul>
+                    <div class="social-links mt-3">
+                        <a href="#" class="text-light me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-light">&copy; @DateTime.Now.Year Jyoti Iyer CPA. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light me-3">Privacy Policy</a>
+                    <a href="#" class="text-light">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

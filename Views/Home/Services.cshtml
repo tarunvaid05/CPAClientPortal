@@ -1,0 +1,92 @@
+﻿@using JyotiIyerCPA.Models
+@model ServicesViewModel
+@{
+    ViewData["Title"] = "Services";
+}
+
+<section class="services-hero py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold text-dark mb-4">Our Services</h1>
+                <p class="lead text-muted">Comprehensive accounting and financial services designed to meet your unique needs</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services-grid py-5">
+    <div class="container">
+        <div class="row">
+            @foreach (var service in Model.Services)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="service-card h-100" data-bs-toggle="modal" data-bs-target="#serviceModal"
+                         data-title="@service.Title" data-description="@service.Description" data-icon="@service.Icon">
+                        <div class="service-icon">
+                            <i class="@service.Icon"></i>
+                        </div>
+                        <h4 class="service-title">@service.Title</h4>
+                        <p class="service-preview">@service.Description.Substring(0, Math.Min(100, service.Description.Length))...</p>
+                        <div class="service-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Service Detail Modal -->
+<div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex align-items-center">
+                    <i id="modalIcon" class="me-3 text-primary" style="font-size: 2rem;"></i>
+                    <h5 class="modal-title" id="serviceModalLabel"></h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription"></p>
+                <div class="mt-4">
+                    <h6>Why Choose Our Service?</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check text-success me-2"></i> Professional expertise and attention to detail</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Personalized service tailored to your needs</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Timely delivery and ongoing support</li>
+                        <li><i class="fas fa-check text-success me-2"></i> Competitive pricing with transparent fees</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="@Url.Action("ContactUs")" class="btn btn-primary">Get Quote</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceModal = document.getElementById('serviceModal');
+            serviceModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const title = button.getAttribute('data-title');
+                const description = button.getAttribute('data-description');
+                const icon = button.getAttribute('data-icon');
+
+                const modalTitle = serviceModal.querySelector('#serviceModalLabel');
+                const modalDescription = serviceModal.querySelector('#modalDescription');
+                const modalIcon = serviceModal.querySelector('#modalIcon');
+
+                modalTitle.textContent = title;
+                modalDescription.textContent = description;
+                modalIcon.className = icon + ' me-3 text-primary';
+            });
+        });
+    </script>
+}

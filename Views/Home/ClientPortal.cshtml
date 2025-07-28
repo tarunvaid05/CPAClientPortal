@@ -1,0 +1,310 @@
+﻿@{
+    ViewData["Title"] = "Client Portal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    :root {
+        --primary-color: #dc3545;
+        --secondary-color: #2c3e50;
+        --dark-gray: #6c757d;
+    }
+
+    .login-container {
+        margin-top: 100px;
+    }
+
+    .client-portal-hero {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .portal-features li {
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+    }
+
+    .login-card .card {
+        border: none;
+        border-radius: 15px;
+    }
+
+    .login-logo {
+        max-height: 60px;
+        width: auto;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #b02a37;
+            border-color: #b02a37;
+            transform: translateY(-1px);
+        }
+
+    .benefit-card {
+        text-align: center;
+        padding: 2rem 1rem;
+        height: 100%;
+    }
+
+        .benefit-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+    .new-client-section {
+        background-color: #fff;
+    }
+
+    .btn-outline-primary {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        border-width: 2px;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+    .btn-outline-success {
+        border-color: #28a745;
+        color: #28a745;
+        border-width: 2px;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-success:hover {
+            background-color: #28a745;
+            border-color: #28a745;
+            transform: translateY(-1px);
+        }
+
+    .spinner-border-sm {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .focused .form-control {
+        border-color: var(--primary-color);
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .portal-description
+
+    {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .login-card {
+        margin-top: 2rem;
+    }
+
+    .benefit-card {
+        margin-bottom: 2rem;
+    }
+
+    }
+</style>
+
+<section class="client-portal-hero py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold text-dark mb-4">Client Portal</h1>
+                <p class="lead text-muted">Secure access for our valued clients to manage documents and communications</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="portal-info py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5">
+                <div class="portal-description">
+                    <h2 class="mb-4">Secure File Transfer & Tax Management</h2>
+                    <p class="mb-4">Our client portal provides a secure, convenient way for you to:</p>
+                    <ul class="list-unstyled portal-features">
+                        <li><i class="fas fa-upload text-primary me-3"></i>Upload tax documents and financial records securely</li>
+                        <li><i class="fas fa-download text-primary me-3"></i>Download completed tax returns and reports</li>
+                        <li><i class="fas fa-comments text-primary me-3"></i>Communicate directly with our team</li>
+                        <li><i class="fas fa-bell text-primary me-3"></i>Receive notifications via SMS and email</li>
+                        <li><i class="fas fa-calendar text-primary me-3"></i>Schedule appointments and consultations</li>
+                        <li><i class="fas fa-shield-alt text-primary me-3"></i>Bank-level security for all your documents</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login-card">
+                    <div class="card shadow-lg">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/JILogo-rqoWNVzhAq7lz3IcopV4cnIyWDrb9V.png" alt="Jyoti Iyer CPA" class="login-logo mb-3" style="height: 60px;" />
+                                <h3>Client Login</h3>
+                                <p class="text-muted">Access your secure portal</p>
+                            </div>
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
+                                <div class="text-center">
+                                    <a href="#" class="text-muted">Forgot your password?</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="portal-benefits py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-5">Why Use Our Client Portal?</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="benefit-card">
+                            <i class="fas fa-lock fa-3x text-primary mb-3"></i>
+                            <h4>Secure & Private</h4>
+                            <p>Your documents are protected with enterprise-grade security and encryption.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="benefit-card">
+                            <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+                            <h4>24/7 Access</h4>
+                            <p>Access your documents and information anytime, anywhere, from any device.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="benefit-card">
+                            <i class="fas fa-mobile-alt fa-3x text-primary mb-3"></i>
+                            <h4>Mobile Friendly</h4>
+                            <p>Optimized for mobile devices so you can manage your account on the go.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- New Client Registration Section -->
+<section class="new-client-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">New Client?</h2>
+                <p class="lead mb-4">If you're a new client and need access to the portal, please contact us to set up your account.</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 mb-3">
+                        <a href="@Url.Action("ContactUs", "Home")" class="btn btn-outline-primary btn-lg w-100">
+                            <i class="fas fa-envelope me-2"></i>Contact Us
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a href="tel:+1234567890" class="btn btn-outline-success btn-lg w-100">
+                            <i class="fas fa-phone me-2"></i>Call Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const submitBtn = this.querySelector('button[type="submit"]');
+
+            // Basic validation
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Signing In...';
+            submitBtn.disabled = true;
+
+            // Simulate login process (replace with actual authentication)
+            setTimeout(() => {
+                // Check for admin login
+                if (email.toLowerCase() === 'admin@gmail.com' && password === 'admin') {
+                    // Redirect to Admin Dashboard
+                    window.location.href = '@Url.Action("Dashboard", "Admin")';
+                } else {
+                    // Redirect to the ClientPortal Dashboard
+                    window.location.href = '@Url.Action("Dashboard", "ClientPortal")';
+                }
+            }, 1500);
+        });
+
+        // Add some visual feedback for form interactions
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentElement.classList.remove('focused');
+                }
+            });
+        });
+    </script>
+}
