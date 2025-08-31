@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="container mt-5">
+    <h2 class="text-danger">Access Denied</h2>
+    <p>You do not have permission to access this resource.</p>
+    <a class="btn btn-primary" href="/">Return Home</a>
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        <a class="btn btn-outline-secondary ms-2" href="/Account/Logout">Sign out</a>
+    }
+    else
+    {
+        <a class="btn btn-outline-secondary ms-2" href="/Account/Login">Sign in</a>
+    }
+}

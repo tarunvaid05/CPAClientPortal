@@ -12,6 +12,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.*" />
+    <PackageReference Include="SendGrid" Version="9.29.1" />
+  </ItemGroup>
+
+  <!-- Exclude tool sources from web project compilation -->
+  <ItemGroup>
+    <Compile Remove="Tools\**\*.cs" />
   </ItemGroup>
 
 </Project>

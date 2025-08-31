@@ -381,32 +381,7 @@ function sendReminders() {
     }, 1000)
 }
 
-// Email Template Modal
-function openTemplateModal() {
-    const modal = new bootstrap.Modal(document.getElementById("templateModal"))
-    modal.show()
-}
-
-function saveEmailTemplate() {
-    const subject = document.getElementById("templateSubject").value
-    const body = document.getElementById("templateBody").value
-
-    if (!subject.trim() || !body.trim()) {
-        showAlert("Please fill in both subject and message template.", "warning")
-        return
-    }
-
-    // Simulate saving template
-    setTimeout(() => {
-        showAlert("Email template saved successfully!", "success")
-        const modal = bootstrap.Modal.getInstance(document.getElementById("templateModal"))
-        modal.hide()
-
-        // Update the reminder modal template
-        document.getElementById("emailSubject").value = subject
-        document.getElementById("emailBody").value = body
-    }, 500)
-}
+// Email template editing is integrated in the reminder flow now; standalone template modal removed.
 
 // Modal Initialization
 function initializeModals() {
@@ -428,10 +403,27 @@ function initializeModals() {
         notificationForm.addEventListener("submit", handleNotificationUpdate)
     }
 
-    // Initialize universal search when modal opens
-    document.getElementById("clientModal").addEventListener("shown.bs.modal", () => {
-        initializeUniversalSearch()
+    // Invite client form
+    const inviteForm = document.getElementById("inviteForm")
+    if (inviteForm) {
+        inviteForm.addEventListener("submit", handleInviteSubmit)
+    }
+    // Defensive: delegate submit to catch any late-bound form
+    document.addEventListener("submit", (e) => {
+        const target = e.target
+        if (target && target.id === "inviteForm") {
+            e.preventDefault()
+            handleInviteSubmit(e)
+        }
     })
+
+    // Initialize universal search when modal opens
+    const clientModalEl = document.getElementById("clientModal")
+    if (clientModalEl) {
+        clientModalEl.addEventListener("shown.bs.modal", () => {
+            initializeUniversalSearch()
+        })
+    }
 }
 
 // Profile Management Functions
@@ -481,6 +473,48 @@ function handleNotificationUpdate(event) {
         const modal = bootstrap.Modal.getInstance(document.getElementById("notificationModal"))
         modal.hide()
     }, 1000)
+}
+
+// Invite Client
+function openInviteModal() {
+    const modal = new bootstrap.Modal(document.getElementById("inviteClientModal"))
+    modal.show()
+}
+
+async function handleInviteSubmit(event) {
+    event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
+
+    try {
+        const response = await fetch(form.getAttribute("action"), {
+            method: "POST",
+            body: formData,
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+        })
+
+        let result
+        const ct = response.headers.get("content-type") || ""
+        if (response.ok && ct.includes("application/json")) {
+            result = await response.json()
+        } else {
+            // Fallback: treat non-JSON as error
+            result = { success: false, message: "Unexpected response from server." }
+        }
+
+        if (result && result.success) {
+            showAlert(result.message || "Invitation sent successfully!", "success")
+            const modal = bootstrap.Modal.getInstance(document.getElementById("inviteClientModal"))
+            if (modal) modal.hide()
+            form.reset()
+        } else {
+            const msg = result.message || (result.errors && result.errors.join(", ")) || "Failed to send invite."
+            showAlert(msg, "warning")
+        }
+    } catch (err) {
+        console.error(err)
+        showAlert("Failed to send invite.", "error")
+    }
 }
 
 // Utility Functions

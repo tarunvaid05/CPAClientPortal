@@ -1,9 +1,10 @@
-﻿using JyotiIyerCPA.Models;
+using JyotiIyerCPA.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
+using System.Linq;
 
 namespace JyotiIyerCPA.Controllers
 {
@@ -38,8 +39,8 @@ namespace JyotiIyerCPA.Controllers
                     return RedirectToAction("Dashboard", "ClientPortal");
             }
 
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            // Always show the Client Portal page for login UI
+            return RedirectToAction("ClientPortal", "Home", new { returnUrl });
         }
 
         [HttpPost]
@@ -68,6 +69,27 @@ namespace JyotiIyerCPA.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AjaxLogin([FromBody] AjaxLoginRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { success = false, message = "Invalid input." });
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, lockoutOnFailure: false);
+            if (!result.Succeeded)
+            {
+                return Ok(new { success = false, message = "Invalid email or password." });
+            }
+
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+            var redirectUrl = Url.Action("Dashboard", isAdmin ? "Admin" : "ClientPortal");
+            return Ok(new { success = true, redirect = redirectUrl });
         }
 
         [HttpGet]
@@ -100,7 +122,10 @@ namespace JyotiIyerCPA.Controllers
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                ClientType = "Client",
+                IsActive = true,
+                ProfilePictureUrl = string.Empty
             };
 
             var result = await _userManager.CreateAsync(user);
@@ -128,6 +153,51 @@ namespace JyotiIyerCPA.Controllers
 
             TempData["Success"] = $"Invitation email sent to {model.Email}";
             return RedirectToAction(nameof(InviteUser));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> InviteUserAjax(InviteUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { success = false, message = "Invalid input.", errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToArray() });
+            }
+
+            var existingUser = await _userManager.FindByEmailAsync(model.Email);
+            if (existingUser != null)
+            {
+                return Ok(new { success = false, message = "User with this email already exists." });
+            }
+
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                EmailConfirmed = true,
+                ClientType = "Client",
+                IsActive = true,
+                ProfilePictureUrl = string.Empty
+            };
+
+            var result = await _userManager.CreateAsync(user);
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(e => e.Description).ToArray();
+                return Ok(new { success = false, message = "Failed to create user.", errors });
+            }
+
+            await _userManager.AddToRoleAsync(user, "Client");
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = Url.Action("SetPassword", "Account", new { userId = user.Id, code = token }, protocol: Request.Scheme);
+
+            await _emailSender.SendInviteEmail(model.Email, callbackUrl);
+
+            return Ok(new { success = true, message = $"Invitation email sent to {model.Email}" });
         }
 
         [HttpGet]
@@ -321,3 +391,4 @@ namespace JyotiIyerCPA.Controllers
         }
     }
 }
+

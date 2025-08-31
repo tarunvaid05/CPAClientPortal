@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jyoti_Iyer_CPA_Website")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef06908f9d2416b4285c7b56a23565e9ac32cfbf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jyoti_Iyer_CPA_Website")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jyoti_Iyer_CPA_Website")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

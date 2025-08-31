@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 using System;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
@@ -43,7 +42,6 @@ public class EmailService : IEmailSender
 
         await SendEmailAsync(toEmail, subject, message);
 
-        // Log for debugging
         Console.WriteLine($"[Email Sent] To: {toEmail} | Link: {link}");
     }
 
@@ -63,7 +61,6 @@ public class EmailService : IEmailSender
 
         await SendEmailAsync(email, subject, message);
 
-        // Log for debugging
         Console.WriteLine($"[Password Reset Email Sent] To: {email} | Link: {resetLink}");
     }
 
@@ -71,25 +68,39 @@ public class EmailService : IEmailSender
     {
         try
         {
-            // Skeleton implementation of sending email through SendGrid.
-            var apiKey = _configuration["SendGrid:ApiKey"];
-            if (string.IsNullOrEmpty(apiKey))
+            var emailSection = _configuration.GetSection("Email");
+            var host = emailSection["SmtpServer"];
+            var username = emailSection["SmtpUsername"];
+            var password = emailSection["SmtpPassword"];
+            var port = emailSection.GetValue<int?>("SmtpPort") ?? 587;
+            var enableSsl = emailSection.GetValue<bool?>("EnableSsl") ?? true;
+            var fromEmail = emailSection["FromEmail"] ?? username;
+            var fromName = emailSection["FromName"] ?? "Jyoti Iyer CPA";
+
+            if (string.IsNullOrWhiteSpace(host) || string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                Console.WriteLine("[Email Warning] SendGrid API key is not set in configuration.");
+                Console.WriteLine("[Email Warning] SMTP settings are not fully configured. Set Email:SmtpServer, Email:SmtpUsername, Email:SmtpPassword.");
                 return;
             }
 
-            var client = new SendGridClient(apiKey);
-            // Update this "from" address as necessary
-            var fromEmail = _configuration["SendGrid:FromEmail"] ?? "no-reply@jyotiyiercpa.com";
-            var fromName = _configuration["SendGrid:FromName"] ?? "Jyoti Iyer CPA Client Portal";
-            var from = new EmailAddress(fromEmail, fromName);
-            var to = new EmailAddress(email);
-            // For simplicity, we're leaving the plain text version empty.
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
-            var response = await client.SendEmailAsync(msg);
+            using (var smtp = new SmtpClient(host, port))
+            {
+                smtp.EnableSsl = enableSsl;
+                smtp.Credentials = new NetworkCredential(username, password);
 
-            Console.WriteLine($"[Email Sent] To: {email} | Subject: {subject} | Status: {response.StatusCode}");
+                using (var message = new MailMessage())
+                {
+                    message.From = new MailAddress(fromEmail, fromName);
+                    message.To.Add(new MailAddress(email));
+                    message.Subject = subject;
+                    message.Body = htmlMessage ?? string.Empty;
+                    message.IsBodyHtml = true;
+
+                    await smtp.SendMailAsync(message);
+                }
+            }
+
+            Console.WriteLine($"[Email Sent] To: {email} | Subject: {subject} via SMTP {host}:{port}");
         }
         catch (Exception ex)
         {
@@ -98,3 +109,4 @@ public class EmailService : IEmailSender
         }
     }
 }
+

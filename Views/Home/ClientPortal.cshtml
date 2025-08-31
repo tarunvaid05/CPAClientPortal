@@ -191,9 +191,10 @@
                                     <input type="checkbox" class="form-check-input" id="rememberMe">
                                     <label class="form-check-label" for="rememberMe">Remember me</label>
                                 </div>
+                                <div id="loginError" class="alert alert-danger d-none" role="alert"></div>
                                 <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
                                 <div class="text-center">
-                                    <a href="#" class="text-muted">Forgot your password?</a>
+                                    <a href="@Url.Action("ForgotPassword", "Account")" class="text-muted">Forgot your password?</a>
                                 </div>
                             </form>
                         </div>
@@ -263,16 +264,18 @@
 
 @section Scripts {
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const submitBtn = this.querySelector('button[type="submit"]');
+            const errorBox = document.getElementById('loginError');
 
             // Basic validation
             if (!email || !password) {
-                alert('Please fill in all fields');
+                errorBox.textContent = 'Please fill in all fields';
+                errorBox.classList.remove('d-none');
                 return;
             }
 
@@ -281,17 +284,27 @@
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Signing In...';
             submitBtn.disabled = true;
 
-            // Simulate login process (replace with actual authentication)
-            setTimeout(() => {
-                // Check for admin login
-                if (email.toLowerCase() === 'admin@gmail.com' && password === 'admin') {
-                    // Redirect to Admin Dashboard
-                    window.location.href = '@Url.Action("Dashboard", "Admin")';
+            try {
+                const res = await fetch('@Url.Action("AjaxLogin", "Account")', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password, rememberMe: document.getElementById('rememberMe').checked })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    window.location.href = data.redirect;
                 } else {
-                    // Redirect to the ClientPortal Dashboard
-                    window.location.href = '@Url.Action("Dashboard", "ClientPortal")';
+                    errorBox.textContent = data.message || 'Invalid email or password.';
+                    errorBox.classList.remove('d-none');
                 }
-            }, 1500);
+            } catch (err) {
+                errorBox.textContent = 'Sign-in failed. Please try again.';
+                errorBox.classList.remove('d-none');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
 
         // Add some visual feedback for form interactions

@@ -1,0 +1,112 @@
+@using ClientPortal.Models
+@model AdminProfileViewModel
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i>Edit Profile</h5>
+            </div>
+            <div class="card-body">
+                <form id="editProfileForm" asp-action="UpdateProfile" asp-controller="Admin" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="FirstName" class="form-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="FirstName"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="LastName" class="form-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="LastName"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Phone" class="form-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Phone"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="@Url.Action("Dashboard", "Admin")" class="btn btn-secondary">Cancel</a>
+                        <button id="saveChangesBtn" type="button" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- Confirm Save Modal -->
+<div class="modal fade" id="confirmSaveModal" tabindex="-1" aria-labelledby="confirmSaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmSaveModalLabel"><i class="fas fa-question-circle me-2"></i>Confirm Changes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to save these profile changes?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" id="confirmSaveYes" class="btn btn-primary">Yes, Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            const form = document.getElementById('editProfileForm');
+            const saveBtn = document.getElementById('saveChangesBtn');
+            const confirmBtn = document.getElementById('confirmSaveYes');
+
+            if (!form || !saveBtn || !confirmBtn) return;
+
+            let confirmedOnce = false;
+
+            // Intercept normal submit in case user presses Enter
+            form.addEventListener('submit', function (e) {
+                if (!confirmedOnce) {
+                    e.preventDefault();
+                    const modal = new bootstrap.Modal(document.getElementById('confirmSaveModal'));
+                    modal.show();
+                }
+            });
+
+            // Click handler to open modal
+            saveBtn.addEventListener('click', function () {
+                const modal = new bootstrap.Modal(document.getElementById('confirmSaveModal'));
+                modal.show();
+            });
+
+            // On confirm, submit the form
+            confirmBtn.addEventListener('click', function () {
+                confirmedOnce = true;
+                // Close modal then submit
+                const modalEl = document.getElementById('confirmSaveModal');
+                const instance = bootstrap.Modal.getInstance(modalEl);
+                if (instance) instance.hide();
+                form.submit();
+            });
+        })();
+    </script>
+}

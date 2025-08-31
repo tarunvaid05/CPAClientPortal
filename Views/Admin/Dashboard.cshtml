@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="col-md-6 mb-3">
-        <div class="stat-card" id="total-uploads-card">
+        <div class="stat-card">
             <div class="stat-icon bg-info">
                 <i class="fas fa-upload"></i>
             </div>
@@ -39,13 +39,13 @@
                         <h3 id="uploadCount">@Model.UploadStats.TotalUploadsThisWeek</h3>
                         <p id="uploadPeriod">Total Uploads This Week</p>
                     </div>
-                    <div class="upload-filter-controls" style="padding-right: 80px; min-width: 425px;">
-                        <select class="form-select form-select-sm mb-2" id="periodFilter" onchange="updateUploadStats()" style="min-width: 425px;">
+                    <div class="upload-filter-controls">
+                        <select class="form-select form-select-sm" id="periodFilter" onchange="updateUploadStats()">
                             <option value="week">This Week</option>
                             <option value="month">This Month</option>
                             <option value="year">This Year</option>
                         </select>
-                        <input type="date" class="form-control form-control-sm" id="startDate" onchange="updateUploadStats()" style="min-width: 425px;">
+                        <input type="date" class="form-control form-control-sm" id="startDate" onchange="updateUploadStats()">
                     </div>
                 </div>
             </div>
@@ -56,9 +56,299 @@
 <!-- Main Content Area -->
 <div class="row">
     <!-- Client Management Section -->
-    <div class="col-lg-8 mb-4" >
+    <div class="col-lg-8 mb-4">
         <div class="client-section">
-            <div class="section-header d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h3><i class="fas fa-users me-2"></i>Client Management</h3>
-                    <p class="text-muted
+            <div class="section-header">
+                <h3><i class="fas fa-users me-2"></i>Client Management</h3>
+                <p class="text-muted">Click on any client to view their documents</p>
+            </div>
+
+            <!-- Client Search -->
+            <div class="client-search-container mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" class="form-control" id="clientSearch" placeholder="Search clients...">
+                </div>
+            </div>
+
+            <!-- Client Grid -->
+            <div class="client-grid">
+                @foreach (var client in Model.Clients)
+                {
+                    <div class="client-card" data-client-id="@client.Id" data-client-name="@client.Name.ToLower()" onclick="openClientModal(@client.Id)">
+                        <div class="client-avatar">
+                            @client.Initials
+                        </div>
+                        <h5>@client.Name</h5>
+                        <p>@client.DocumentCount documents</p>
+                        <small class="text-muted">Last upload: @client.LastUpload.ToString("MMM dd, yyyy")</small>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        <!-- All Uploads -->
+        <div class="sidebar-section mb-4">
+            <h4><i class="fas fa-file-alt me-2"></i>All Uploads</h4>
+
+            <!-- Advanced Filters -->
+            <div class="uploads-filter-container mb-3">
+                <div class="filter-row mb-2">
+                    <select class="form-select form-select-sm" id="clientFilter">
+                        <option value="">All Clients</option>
+                        @foreach (var client in Model.Clients)
+                        {
+                            <option value="@client.Name.ToLower()">@client.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="filter-row mb-2">
+                    <select class="form-select form-select-sm" id="documentTypeFilter">
+                        <option value="">All Document Types</option>
+                        <option value="w2">W2</option>
+                        <option value="1099 int">1099 Int</option>
+                        <option value="1099 div">1099 Div</option>
+                        <option value="1098">1098</option>
+                        <option value="schedule k-1">Schedule K-1</option>
+                        <option value="business income/expenses">Business Docs</option>
+                        <option value="rental property">Rental Property</option>
+                    </select>
+                </div>
+                <div class="filter-row">
+                    <div class="year-filter-container">
+                        <label class="form-label-sm">Tax Years:</label>
+                        <div class="year-checkboxes">
+                            <div class="form-check form-check-sm">
+                                <input class="form-check-input" type="checkbox" id="year2025" value="2025" checked>
+                                <label class="form-check-label" for="year2025">2025</label>
+                            </div>
+                            <div class="form-check form-check-sm">
+                                <input class="form-check-input" type="checkbox" id="year2024" value="2024">
+                                <label class="form-check-label" for="year2024">2024</label>
+                            </div>
+                            <div class="form-check form-check-sm">
+                                <input class="form-check-input" type="checkbox" id="year2023" value="2023">
+                                <label class="form-check-label" for="year2023">2023</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="all-uploads">
+                @foreach (var upload in Model.AllUploads)
+                {
+                    <div class="upload-item" data-client="@upload.ClientName.ToLower()" data-type="@upload.FileType.ToLower()" data-year="2025">
+                        <div class="upload-info">
+                            <h6>@upload.FileName</h6>
+                            <p class="text-muted">@upload.ClientName • @upload.FileType • @upload.UploadDate.ToString("MMM dd, yyyy")</p>
+                        </div>
+                        <div class="upload-status">
+                            <span class="badge @(upload.Status == "Processed" ? "bg-success" : "bg-warning")">
+                                @upload.Status
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Remind / Invite -->
+        <div class="sidebar-section">
+            <h4><i class="fas fa-envelope me-2"></i>Remind Clients</h4>
+            <div class="remind-actions">
+                <button class="btn btn-outline-primary remind-btn w-100 mb-3" onclick="openReminderModal()">
+                    <div class="remind-content">
+                        <i class="fas fa-paper-plane remind-icon"></i>
+                        <div class="remind-text">
+                            <span class="remind-title">Send Reminder</span>
+                            <small class="remind-subtitle">Select clients and edit email</small>
+                        </div>
+                    </div>
+                </button>
+                <button type="button" class="btn btn-outline-secondary remind-btn w-100" data-bs-toggle="modal" data-bs-target="#inviteClientModal">
+                    <div class="remind-content">
+                        <i class="fas fa-user-plus remind-icon"></i>
+                        <div class="remind-text">
+                            <span class="remind-title">Invite Client</span>
+                            <small class="remind-subtitle">Send account invitation</small>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Client Documents Modal -->
+<div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clientModalLabel">
+                    <i class="fas fa-user me-2"></i><span id="clientModalName">Client Documents</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Universal Search Bar -->
+                <div class="document-search-container mb-3">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control" id="universalSearch" placeholder="Search categories...">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="year-filter-modal">
+                                <label class="form-label-sm">Years:</label>
+                                <div class="year-checkboxes-modal">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="modalYear2025" value="2025" checked>
+                                        <label class="form-check-label" for="modalYear2025">2025</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="modalYear2024" value="2024">
+                                        <label class="form-check-label" for="modalYear2024">2024</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Categories Grid -->
+                <div id="documentCategoriesView">
+                    <div class="document-categories-grid" id="documentCategoriesGrid">
+                        <!-- Categories will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Category Documents View -->
+                <div id="categoryDocumentsView" style="display: none;">
+                    <div class="category-header mb-3">
+                        <button class="btn btn-outline-secondary btn-sm" onclick="backToCategories()">
+                            <i class="fas fa-arrow-left me-1"></i>Back to Categories
+                        </button>
+                        <h6 class="mt-2 mb-0">Documents in <span id="currentCategoryName"></span></h6>
+                    </div>
+
+                    <div class="documents-list" id="documentsList">
+                        <!-- Documents will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reminder Modal -->
+<div class="modal fade" id="reminderModal" tabindex="-1" aria-labelledby="reminderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reminderModalLabel">
+                    <i class="fas fa-paper-plane me-2"></i>Send Client Reminders
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="clientSelectionView">
+                    <h6>Select Clients to Remind:</h6>
+                    <div class="client-checklist">
+                        @foreach (var client in Model.Clients)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remind_@client.Id" value="@client.Id">
+                                <label class="form-check-label" for="remind_@client.Id">
+                                    @client.Name (@client.Email)
+                                </label>
+                            </div>
+                        }
+                    </div>
+                    <button class="btn btn-primary mt-3" onclick="showEmailTemplate()">Continue to Email</button>
+                </div>
+
+                <div id="emailTemplateView" style="display: none;">
+                    <button class="btn btn-outline-secondary btn-sm mb-3" onclick="backToClientSelection()">
+                        <i class="fas fa-arrow-left me-1"></i>Back to Client Selection
+                    </button>
+
+                    <div class="mb-3">
+                        <label for="emailSubject" class="form-label">Subject:</label>
+                        <input type="text" class="form-control" id="emailSubject" value="Tax Document Reminder - Action Required">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="emailBody" class="form-label">Message:</label>
+                        <textarea class="form-control" id="emailBody" rows="8">Dear [Client Name],
+
+I hope this message finds you well. This is a friendly reminder regarding your tax documents for the 2025 tax year.
+
+We are currently missing some required documents to complete your tax return. Please log into your client portal at your earliest convenience to upload any remaining documents.
+
+If you have any questions or need assistance, please don't hesitate to contact our office.
+
+Thank you for your prompt attention to this matter.
+
+Best regards,
+Jyoti Iyer CPA</textarea>
+                    </div>
+
+                    <button class="btn btn-success" onclick="sendReminders()">
+                        <i class="fas fa-paper-plane me-2"></i>Send Reminders
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Removed standalone Email Template Modal: email editing is part of reminder flow -->
+
+<!-- Invite Client Modal -->
+<div class="modal fade" id="inviteClientModal" tabindex="-1" aria-labelledby="inviteClientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inviteClientModalLabel">
+                    <i class="fas fa-user-plus me-2"></i>Invite Client
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="inviteForm" asp-action="InviteUserAjax" asp-controller="Account" method="post" onsubmit="return false;">
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="inviteFirstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="inviteFirstName" name="FirstName" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="inviteLastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="inviteLastName" name="LastName" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="inviteEmail" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="inviteEmail" name="Email" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send Invite</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+@section Scripts {
+    <script src="~/js/admin-portal.js"></script>
+}
