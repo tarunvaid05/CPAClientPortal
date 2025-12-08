@@ -1,4 +1,3 @@
-using ClientPortal.Models;
 using JyotiIyerCPA.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -7,8 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using JyotiIyerCPA.Data;
+using System.Data.Common;
+using Microsoft.Extensions.Logging;
 
-namespace ClientPortal.Controllers
+namespace JyotiIyerCPA.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
@@ -16,11 +20,31 @@ namespace ClientPortal.Controllers
         private static int CurrentYear => DateTime.Now.Year;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _db;
+        private readonly ILogger<AdminController> _logger;
 
-        public AdminController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AdminController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext db, ILogger<AdminController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _db = db;
+            _logger = logger;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Clients(string query = null)
+        {
+            var users = await _userManager.Users
+                .Where(u => u.EmailConfirmed)
+                .OrderBy(u => u.Email)
+                .Select(u => new { id = u.Id, name = (u.FirstName + " " + u.LastName).Trim(), email = u.Email })
+                .ToListAsync();
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                var q = query.ToLowerInvariant();
+                users = users.Where(u => (u.name ?? "").ToLower().Contains(q) || (u.email ?? "").ToLower().Contains(q)).ToList();
+            }
+            return Ok(users);
         }
 
         public IActionResult Index()
@@ -33,12 +57,62 @@ namespace ClientPortal.Controllers
             var user = await _userManager.GetUserAsync(User);
             var displayName = user != null ? $"{user.FirstName} {user.LastName}".Trim() : "Admin";
 
+            // Load documents safely (handle missing table by returning empty set)
+            var documents = await SafeLoadDocumentsAsync();
+
+            // Build clients list with counts and last upload
+            var docGroups = documents
+                .Where(d => !d.IsDeleted)
+                .GroupBy(d => d.OwnerUserId)
+                .Select(g => new { OwnerUserId = g.Key, Count = g.Count(), LastUpload = g.Max(x => x.UploadedAt) })
+                .ToDictionary(x => x.OwnerUserId, x => new { x.Count, x.LastUpload });
+
+            var users = await _userManager.Users.AsNoTracking()
+                .OrderBy(u => u.Email)
+                .ToListAsync();
+
+            var clientCards = users.Select(u => new ClientViewModel
+            {
+                Id = u.Id,
+                Name = string.IsNullOrWhiteSpace(($"{u.FirstName} {u.LastName}").Trim()) ? (u.Email ?? "Client") : ($"{u.FirstName} {u.LastName}").Trim(),
+                Email = u.Email ?? string.Empty,
+                Initials = string.Concat((u.FirstName ?? string.Empty).DefaultIfEmpty(' ').First(), (u.LastName ?? string.Empty).DefaultIfEmpty(' ').First()).Trim().ToUpper(),
+                DocumentCount = docGroups.TryGetValue(u.Id, out var g) ? g.Count : 0,
+                LastUpload = docGroups.TryGetValue(u.Id, out var g2) ? g2.LastUpload.LocalDateTime : DateTime.MinValue
+            }).ToList();
+
+            // Recent uploads pane
+            var recentUploads = documents
+                .Where(d => !d.IsDeleted)
+                .OrderByDescending(d => d.UploadedAt)
+                .Take(12)
+                .Join(users, d => d.OwnerUserId, u => u.Id, (d, u) => new AdminUploadViewModel
+                {
+                    Id = 0,
+                    FileName = d.OriginalFileName,
+                    FileType = string.IsNullOrEmpty(d.Category) ? "Document" : d.Category,
+                    ClientName = string.IsNullOrWhiteSpace(($"{u.FirstName} {u.LastName}").Trim()) ? (u.Email ?? "Client") : ($"{u.FirstName} {u.LastName}").Trim(),
+                    UploadDate = d.UploadedAt.LocalDateTime,
+                    Status = "Uploaded"
+                }).ToList();
+
+            // Stats
+            var weekAgo = DateTimeOffset.UtcNow.AddDays(-7);
+            var weekCount = documents.Count(d => !d.IsDeleted && d.UploadedAt >= weekAgo);
+            var stats = new AdminUploadStatsViewModel
+            {
+                CurrentTaxYear = CurrentYear,
+                TotalUploadsThisWeek = weekCount,
+                FilterPeriod = "week",
+                StartDate = DateTime.Now.AddDays(-7)
+            };
+
             var model = new AdminDashboardViewModel
             {
                 AdminName = string.IsNullOrWhiteSpace(displayName) ? (user?.Email ?? "Admin") : displayName,
-                UploadStats = GetAdminUploadStatsData(),
-                Clients = GetClientsData(),
-                AllUploads = GetAllUploadsData()
+                UploadStats = stats,
+                Clients = clientCards,
+                AllUploads = recentUploads
             };
             return View(model);
         }
@@ -67,40 +141,50 @@ namespace ClientPortal.Controllers
             };
         }
 
-        [HttpPost]
-        public IActionResult GetClientDocuments(int clientId)
+        [HttpGet]
+        public async Task<IActionResult> DocumentCategories(string userId)
         {
-            var client = GetClientsData().FirstOrDefault(c => c.Id == clientId);
-            if (client == null)
-            {
-                return Json(new { success = false, message = "Client not found" });
-            }
+            if (string.IsNullOrWhiteSpace(userId)) return BadRequest(new { success = false, message = "Missing userId" });
+            var exists = await _userManager.FindByIdAsync(userId);
+            if (exists == null) return NotFound(new { success = false, message = "Client not found" });
 
-            var documents = GetClientDocumentCategoriesData(clientId);
-            return Json(new { success = true, client = client, documents = documents });
+            var documents = await SafeLoadDocumentsAsync();
+            var categories = documents
+                .Where(d => d.OwnerUserId == userId && !d.IsDeleted)
+                .GroupBy(d => d.Category ?? "Other")
+                .Select(g => new
+                {
+                    category = g.Key,
+                    count = g.Count(),
+                    lastUpdated = g.Max(x => x.UploadedAt)
+                }).ToList();
+
+            var shaped = categories.Select(c => new { category = c.category, count = c.count, lastUpdated = Humanize(c.lastUpdated) });
+            return Ok(new { success = true, categories = shaped });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CategoryDocuments(string userId, string category, [FromQuery] List<int> years)
+        {
+            if (string.IsNullOrWhiteSpace(userId)) return BadRequest(new { success = false, message = "Missing userId" });
+
+            var documents = await SafeLoadDocumentsAsync();
+            var q = documents.Where(d => d.OwnerUserId == userId && !d.IsDeleted).AsQueryable();
+            if (!string.IsNullOrWhiteSpace(category)) q = q.Where(d => (d.Category ?? "").ToLower() == category.ToLower());
+            if (years != null && years.Count > 0) q = q.Where(d => years.Contains(d.UploadedAt.Year));
+
+            var docs = q.OrderByDescending(d => d.UploadedAt)
+                .Select(d => new { id = d.Id, fileName = d.OriginalFileName, uploadDate = d.UploadedAt, fileSize = d.Size, status = "Uploaded" })
+                .ToList();
+            return Ok(new { success = true, documents = docs });
         }
 
         [HttpPost]
-        public IActionResult GetCategoryDocuments(int clientId, string category, List<int> years)
+        [ValidateAntiForgeryToken]
+        public IActionResult SendReminder([FromBody] List<string> clientIds, string emailContent)
         {
-            var documents = GetCategoryDocumentsData(clientId, category, years);
-            return Json(new { success = true, documents = documents });
-        }
-
-        [HttpPost]
-        public IActionResult SendReminder(List<int> clientIds, string emailContent)
-        {
-            // Process sending reminders
-            var clients = GetClientsData().Where(c => clientIds.Contains(c.Id)).ToList();
-
-            // Simulate sending emails
-            foreach (var client in clients)
-            {
-                // Send email logic here
-                System.Diagnostics.Debug.WriteLine($"Sending reminder to {client.Name}: {emailContent}");
-            }
-
-            return Json(new { success = true, message = $"Reminders sent to {clients.Count} clients" });
+            // Stub only for now
+            return Ok(new { success = true, message = $"Reminders queued for {clientIds?.Count ?? 0} clients" });
         }
 
         [HttpPost]
@@ -213,69 +297,27 @@ namespace ClientPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // Private helper methods with renamed method names to avoid conflicts
-        private List<AdminUploadViewModel> GetAllUploadsData()
-        {
-            return new List<AdminUploadViewModel>
-            {
-                new AdminUploadViewModel { Id = 1, FileName = "W2_2025.pdf", FileType = "W2", ClientName = "John Doe", UploadDate = DateTime.Now.AddDays(-1), Status = "Processed" },
-                new AdminUploadViewModel { Id = 2, FileName = "1099_INT_Chase.pdf", FileType = "1099 Int", ClientName = "Jane Smith", UploadDate = DateTime.Now.AddDays(-2), Status = "Processing" },
-                new AdminUploadViewModel { Id = 3, FileName = "Schedule_K1_Partnership.pdf", FileType = "Schedule K-1", ClientName = "Mike Johnson", UploadDate = DateTime.Now.AddDays(-3), Status = "Processed" },
-                new AdminUploadViewModel { Id = 4, FileName = "1098_Mortgage_Interest.pdf", FileType = "1098", ClientName = "Sarah Wilson", UploadDate = DateTime.Now.AddDays(-4), Status = "Processed" },
-                new AdminUploadViewModel { Id = 5, FileName = "Business_Expenses_Q4.pdf", FileType = "Business Income/Expenses", ClientName = "David Brown", UploadDate = DateTime.Now.AddDays(-5), Status = "Processing" },
-                new AdminUploadViewModel { Id = 6, FileName = "Rental_Income_Statement.pdf", FileType = "Rental Property", ClientName = "Lisa Davis", UploadDate = DateTime.Now.AddDays(-6), Status = "Processed" },
-                new AdminUploadViewModel { Id = 7, FileName = "Foreign_Income_2025.pdf", FileType = "Foreign Income", ClientName = "Robert Miller", UploadDate = DateTime.Now.AddDays(-7), Status = "Processing" },
-                new AdminUploadViewModel { Id = 8, FileName = "IRA_Contribution_Receipt.pdf", FileType = "IRA Contributions", ClientName = "Emily Garcia", UploadDate = DateTime.Now.AddDays(-8), Status = "Processed" }
-            };
-        }
+        private static string Humanize(DateTimeOffset ts)
+            => ts.ToLocalTime().ToString("MMM dd, yyyy");
 
-        private AdminUploadStatsViewModel GetAdminUploadStatsData()
+        private async Task<List<Document>> SafeLoadDocumentsAsync()
         {
-            return new AdminUploadStatsViewModel
+            try
             {
-                TotalUploadsThisWeek = 15,
-                CurrentTaxYear = CurrentYear,
-                FilterPeriod = "week",
-                StartDate = DateTime.Now.AddDays(-7)
-            };
-        }
-
-        private List<ClientViewModel> GetClientsData()
-        {
-            return new List<ClientViewModel>
+                return await _db.Documents.AsNoTracking().ToListAsync();
+            }
+            catch (Exception ex) when (ex is DbException || ex is InvalidOperationException)
             {
-                new ClientViewModel { Id = 1, Name = "John Doe", Email = "john.doe@email.com", Initials = "JD", DocumentCount = 8, LastUpload = DateTime.Now.AddDays(-1) },
-                new ClientViewModel { Id = 2, Name = "Jane Smith", Email = "jane.smith@email.com", Initials = "JS", DocumentCount = 12, LastUpload = DateTime.Now.AddDays(-2) },
-                new ClientViewModel { Id = 3, Name = "Mike Johnson", Email = "mike.johnson@email.com", Initials = "MJ", DocumentCount = 6, LastUpload = DateTime.Now.AddDays(-3) },
-                new ClientViewModel { Id = 4, Name = "Sarah Wilson", Email = "sarah.wilson@email.com", Initials = "SW", DocumentCount = 10, LastUpload = DateTime.Now.AddDays(-4) },
-                new ClientViewModel { Id = 5, Name = "David Brown", Email = "david.brown@email.com", Initials = "DB", DocumentCount = 15, LastUpload = DateTime.Now.AddDays(-5) },
-                new ClientViewModel { Id = 6, Name = "Lisa Davis", Email = "lisa.davis@email.com", Initials = "LD", DocumentCount = 9, LastUpload = DateTime.Now.AddDays(-6) },
-                new ClientViewModel { Id = 7, Name = "Robert Miller", Email = "robert.miller@email.com", Initials = "RM", DocumentCount = 7, LastUpload = DateTime.Now.AddDays(-7) },
-                new ClientViewModel { Id = 8, Name = "Emily Garcia", Email = "emily.garcia@email.com", Initials = "EG", DocumentCount = 11, LastUpload = DateTime.Now.AddDays(-8) }
-            };
-        }
-
-        private List<ClientDocumentCategoryViewModel> GetClientDocumentCategoriesData(int clientId)
-        {
-            return new List<ClientDocumentCategoryViewModel>
+                _logger.LogWarning(ex, "Documents table not available. Returning empty set for admin views.");
+                return new List<Document>();
+            }
+            catch (Exception ex)
             {
-                new ClientDocumentCategoryViewModel { Category = "W2", DocumentCount = 2, LastUpdated = DateTime.Now.AddDays(-1) },
-                new ClientDocumentCategoryViewModel { Category = "1099 Int", DocumentCount = 3, LastUpdated = DateTime.Now.AddDays(-2) },
-                new ClientDocumentCategoryViewModel { Category = "1098", DocumentCount = 1, LastUpdated = DateTime.Now.AddDays(-3) },
-                new ClientDocumentCategoryViewModel { Category = "Schedule K-1", DocumentCount = 1, LastUpdated = DateTime.Now.AddDays(-4) },
-                new ClientDocumentCategoryViewModel { Category = "Business Income/Expenses", DocumentCount = 4, LastUpdated = DateTime.Now.AddDays(-5) }
-            };
-        }
-
-        private List<DocumentDetailViewModel> GetCategoryDocumentsData(int clientId, string category, List<int> years)
-        {
-            return new List<DocumentDetailViewModel>
-            {
-                new DocumentDetailViewModel { Id = 1, FileName = $"{category}_Document_1.pdf", UploadDate = DateTime.Now.AddDays(-1), FileSize = "2.3 MB", Status = "Processed" },
-                new DocumentDetailViewModel { Id = 2, FileName = $"{category}_Document_2.pdf", UploadDate = DateTime.Now.AddDays(-3), FileSize = "1.8 MB", Status = "Processed" },
-                new DocumentDetailViewModel { Id = 3, FileName = $"{category}_Document_3.pdf", UploadDate = DateTime.Now.AddDays(-5), FileSize = "3.1 MB", Status = "Processing" }
-            };
+                _logger.LogError(ex, "Unexpected error loading documents.");
+                return new List<Document>();
+            }
         }
     }
 }
+
 

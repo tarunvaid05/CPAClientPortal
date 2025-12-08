@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("3bc687f2-6e76-4c7d-ac76-da8a89459bca")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Jyoti_Iyer_CPA_Website")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef06908f9d2416b4285c7b56a23565e9ac32cfbf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+336d748f227b7fb8dbd342291a05939d4c60c5d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Jyoti_Iyer_CPA_Website")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Jyoti_Iyer_CPA_Website")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

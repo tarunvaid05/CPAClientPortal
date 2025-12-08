@@ -11,6 +11,8 @@ namespace JyotiIyerCPA.Data
         {
         }
 
+        public DbSet<JyotiIyerCPA.Models.Document> Documents { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -18,6 +20,8 @@ namespace JyotiIyerCPA.Data
             // Add any additional configurations here
             // For example:
             // builder.Entity<ApplicationUser>().HasIndex(u => u.ClientType);
+            builder.Entity<JyotiIyerCPA.Models.Document>()
+                .HasIndex(d => new { d.OwnerUserId, d.UploadedAt });
         }
     }
 }

@@ -5,21 +5,26 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JyotiIyerCPA.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace ClientPortal.Controllers
+namespace JyotiIyerCPA.Controllers
 {
     [Authorize(Roles = "Client")]
     public class ClientPortalController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationDbContext _db;
 
         public ClientPortalController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _db = db;
         }
 
         [AllowAnonymous]
@@ -36,11 +41,39 @@ namespace ClientPortal.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             
+            var name = ($"{user.FirstName} {user.LastName}").Trim();
+
+            var myDocs = await _db.Documents.AsNoTracking()
+                .Where(d => d.OwnerUserId == user.Id && !d.IsDeleted)
+                .OrderByDescending(d => d.UploadedAt)
+                .Take(10)
+                .ToListAsync();
+
+            var recent = new List<RecentUploadViewModel>();
+            foreach (var d in myDocs)
+            {
+                recent.Add(new RecentUploadViewModel
+                {
+                    FileName = d.OriginalFileName,
+                    FileType = string.IsNullOrEmpty(d.Category) ? "Document" : d.Category,
+                    UploadDate = d.UploadedAt.LocalDateTime,
+                    Status = "Uploaded"
+                });
+            }
+
+            var stats = new UploadStatsViewModel
+            {
+                TotalUploads = await _db.Documents.CountAsync(d => d.OwnerUserId == user.Id && !d.IsDeleted),
+                ProcessedFiles = 0,
+                PendingFiles = 0,
+                CurrentTaxYear = DateTime.Now.Year
+            };
+
             var model = new ClientDashboardViewModel
             {
-                ClientName = $"{user.FirstName} {user.LastName}", // Get name from authenticated user
-                RecentUploads = GetRecentUploads(),
-                UploadStats = GetUploadStats()
+                ClientName = string.IsNullOrWhiteSpace(name) ? (user.Email ?? "Client") : name,
+                RecentUploads = recent,
+                UploadStats = stats
             };
             return View(model);
         }
@@ -128,32 +161,6 @@ namespace ClientPortal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private List<RecentUploadViewModel> GetRecentUploads()
-        {
-            return new List<RecentUploadViewModel>
-            {
-                new RecentUploadViewModel { FileName = "W2_2023.pdf", FileType = "W2", UploadDate = DateTime.Now.AddDays(-1), Status = "Processed" },
-                new RecentUploadViewModel { FileName = "1099_R_Retirement.pdf", FileType = "1099-R", UploadDate = DateTime.Now.AddDays(-2), Status = "Processing" },
-                new RecentUploadViewModel { FileName = "SSA_1099_SocialSecurity.pdf", FileType = "SSA-1099", UploadDate = DateTime.Now.AddDays(-3), Status = "Processed" },
-                new RecentUploadViewModel { FileName = "529_Contributions_2023.pdf", FileType = "529 Contributions", UploadDate = DateTime.Now.AddDays(-4), Status = "Processed" },
-                new RecentUploadViewModel { FileName = "IRA_Contributions.pdf", FileType = "IRA Contributions", UploadDate = DateTime.Now.AddDays(-5), Status = "Processing" },
-                new RecentUploadViewModel { FileName = "Estimated_Tax_Q4.pdf", FileType = "Estimated Taxes Paid", UploadDate = DateTime.Now.AddDays(-6), Status = "Processed" },
-                new RecentUploadViewModel { FileName = "Foreign_Income_Statement.pdf", FileType = "Foreign Income", UploadDate = DateTime.Now.AddDays(-7), Status = "Processing" },
-                new RecentUploadViewModel { FileName = "Rental_Property_Expenses.pdf", FileType = "Rental Property", UploadDate = DateTime.Now.AddDays(-8), Status = "Processed" },
-                new RecentUploadViewModel { FileName = "Business_Income_2023.pdf", FileType = "Business Income/Expenses", UploadDate = DateTime.Now.AddDays(-9), Status = "Processed" },
-                new RecentUploadViewModel { FileName = "Schedule_K1.pdf", FileType = "Schedule K-1", UploadDate = DateTime.Now.AddDays(-10), Status = "Processed" }
-            };
-        }
-
-        private UploadStatsViewModel GetUploadStats()
-        {
-            return new UploadStatsViewModel
-            {
-                TotalUploads = 28,
-                ProcessedFiles = 22,
-                PendingFiles = 6,
-                CurrentTaxYear = 2023
-            };
-        }
+        // Removed hardcoded helpers; Dashboard computes live data.
     }
 }

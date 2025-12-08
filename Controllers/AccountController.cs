@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+using JyotiIyerCPA.Services;
 
 namespace JyotiIyerCPA.Controllers
 {
@@ -15,17 +17,20 @@ namespace JyotiIyerCPA.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ILogger<AccountController> _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -64,15 +69,18 @@ namespace JyotiIyerCPA.Controllers
                     else
                         return RedirectToAction("Dashboard", "ClientPortal");
                 }
-
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                // No server-rendered login view; redirect back to ClientPortal with error
+                TempData["LoginError"] = "Invalid email or password.";
+                return RedirectToAction("ClientPortal", "Home");
             }
-
-            return View(model);
+            // Invalid model: redirect back to unified login page
+            TempData["LoginError"] = "Please provide a valid email and password.";
+            return RedirectToAction("ClientPortal", "Home");
         }
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AjaxLogin([FromBody] AjaxLoginRequest request)
         {
             if (!ModelState.IsValid)
@@ -104,6 +112,7 @@ namespace JyotiIyerCPA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> InviteUser(InviteUserViewModel model)
         {
+            _logger.LogInformation("[Invite] Starting invite for {Email}", model?.Email);
             if (!ModelState.IsValid)
                 return View(model);
 
@@ -111,6 +120,7 @@ namespace JyotiIyerCPA.Controllers
             var existingUser = await _userManager.FindByEmailAsync(model.Email);
             if (existingUser != null)
             {
+                _logger.LogWarning("[Invite] User already exists: {Email}", model.Email);
                 ModelState.AddModelError("", "User with this email already exists.");
                 return View(model);
             }
@@ -122,7 +132,7 @@ namespace JyotiIyerCPA.Controllers
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                EmailConfirmed = true,
+                EmailConfirmed = false,
                 ClientType = "Client",
                 IsActive = true,
                 ProfilePictureUrl = string.Empty
@@ -134,6 +144,7 @@ namespace JyotiIyerCPA.Controllers
             {
                 foreach (var error in result.Errors)
                 {
+                    _logger.LogWarning("[Invite] Create user error: {Code} {Desc}", error.Code, error.Description);
                     ModelState.AddModelError("", error.Description);
                 }
                 return View(model);
@@ -147,9 +158,20 @@ namespace JyotiIyerCPA.Controllers
             var callbackUrl = Url.Action("SetPassword", "Account",
                 new { userId = user.Id, code = token },
                 protocol: Request.Scheme);
+            _logger.LogInformation("[Invite] Generated token (len={Len}) and callback for user {UserId}.", token?.Length ?? 0, user.Id);
 
             // Send invite email
-            await _emailSender.SendInviteEmail(model.Email, callbackUrl);
+            try
+            {
+                await _emailSender.SendInviteEmail(model.Email, callbackUrl);
+                _logger.LogInformation("[Invite] Invite email sent to {Email}", model.Email);
+                TempData["Success"] = $"Invitation email sent to {model.Email}";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "[Invite] Failed to send invite email to {Email}: {Message}", model.Email, ex.Message);
+                TempData["Error"] = $"User created, but failed to send invite email: {ex.Message}";
+            }
 
             TempData["Success"] = $"Invitation email sent to {model.Email}";
             return RedirectToAction(nameof(InviteUser));
@@ -165,9 +187,11 @@ namespace JyotiIyerCPA.Controllers
                 return BadRequest(new { success = false, message = "Invalid input.", errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToArray() });
             }
 
+            _logger.LogInformation("[Invite/Ajax] Starting invite for {Email}", model.Email);
             var existingUser = await _userManager.FindByEmailAsync(model.Email);
             if (existingUser != null)
             {
+                _logger.LogWarning("[Invite/Ajax] User already exists: {Email}", model.Email);
                 return Ok(new { success = false, message = "User with this email already exists." });
             }
 
@@ -177,7 +201,7 @@ namespace JyotiIyerCPA.Controllers
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                EmailConfirmed = true,
+                EmailConfirmed = false,
                 ClientType = "Client",
                 IsActive = true,
                 ProfilePictureUrl = string.Empty
@@ -187,6 +211,10 @@ namespace JyotiIyerCPA.Controllers
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(e => e.Description).ToArray();
+                foreach (var e in result.Errors)
+                {
+                    _logger.LogWarning("[Invite/Ajax] Create user error: {Code} {Desc}", e.Code, e.Description);
+                }
                 return Ok(new { success = false, message = "Failed to create user.", errors });
             }
 
@@ -194,10 +222,23 @@ namespace JyotiIyerCPA.Controllers
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var callbackUrl = Url.Action("SetPassword", "Account", new { userId = user.Id, code = token }, protocol: Request.Scheme);
+            _logger.LogInformation("[Invite/Ajax] Generated token (len={Len}) and callback for user {UserId}.", token?.Length ?? 0, user.Id);
 
-            await _emailSender.SendInviteEmail(model.Email, callbackUrl);
+            bool emailSent = true;
+            string msg = $"Invitation email sent to {model.Email}";
+            try
+            {
+                await _emailSender.SendInviteEmail(model.Email, callbackUrl);
+                _logger.LogInformation("[Invite/Ajax] Invite email sent to {Email}", model.Email);
+            }
+            catch (Exception ex)
+            {
+                emailSent = false;
+                msg = $"User created, but failed to send invite email: {ex.Message}";
+                _logger.LogError(ex, "[Invite/Ajax] Failed to send invite email to {Email}: {Message}", model.Email, ex.Message);
+            }
 
-            return Ok(new { success = true, message = $"Invitation email sent to {model.Email}" });
+            return Ok(new { success = true, message = msg, emailSent });
         }
 
         [HttpGet]
@@ -207,6 +248,19 @@ namespace JyotiIyerCPA.Controllers
                 return RedirectToAction(nameof(Login));
 
             var model = new SetPasswordViewModel { UserId = userId, Token = code };
+            // Pre-fill known profile data so users can confirm/update it
+            // Note: this is a GET; any failure to load user should still allow the form to render
+            try
+            {
+                var user = _userManager.FindByIdAsync(userId).GetAwaiter().GetResult();
+                if (user != null)
+                {
+                    model.FirstName = user.FirstName;
+                    model.LastName = user.LastName;
+                    model.PhoneNumber = user.PhoneNumber;
+                }
+            }
+            catch { /* non-fatal prefill */ }
             return View(model);
         }
 
@@ -224,19 +278,47 @@ namespace JyotiIyerCPA.Controllers
                 return View(model);
             }
 
+            // Additional password complexity enforcement for invitations
+            // Require: min 8 chars, one uppercase, one special character
+            var pwd = model.Password ?? string.Empty;
+            bool strong = pwd.Length >= 8 && pwd.Any(char.IsUpper) && pwd.Any(ch => !char.IsLetterOrDigit(ch));
+            if (!strong)
+            {
+                ModelState.AddModelError("Password", "Password must be at least 8 characters, include one uppercase letter and one special character.");
+                return View(model);
+            }
+
             var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
 
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
                 {
+                    _logger.LogWarning("[SetPassword] Reset failed for user {UserId}: {Code} {Desc}", user.Id, error.Code, error.Description);
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
                 return View(model);
             }
 
+            // Capture additional profile details (always persist what user provides)
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            if (!string.IsNullOrWhiteSpace(model.PhoneNumber))
+            {
+                user.PhoneNumber = model.PhoneNumber;
+            }
+
+            // Mark email as confirmed on successful first-time password set
+            if (!user.EmailConfirmed)
+            {
+                user.EmailConfirmed = true;
+            }
+
+            await _userManager.UpdateAsync(user);
+
             // Auto-sign in after setting password
             await _signInManager.SignInAsync(user, isPersistent: false);
+            _logger.LogInformation("[SetPassword] User {UserId} activated and signed in", user.Id);
 
             return RedirectToAction("Dashboard", "ClientPortal");
         }

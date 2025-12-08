@@ -1,0 +1,786 @@
+Build started 9/27/2025 8:57:23 PM.
+     1>Project "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.sln" on node 1 (Clean target(s)).
+     1>ValidateSolutionConfiguration:
+         Building solution configuration "Debug|Any CPU".
+     1>Project "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.sln" (1) is building "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj" (2) on node 2 (Clean target(s)).
+     2>CoreClean:
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\appsettings.Development.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\appsettings.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Jyoti_Iyer_CPA_Website.staticwebassets.runtime.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Jyoti_Iyer_CPA_Website.staticwebassets.endpoints.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Jyoti_Iyer_CPA_Website.exe".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Jyoti_Iyer_CPA_Website.deps.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Jyoti_Iyer_CPA_Website.runtimeconfig.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Jyoti_Iyer_CPA_Website.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Jyoti_Iyer_CPA_Website.pdb".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Azure.Core.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Azure.Identity.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Humanizer.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Build.Locator.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Options.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Identity.Client.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Mono.TextTemplating.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Newtonsoft.Json.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\SendGrid.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\StarkbankEcdsa.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.ClientModel.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.CodeDom.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Composition.AttributedModel.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Composition.Convention.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Composition.Hosting.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Composition.Runtime.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Composition.TypedParts.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Drawing.Common.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Formats.Asn1.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.IO.Pipelines.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Memory.Data.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Runtime.Caching.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Security.Permissions.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Text.Encodings.Web.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Text.Json.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\System.Windows.Extensions.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Tools\IdentityPasswordHash\bin\Debug\net8.0\IdentityPasswordHash.deps.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Tools\IdentityPasswordHash\bin\Debug\net8.0\IdentityPasswordHash.runtimeconfig.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Tools\IdentityPasswordHash\obj\Debug\net8.0\IdentityPasswordHash.sourcelink.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Tools\IdentityPasswordHash\obj\IdentityPasswordHash.csproj.nuget.dgspec.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Tools\IdentityPasswordHash\obj\project.assets.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Jyoti_Iyer_CPA_Website.Tests.csproj.nuget.dgspec.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\obj\project.assets.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\appsettings.Development.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\appsettings.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.deps.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.runtimeconfig.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.staticwebassets.endpoints.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.staticwebassets.runtime.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.deps.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.runtimeconfig.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\MvcTestingAppManifest.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Jyoti_Iyer_CPA_Website.Tests.csproj.nuget.dgspec.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tests\Jyoti_Iyer_CPA_Website.Tests\obj\project.assets.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\bin\Debug\net8.0\IdentityPasswordHash.deps.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\bin\Debug\net8.0\IdentityPasswordHash.runtimeconfig.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\obj\Debug\net8.0\IdentityPasswordHash.sourcelink.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\obj\IdentityPasswordHash.csproj.nuget.dgspec.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\obj\project.assets.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.sourcelink.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\MvcTestingAppManifest.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.GeneratedMSBuildEditorConfig.editorconfig".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.AssemblyInfoInputs.cache".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.AssemblyInfo.cs".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.csproj.CoreCompileInputs.cache".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.MvcApplicationPartsAssemblyInfo.cache".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.RazorAssemblyInfo.cache".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.RazorAssemblyInfo.cs".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\scopedcss\bundle\Jyoti_Iyer_CPA_Website.styles.css".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\scopedcss\projectbundle\Jyoti_Iyer_CPA_Website.bundle.scp.css".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\staticwebassets.build.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\staticwebassets.build.json.cache".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\staticwebassets.development.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\staticwebassets.build.endpoints.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\refint\Jyoti_Iyer_CPA_Website.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.pdb".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.genruntimeconfig.cache".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\ref\Jyoti_Iyer_CPA_Website.dll".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.csproj.AssemblyReference.cache".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\rpswa.dswa.cache.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iyer_CPA_Website.sourcelink.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\rjimswa.dswa.cache.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\rjsmrazor.dswa.cache.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json".
+         Deleting file "C:\Users\tarun\CS\Jyoti_Iyer_CPA_Website\obj\Debug\net8.0\Jyoti_Iy.838F13E8.Up2Date".
+     2>Done Building Project "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj" (Clean target(s)).
+     1>Project "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.sln" (1) is building "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj" (3) on node 1 (Clean target(s)).
+     3>CoreClean:
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\.msCoverageSourceRootsMapping_Jyoti_Iyer_CPA_Website.Tests".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\CoverletSourceRootsMapping_Jyoti_Iyer_CPA_Website.Tests".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\testhost.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.deps.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.runtimeconfig.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\appsettings.Development.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\appsettings.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Jyoti_Iyer_CPA_Website.Tests.csproj.nuget.dgspec.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tests\Jyoti_Iyer_CPA_Website.Tests\obj\project.assets.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\bin\Debug\net8.0\IdentityPasswordHash.deps.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\bin\Debug\net8.0\IdentityPasswordHash.runtimeconfig.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\obj\Debug\net8.0\IdentityPasswordHash.sourcelink.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\obj\IdentityPasswordHash.csproj.nuget.dgspec.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Tools\IdentityPasswordHash\obj\project.assets.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.staticwebassets.runtime.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.staticwebassets.endpoints.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.exe".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\testhost.exe".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\MvcTestingAppManifest.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\xunit.runner.visualstudio.testadapter.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\xunit.runner.reporters.netcoreapp10.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\xunit.runner.utility.netcoreapp10.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.deps.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.runtimeconfig.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.pdb".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Antiforgery.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Authentication.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Authentication.BearerToken.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Authentication.Cookies.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Authentication.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Authentication.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Authentication.OAuth.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Authorization.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Authorization.Policy.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Components.Authorization.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Components.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Components.Endpoints.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Components.Forms.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Components.Server.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Components.Web.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.CookiePolicy.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Cors.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.DataProtection.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Diagnostics.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Diagnostics.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Diagnostics.HealthChecks.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.HostFiltering.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Hosting.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Hosting.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Html.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Http.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Http.Connections.Common.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Http.Connections.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Http.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Http.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Http.Features.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Http.Results.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.HttpLogging.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.HttpOverrides.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.HttpsPolicy.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Identity.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Localization.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Localization.Routing.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Metadata.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.ApiExplorer.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.Cors.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.DataAnnotations.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Json.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Xml.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.Localization.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.Razor.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.RazorPages.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.TagHelpers.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Mvc.ViewFeatures.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.OutputCaching.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.RateLimiting.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Razor.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Razor.Runtime.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.RequestDecompression.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.ResponseCaching.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.ResponseCompression.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Rewrite.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Routing.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Routing.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Server.HttpSys.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Server.IIS.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Server.IISIntegration.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Server.Kestrel.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Server.Kestrel.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Server.Kestrel.Transport.NamedPipes.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.Session.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.SignalR.Common.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.SignalR.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.SignalR.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.SignalR.Protocols.Json.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.StaticAssets.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.StaticFiles.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.WebSockets.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.AspNetCore.WebUtilities.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.CSharp.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.Binder.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.CommandLine.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.EnvironmentVariables.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.FileExtensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.Ini.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.Json.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Configuration.Xml.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Diagnostics.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Diagnostics.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Features.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.FileProviders.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.FileProviders.Composite.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.FileProviders.Embedded.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.FileProviders.Physical.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.FileSystemGlobbing.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Hosting.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Http.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Identity.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Identity.Stores.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Localization.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Localization.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.Configuration.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.Console.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.Debug.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.EventLog.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.EventSource.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Logging.TraceSource.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.ObjectPool.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Extensions.WebEncoders.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.JSInterop.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Net.Http.Headers.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.VisualBasic.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.VisualBasic.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Win32.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\Microsoft.Win32.Registry.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\mscorlib.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\netstandard.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.AppContext.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Buffers.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Collections.Concurrent.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Collections.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Collections.Immutable.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Collections.NonGeneric.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Collections.Specialized.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ComponentModel.Annotations.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ComponentModel.DataAnnotations.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ComponentModel.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ComponentModel.EventBasedAsync.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ComponentModel.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ComponentModel.TypeConverter.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Configuration.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Console.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Data.Common.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Data.DataSetExtensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Data.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.Contracts.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.Debug.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.DiagnosticSource.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.EventLog.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.FileVersionInfo.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.Process.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.StackTrace.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.TextWriterTraceListener.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.Tools.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.TraceSource.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Diagnostics.Tracing.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Drawing.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Drawing.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Dynamic.Runtime.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Formats.Asn1.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Formats.Tar.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Globalization.Calendars.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Globalization.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Globalization.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.Compression.Brotli.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.Compression.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.Compression.FileSystem.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.Compression.ZipFile.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.FileSystem.AccessControl.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.FileSystem.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.FileSystem.DriveInfo.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.FileSystem.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.FileSystem.Watcher.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.IsolatedStorage.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.MemoryMappedFiles.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.Pipelines.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.Pipes.AccessControl.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.Pipes.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.IO.UnmanagedMemoryStream.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Linq.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Linq.Expressions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Linq.Parallel.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Linq.Queryable.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Memory.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Http.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Http.Json.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.HttpListener.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Mail.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.NameResolution.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.NetworkInformation.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Ping.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Quic.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Requests.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Security.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.ServicePoint.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.Sockets.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.WebClient.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.WebHeaderCollection.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.WebProxy.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.WebSockets.Client.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Net.WebSockets.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Numerics.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Numerics.Vectors.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ObjectModel.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.DispatchProxy.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.Emit.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.Emit.ILGeneration.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.Emit.Lightweight.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.Metadata.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Reflection.TypeExtensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Resources.Reader.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Resources.ResourceManager.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Resources.Writer.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.CompilerServices.Unsafe.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.CompilerServices.VisualC.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Handles.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.InteropServices.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.InteropServices.JavaScript.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.InteropServices.RuntimeInformation.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Intrinsics.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Loader.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Numerics.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Serialization.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Serialization.Formatters.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Serialization.Json.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Serialization.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Runtime.Serialization.Xml.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.AccessControl.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Claims.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.Algorithms.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.Cng.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.Csp.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.Encoding.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.OpenSsl.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.X509Certificates.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Cryptography.Xml.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Principal.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.Principal.Windows.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Security.SecureString.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ServiceModel.Web.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ServiceProcess.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Text.Encoding.CodePages.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Text.Encoding.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Text.Encoding.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Text.Encodings.Web.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Text.Json.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Text.RegularExpressions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.Channels.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.Overlapped.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.RateLimiting.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.Tasks.Dataflow.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.Tasks.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.Tasks.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.Tasks.Parallel.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.Thread.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.ThreadPool.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Threading.Timer.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Transactions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Transactions.Local.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.ValueTuple.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Web.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Web.HttpUtility.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Windows.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.Linq.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.ReaderWriter.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.Serialization.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.XDocument.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.XmlDocument.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.XmlSerializer.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.XPath.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\System.Xml.XPath.XDocument.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\refs\WindowsBase.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Azure.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Azure.Identity.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Castle.Core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.AspNetCore.Mvc.Testing.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.AspNetCore.TestHost.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.InMemory.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.Caching.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.Caching.Memory.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.Configuration.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.Options.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Identity.Client.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.TestPlatform.CoreUtilities.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.TestPlatform.PlatformAbstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.TestPlatform.CommunicationUtilities.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.TestPlatform.CrossPlatEngine.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.TestPlatform.Utilities.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.VisualStudio.TestPlatform.Common.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Moq.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Newtonsoft.Json.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\SendGrid.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\StarkbankEcdsa.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.ClientModel.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.Drawing.Common.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.Memory.Data.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.Runtime.Caching.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.Security.Permissions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\System.Windows.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\xunit.abstractions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\xunit.assert.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\xunit.core.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\xunit.execution.dotnet.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\de\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\es\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\es\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\fr\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\fr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\it\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\it\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ja\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ja\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ko\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ko\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pl\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pl\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pt-BR\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pt-BR\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ru\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ru\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tr\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hans\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hant\Microsoft.TestPlatform.CoreUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\cs\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\cs\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\cs\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\de\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\de\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\de\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\es\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\es\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\es\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\fr\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\fr\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\fr\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\it\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\it\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\it\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ja\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ja\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ja\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ko\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ko\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ko\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pl\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pl\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pl\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pt-BR\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pt-BR\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\pt-BR\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ru\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ru\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\ru\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tr\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tr\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\tr\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hans\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hans\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.pdb".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.csproj.AssemblyReference.cache".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\MvcTestingAppManifest.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.GeneratedMSBuildEditorConfig.editorconfig".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.AssemblyInfoInputs.cache".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.AssemblyInfo.cs".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.csproj.CoreCompileInputs.cache".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.sourcelink.json".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iy.92F10F54.Up2Date".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\refint\Jyoti_Iyer_CPA_Website.Tests.dll".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.pdb".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.genruntimeconfig.cache".
+         Deleting file "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\obj\Debug\net9.0\ref\Jyoti_Iyer_CPA_Website.Tests.dll".
+     3>Done Building Project "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj" (Clean target(s)).
+     1>Done Building Project "C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.sln" (Clean target(s)).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.21
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AdminController.cs(10,7): warning CS0105: The using directive for 'Microsoft.AspNetCore.Identity' appeared previously in this namespace [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AdminController.cs(29,65): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(37,55): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(53,89): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\DocumentsController.cs(77,63): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\ClientPortalController.cs(28,17): warning CS8602: Dereference of a possibly null reference. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\ClientPortalController.cs(41,33): warning CS8602: Dereference of a possibly null reference. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(67,58): warning CS8604: Possible null reference argument for parameter 'user' in 'Task<bool> UserManager<ApplicationUser>.IsInRoleAsync(ApplicationUser user, string role)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(98,60): warning CS8604: Possible null reference argument for parameter 'user' in 'Task<bool> UserManager<ApplicationUser>.IsInRoleAsync(ApplicationUser user, string role)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\ClientPortalController.cs(68,74): warning CS8602: Dereference of a possibly null reference. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\ClientPortalController.cs(77,21): warning CS8602: Dereference of a possibly null reference. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\ClientPortalController.cs(81,61): warning CS8604: Possible null reference argument for parameter 'user' in 'Task<IdentityResult> UserManager<ApplicationUser>.UpdateAsync(ApplicationUser user)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(120,68): warning CS8602: Dereference of a possibly null reference. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(166,65): warning CS8604: Possible null reference argument for parameter 'link' in 'Task IEmailSender.SendInviteEmail(string toEmail, string link)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Services\LocalEncryptedFileStorage.cs(74,34): warning SYSLIB0053: 'AesGcm.AesGcm(byte[])' is obsolete: 'AesGcm should indicate the required tag size for encryption and decryption. Use a constructor that accepts the tag size.' (https://aka.ms/dotnet-warnings/SYSLIB0053) [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(106,23): warning CS8618: Non-nullable property 'UserId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(108,23): warning CS8618: Non-nullable property 'Code' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(114,23): warning CS8618: Non-nullable property 'Password' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(119,23): warning CS8618: Non-nullable property 'ConfirmPassword' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(101,23): warning CS8618: Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(231,65): warning CS8604: Possible null reference argument for parameter 'link' in 'Task IEmailSender.SendInviteEmail(string toEmail, string link)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(86,23): warning CS8618: Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(90,23): warning CS8618: Non-nullable property 'FirstName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(94,23): warning CS8618: Non-nullable property 'LastName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Services\LocalEncryptedFileStorage.cs(113,38): warning SYSLIB0053: 'AesGcm.AesGcm(byte[])' is obsolete: 'AesGcm should indicate the required tag size for encryption and decryption. Use a constructor that accepts the tag size.' (https://aka.ms/dotnet-warnings/SYSLIB0053) [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(260,41): warning CS8601: Possible null reference assignment. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(67,23): warning CS8618: Non-nullable property 'OldPassword' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(73,23): warning CS8618: Non-nullable property 'NewPassword' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(78,23): warning CS8618: Non-nullable property 'ConfirmPassword' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(33,23): warning CS8618: Non-nullable property 'UserId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(35,23): warning CS8618: Non-nullable property 'Token' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(42,23): warning CS8618: Non-nullable property 'Password' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(47,23): warning CS8618: Non-nullable property 'ConfirmPassword' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(51,23): warning CS8618: Non-nullable property 'FirstName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(55,23): warning CS8618: Non-nullable property 'LastName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(59,23): warning CS8618: Non-nullable property 'PhoneNumber' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(21,23): warning CS8618: Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(25,23): warning CS8618: Non-nullable property 'Password' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(291,83): warning CS8604: Possible null reference argument for parameter 'newPassword' in 'Task<IdentityResult> UserManager<ApplicationUser>.ResetPasswordAsync(ApplicationUser user, string token, string newPassword)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(9,23): warning CS8618: Non-nullable property 'AdminName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(10,43): warning CS8618: Non-nullable property 'AllUploads' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(11,42): warning CS8618: Non-nullable property 'UploadStats' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(12,38): warning CS8618: Non-nullable property 'Clients' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AdminController.cs(142,25): warning CS8601: Possible null reference assignment. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AdminController.cs(143,25): warning CS8601: Possible null reference assignment. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(18,23): warning CS8618: Non-nullable property 'FileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(19,23): warning CS8618: Non-nullable property 'FileType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(20,23): warning CS8618: Non-nullable property 'ClientName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(22,23): warning CS8618: Non-nullable property 'Status' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(9,23): warning CS8618: Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ViewModels.cs(12,23): warning CS8618: Non-nullable property 'Password' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Controllers\AccountController.cs(417,73): warning CS8604: Possible null reference argument for parameter 'resetLink' in 'Task IEmailSender.SendPasswordResetEmailAsync(string email, string resetLink)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(29,23): warning CS8618: Non-nullable property 'FilterPeriod' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(36,23): warning CS8618: Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(37,23): warning CS8618: Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(38,23): warning CS8618: Non-nullable property 'Initials' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Services\EmailService.cs(97,147): warning CS8604: Possible null reference argument for parameter 'input' in 'string EmailService.Mask(string input)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Services\EmailService.cs(118,56): warning CS8604: Possible null reference argument for parameter 'address' in 'MailAddress.MailAddress(string address, string? displayName)'. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(45,23): warning CS8618: Non-nullable property 'Category' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(53,23): warning CS8618: Non-nullable property 'FileName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(55,23): warning CS8618: Non-nullable property 'FileSize' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(56,23): warning CS8618: Non-nullable property 'Status' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(63,23): warning CS8618: Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(66,23): warning CS8618: Non-nullable property 'Phone' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(68,23): warning CS8618: Non-nullable property 'FirstName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(69,23): warning CS8618: Non-nullable property 'LastName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(74,23): warning CS8618: Non-nullable property 'Subject' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\AdminModels.cs(75,23): warning CS8618: Non-nullable property 'Body' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ApplicationUsers.cs(7,23): warning CS8618: Non-nullable property 'FirstName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ApplicationUsers.cs(8,23): warning CS8618: Non-nullable property 'LastName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ApplicationUsers.cs(9,23): warning CS8618: Non-nullable property 'ClientType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ApplicationUsers.cs(11,23): warning CS8618: Non-nullable property 'ProfilePictureUrl' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Models\ClientPortalModels.cs(20,26): warning CS8618: Non-nullable property 'File' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\Jyoti_Iyer_CPA_Website.csproj]
+  Jyoti_Iyer_CPA_Website -> C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\bin\Debug\net8.0\Jyoti_Iyer_CPA_Website.dll
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(29,74): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(29,119): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(29,125): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(29,131): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(29,137): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(29,143): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(29,149): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(33,17): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(33,23): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(33,29): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\DocumentsControllerTests.cs(33,35): warning CS8625: Cannot convert null literal to non-nullable reference type. [C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\Jyoti_Iyer_CPA_Website.Tests.csproj]
+  Jyoti_Iyer_CPA_Website.Tests -> C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.dll
+Test run for C:\Users\tarun\cs\Jyoti_Iyer_CPA_Website\tests\Jyoti_Iyer_CPA_Website.Tests\bin\Debug\net9.0\Jyoti_Iyer_CPA_Website.Tests.dll (.NETCoreApp,Version=v9.0)
+VSTest version 17.14.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:     2, Skipped:     0, Total:     2, Duration: 925 ms - Jyoti_Iyer_CPA_Website.Tests.dll (net9.0)

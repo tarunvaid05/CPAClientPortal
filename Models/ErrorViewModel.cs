@@ -1,4 +1,4 @@
-namespace Jyoti_Iyer_CPA_Website.Models
+namespace JyotiIyerCPA.Models
 {
     public class ErrorViewModel
     {

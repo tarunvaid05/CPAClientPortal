@@ -178,6 +178,9 @@
                                 <h3>Client Login</h3>
                                 <p class="text-muted">Access your secure portal</p>
                             </div>
+                            @if (TempData["LoginError"] != null) {
+                                <div class="alert alert-danger" role="alert">@TempData["LoginError"]</div>
+                            }
                             <form id="loginForm">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email Address</label>
@@ -285,9 +288,11 @@
             submitBtn.disabled = true;
 
             try {
+                const tokenMeta = document.querySelector('meta[name="request-verification-token"]')
+                const token = tokenMeta ? tokenMeta.getAttribute('content') : ''
                 const res = await fetch('@Url.Action("AjaxLogin", "Account")', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': token },
                     body: JSON.stringify({ email, password, rememberMe: document.getElementById('rememberMe').checked })
                 });
 

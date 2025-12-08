@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ClientPortal.Models
+namespace JyotiIyerCPA.Models
 {
     public class AdminDashboardViewModel
     {
@@ -32,7 +32,7 @@ namespace ClientPortal.Models
 
     public class ClientViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Initials { get; set; }

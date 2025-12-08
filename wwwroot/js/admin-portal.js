@@ -1,10 +1,11 @@
-﻿// Admin Portal JavaScript
+// Admin Portal JavaScript
 
 document.addEventListener("DOMContentLoaded", () => {
     initializeAdminPortal()
 })
 
 let currentView = "categories" // Track current view: 'categories' or 'documents'
+let currentClientId = ""
 
 function initializeAdminPortal() {
     initializeClientSearch()
@@ -128,11 +129,12 @@ function updateUploadStats() {
 
 // Client Modal Functionality
 function openClientModal(clientId) {
+    currentClientId = String(clientId)
     const clientCards = document.querySelectorAll(".client-card")
     let clientName = ""
 
     clientCards.forEach((card) => {
-        if (Number.parseInt(card.getAttribute("data-client-id")) === clientId) {
+        if (String(card.getAttribute("data-client-id")) === currentClientId) {
             clientName = card.querySelector("h5").textContent
         }
     })
@@ -144,23 +146,28 @@ function openClientModal(clientId) {
     updateSearchPlaceholder()
 
     // Fetch and display client documents
-    fetchClientDocuments(clientId)
+    fetchClientDocuments(currentClientId)
 
     const modal = new bootstrap.Modal(document.getElementById("clientModal"))
     modal.show()
 }
 
-function fetchClientDocuments(clientId) {
-    // Simulate API call
-    const categories = [
-        { category: "W2", count: 2, icon: "fas fa-file-invoice", lastUpdated: "2 days ago" },
-        { category: "1099 Int", count: 3, icon: "fas fa-percentage", lastUpdated: "3 days ago" },
-        { category: "1098", count: 1, icon: "fas fa-home", lastUpdated: "5 days ago" },
-        { category: "Schedule K-1", count: 1, icon: "fas fa-users", lastUpdated: "1 week ago" },
-        { category: "Business Income/Expenses", count: 4, icon: "fas fa-briefcase", lastUpdated: "3 days ago" },
-    ]
-
-    displayDocumentCategories(categories)
+async function fetchClientDocuments(clientId) {
+    try {
+        const res = await fetch(`/Admin/DocumentCategories?userId=${encodeURIComponent(clientId)}`)
+        const data = await res.json()
+        const categories = (data && data.success ? data.categories : []) || []
+        const mapped = categories.map(c => ({
+            category: c.category || 'Other',
+            count: c.count || 0,
+            icon: pickIcon(c.category),
+            lastUpdated: c.lastUpdated || ''
+        }))
+        displayDocumentCategories(mapped)
+    } catch (e) {
+        console.error(e)
+        displayDocumentCategories([])
+    }
 }
 
 function displayDocumentCategories(categories) {
@@ -187,7 +194,7 @@ function displayDocumentCategories(categories) {
     document.getElementById("categoryDocumentsView").style.display = "none"
 }
 
-function openCategoryDocuments(categoryName) {
+async function openCategoryDocuments(categoryName) {
     document.getElementById("currentCategoryName").textContent = categoryName
 
     // Switch to documents view
@@ -196,35 +203,29 @@ function openCategoryDocuments(categoryName) {
 
     // Get selected years from modal
     const selectedYears = Array.from(document.querySelectorAll('input[type="checkbox"][id^="modalYear"]:checked')).map(
-        (cb) => Number.parseInt(cb.value),
+        (cb) => cb.value,
     )
 
-    // Simulate fetching category documents
-    const documents = [
-        {
-            id: 1,
-            fileName: `${categoryName}_Document_1.pdf`,
-            uploadDate: "Jan 15, 2025",
-            fileSize: "2.3 MB",
-            status: "Processed",
-        },
-        {
-            id: 2,
-            fileName: `${categoryName}_Document_2.pdf`,
-            uploadDate: "Jan 12, 2025",
-            fileSize: "1.8 MB",
-            status: "Processed",
-        },
-        {
-            id: 3,
-            fileName: `${categoryName}_Document_3.pdf`,
-            uploadDate: "Jan 10, 2025",
-            fileSize: "3.1 MB",
-            status: "Processing",
-        },
-    ]
-
-    displayCategoryDocuments(documents)
+    try {
+        const params = new URLSearchParams()
+        params.set('userId', currentClientId)
+        params.set('category', categoryName)
+        selectedYears.forEach(y => params.append('years', y))
+        const res = await fetch(`/Admin/CategoryDocuments?${params.toString()}`)
+        const data = await res.json()
+        const docs = (data && data.success && Array.isArray(data.documents)) ? data.documents : []
+        const documents = docs.map(d => ({
+            id: d.id,
+            fileName: d.fileName || d.name,
+            uploadDate: (d.uploadedAt || d.uploadDate || '').toString().replace('T',' ').split('.')[0],
+            fileSize: formatSize(d.fileSize || d.size),
+            status: d.status || 'Uploaded'
+        }))
+        displayCategoryDocuments(documents)
+    } catch (e) {
+        console.error(e)
+        displayCategoryDocuments([])
+    }
 
     // Show documents view
     document.getElementById("documentCategoriesView").style.display = "none"
@@ -244,16 +245,54 @@ function displayCategoryDocuments(documents) {
         documentItem.innerHTML = `
       <div class="document-item-info">
         <h6>${doc.fileName}</h6>
-        <p>Uploaded: ${doc.uploadDate} • Size: ${doc.fileSize}</p>
+        <p>Uploaded: ${doc.uploadDate} � Size: ${doc.fileSize || ''}</p>
       </div>
       <div class="document-item-actions">
-        <span class="badge ${doc.status === "Processed" ? "bg-success" : "bg-warning"}">
-          ${doc.status}
-        </span>
+        <div class="btn-group btn-group-sm" role="group">
+          <a class="btn btn-outline-primary" href="/Documents/Download/${doc.id}"><i class="fas fa-download me-1"></i>Download</a>
+          <button class="btn btn-outline-danger" onclick="adminDelete('${'${doc.id}'}')"><i class="fas fa-trash me-1"></i>Delete</button>
+        </div>
       </div>
     `
         documentsList.appendChild(documentItem)
     })
+}
+
+async function adminDelete(id) {
+    const tokenMeta = document.querySelector('meta[name="request-verification-token"]')
+    const token = tokenMeta ? tokenMeta.getAttribute('content') : ''
+    if (!confirm('Delete this document?')) return
+    try {
+        const res = await fetch(`/Documents/Delete/${id}`, { method: 'DELETE', headers: { 'RequestVerificationToken': token }})
+        const data = await res.json()
+        if (data && data.success) {
+            showAlert('Document deleted', 'success')
+            openCategoryDocuments(document.getElementById('currentCategoryName').textContent)
+        } else {
+            showAlert('Failed to delete', 'error')
+        }
+    } catch { showAlert('Failed to delete', 'error') }
+}
+
+function pickIcon(category) {
+    const map = {
+        'w2': 'fas fa-file-invoice',
+        '1099 int': 'fas fa-percentage',
+        '1099': 'fas fa-percentage',
+        '1098': 'fas fa-home',
+        'schedule k-1': 'fas fa-users',
+        'business income/expenses': 'fas fa-briefcase'
+    }
+    const key = (category || '').toLowerCase()
+    return map[key] || 'fas fa-file'
+}
+
+function formatSize(bytes) {
+    if (!bytes || isNaN(bytes)) return ''
+    const kb = bytes / 1024
+    if (kb < 1024) return `${kb.toFixed(1)} KB`
+    const mb = kb / 1024
+    return `${mb.toFixed(1)} MB`
 }
 
 function backToCategories() {
@@ -357,7 +396,7 @@ function backToClientSelection() {
 
 function sendReminders() {
     const selectedClientIds = Array.from(document.querySelectorAll('input[type="checkbox"][id^="remind_"]:checked')).map(
-        (cb) => Number.parseInt(cb.value),
+        (cb) => String(cb.value),
     )
 
     const emailContent = document.getElementById("emailBody").value
@@ -485,12 +524,39 @@ async function handleInviteSubmit(event) {
     event.preventDefault()
     const form = event.target
     const formData = new FormData(form)
+    const emailInput = document.getElementById("inviteEmail")
+    const emailError = document.getElementById("inviteEmailError")
+    const generalError = document.getElementById("inviteGeneralError")
+    const submitBtn = document.getElementById("inviteSubmitBtn")
+
+    // Reset errors
+    if (emailInput) emailInput.classList.remove("is-invalid")
+    if (emailError) {
+        emailError.style.display = "none"
+        emailError.textContent = ""
+    }
+    if (generalError) {
+        generalError.classList.add("d-none")
+        generalError.classList.remove("alert-warning", "alert-danger")
+        generalError.classList.add("alert-danger")
+        generalError.textContent = ""
+    }
+
+    // Basic client-side required check
+    if (!form.checkValidity()) {
+        showAlert("Please fill all required fields.", "warning")
+        return
+    }
+
+    if (submitBtn) submitBtn.disabled = true
 
     try {
+        const tokenMeta = document.querySelector('meta[name="request-verification-token"]')
+        const token = tokenMeta ? tokenMeta.getAttribute('content') : ''
         const response = await fetch(form.getAttribute("action"), {
             method: "POST",
             body: formData,
-            headers: { "X-Requested-With": "XMLHttpRequest" },
+            headers: { "X-Requested-With": "XMLHttpRequest", "RequestVerificationToken": token },
         })
 
         let result
@@ -499,21 +565,46 @@ async function handleInviteSubmit(event) {
             result = await response.json()
         } else {
             // Fallback: treat non-JSON as error
-            result = { success: false, message: "Unexpected response from server." }
+            result = { success: false, message: response.status >= 400 ? `Request failed (${response.status})` : "Unexpected response from server." }
         }
 
         if (result && result.success) {
-            showAlert(result.message || "Invitation sent successfully!", "success")
+            const isEmailSent = typeof result.emailSent === "undefined" ? true : !!result.emailSent
+            const type = isEmailSent ? "success" : "warning"
+            showAlert(result.message || (isEmailSent ? "Invitation sent successfully!" : "User created, but email failed."), type)
             const modal = bootstrap.Modal.getInstance(document.getElementById("inviteClientModal"))
             if (modal) modal.hide()
             form.reset()
         } else {
             const msg = result.message || (result.errors && result.errors.join(", ")) || "Failed to send invite."
-            showAlert(msg, "warning")
+            // Inline errors
+            if (msg.toLowerCase().includes("already exists") && emailInput && emailError) {
+                emailInput.classList.add("is-invalid")
+                emailError.textContent = msg
+                emailError.style.display = "block"
+            } else if (generalError) {
+                generalError.textContent = msg
+                generalError.classList.remove("d-none")
+                // If it's about email sending, show as warning
+                if (msg.toLowerCase().includes("failed to send") || msg.toLowerCase().includes("email")) {
+                    generalError.classList.remove("alert-danger")
+                    generalError.classList.add("alert-warning")
+                }
+            } else {
+                showAlert(msg, "warning")
+            }
         }
     } catch (err) {
         console.error(err)
-        showAlert("Failed to send invite.", "error")
+        if (generalError) {
+            generalError.textContent = "Failed to send invite."
+            generalError.classList.remove("d-none")
+        } else {
+            showAlert("Failed to send invite.", "error")
+        }
+    }
+    finally {
+        if (submitBtn) submitBtn.disabled = false
     }
 }
 
@@ -572,3 +663,4 @@ if (typeof bootstrap === "undefined") {
 } else {
     console.log("Bootstrap loaded successfully")
 }
+

@@ -1,7 +1,10 @@
 using JyotiIyerCPA.Data;
 using JyotiIyerCPA.Models;
+using JyotiIyerCPA.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,15 +17,28 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add Identity services
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    // Password settings (relaxed for dev to allow 'admin')
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 4;
+    var isDev = builder.Environment.IsDevelopment();
+    if (isDev)
+    {
+        // Relaxed for development convenience
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequiredLength = 4;
+    }
+    else
+    {
+        // Production policy: "usual secure" per requirements
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 8;
+    }
 
-    // Lockout settings
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+    // Lockout settings (10 minutes, per requirements)
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
     options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
@@ -47,13 +63,40 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = "/Account/Logout";
     options.AccessDeniedPath = "/Account/AccessDenied";
     options.SlidingExpiration = true;
+    options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Lax;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
-// Register the email service
-builder.Services.AddTransient<IEmailSender, EmailService>();
+// Register the email service (custom interface)
+builder.Services.AddTransient<JyotiIyerCPA.Services.IEmailSender, JyotiIyerCPA.Services.EmailService>();
+
+// File storage options and encrypted storage service
+builder.Services.Configure<JyotiIyerCPA.Options.FileStorageOptions>(builder.Configuration.GetSection("Storage"));
+builder.Services.AddSingleton<JyotiIyerCPA.Services.IFileStorage, JyotiIyerCPA.Services.LocalEncryptedFileStorage>();
+
+// Antiforgery for JSON fetches
+builder.Services.AddAntiforgery(o =>
+{
+    o.HeaderName = "RequestVerificationToken";
+});
+
+// Rate limiting for login/invite endpoints
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("auth", limiterOptions =>
+    {
+        limiterOptions.AutoReplenishment = true;
+        limiterOptions.PermitLimit = 10; // 10 requests per minute
+        limiterOptions.Window = TimeSpan.FromMinutes(1);
+        limiterOptions.QueueLimit = 0;
+    });
+});
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new Microsoft.AspNetCore.Mvc.AutoValidateAntiforgeryTokenAttribute());
+});
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -73,6 +116,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 
 app.MapControllerRoute(
     name: "default",
@@ -85,14 +129,20 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        var hasMigrations = db.Database.GetMigrations().Any();
-        if (hasMigrations)
+        var database = db.Database;
+        var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
+
+        // Always apply EF Core migrations when they exist in the assembly.
+        // This ensures __EFMigrationsHistory is created and schema (e.g., Documents) is up to date
+        // even if the database was previously created via EnsureCreated.
+        if (database.GetMigrations().Any())
         {
-            await db.Database.MigrateAsync();
+            await database.MigrateAsync();
         }
         else
         {
-            await db.Database.EnsureCreatedAsync();
+            // No migrations were added to the assembly; fall back to creating the schema for dev scenarios.
+            await database.EnsureCreatedAsync();
         }
 
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -100,6 +150,24 @@ using (var scope = app.Services.CreateScope())
             await roleManager.CreateAsync(new IdentityRole("Admin"));
         if (!await roleManager.RoleExistsAsync("Client"))
             await roleManager.CreateAsync(new IdentityRole("Client"));
+
+        // Optional: seed admin from environment variables if provided
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var seedEmail = Environment.GetEnvironmentVariable("Seed__AdminEmail");
+        var seedPassword = Environment.GetEnvironmentVariable("Seed__AdminPassword");
+        if (!string.IsNullOrWhiteSpace(seedEmail) && !string.IsNullOrWhiteSpace(seedPassword))
+        {
+            var existing = await userManager.FindByEmailAsync(seedEmail);
+            if (existing == null)
+            {
+                var admin = new ApplicationUser { UserName = seedEmail, Email = seedEmail, EmailConfirmed = true, FirstName = "Admin", LastName = "User" };
+                var res = await userManager.CreateAsync(admin, seedPassword);
+                if (res.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, "Admin");
+                }
+            }
+        }
     }
     catch (Exception ex)
     {
@@ -107,5 +175,34 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "Error ensuring database/roles.");
     }
 }
+
+// Optional health endpoint to verify 'Documents' table and migration status
+app.MapGet("/health/db/documents", async (ApplicationDbContext db) =>
+{
+    var applied = db.Database.GetAppliedMigrations().ToArray();
+    var pending = db.Database.GetPendingMigrations().ToArray();
+
+    var exists = false;
+    try
+    {
+        using var conn = db.Database.GetDbConnection();
+        await conn.OpenAsync();
+        using var cmd = conn.CreateCommand();
+        cmd.CommandText = "SELECT CASE WHEN EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'Documents') THEN 1 ELSE 0 END";
+        var result = await cmd.ExecuteScalarAsync();
+        exists = Convert.ToInt32(result) == 1;
+    }
+    catch
+    {
+        exists = false;
+    }
+
+    return Results.Json(new
+    {
+        tableExists = exists,
+        appliedMigrations = applied,
+        pendingMigrations = pending
+    });
+});
 
 app.Run();
