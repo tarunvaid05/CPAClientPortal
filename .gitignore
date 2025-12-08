@@ -1,1 +1,109 @@
-﻿.vs/
+# Build results
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+*.cache
+*.vspscc
+*.vssscc
+*.pidb
+*.svclog
+*.scc
+*.psess
+*.vsp
+*.vspx
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+TestResults/
+
+# NCrunch
+*.ncrunch*
+_NCrunch_*
+.*crunch*.local.xml
+
+# Publish output
+publish/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# User-specific files
+*.rsuser
+*.user
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+
+# Local settings
+appsettings.Local.json
+appsettings.*.local.json
+secrets.json
+
+# Application data (but not the directory structure)
+App_Data/Uploads/
+
+# Logs
+logs/
+*.log
+nlog-*.log
+
+# Agent/Tool artifacts
+.code/
+.serena/
+.claude/
+
+# Project-specific documentation (kept locally)
+AUTONOMOUS-DEBUGGING-PROTOCOL.md
+CHANGELOG.md
+CLAUDE.md
+CUSTOM_SUBAGENT_PROMPT.md
+Project-Requirements.txt
+TPM-PROTOCOL.md
+CURRENT-SESSION-UPDATES/
+
+# Playwright tests
+playwright-tests/
+
+# Tools build output
+Tools/**/bin/
+Tools/**/obj/
+
+# Tests build output
+tests/**/bin/
+tests/**/obj/
+
+# SQL scripts with sensitive data
+sql/*.local.sql
