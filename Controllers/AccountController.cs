@@ -88,7 +88,10 @@ namespace JyotiIyerCPA.Controllers
                 return BadRequest(new { success = false, message = "Invalid input." });
             }
 
+            _logger.LogInformation("AjaxLogin attempt for: {Email}", request.Email);
             var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, lockoutOnFailure: false);
+            _logger.LogInformation("SignIn result: Succeeded={Succeeded}, IsLockedOut={IsLockedOut}, IsNotAllowed={IsNotAllowed}, RequiresTwoFactor={RequiresTwoFactor}",
+                result.Succeeded, result.IsLockedOut, result.IsNotAllowed, result.RequiresTwoFactor);
             if (!result.Succeeded)
             {
                 return Ok(new { success = false, message = "Invalid email or password." });

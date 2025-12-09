@@ -290,13 +290,24 @@
             try {
                 const tokenMeta = document.querySelector('meta[name="request-verification-token"]')
                 const token = tokenMeta ? tokenMeta.getAttribute('content') : ''
+                console.log('Token found:', token ? 'yes' : 'no');
                 const res = await fetch('@Url.Action("AjaxLogin", "Account")', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': token },
                     body: JSON.stringify({ email, password, rememberMe: document.getElementById('rememberMe').checked })
                 });
 
+                console.log('Response status:', res.status);
+                if (!res.ok) {
+                    const text = await res.text();
+                    console.log('Error response:', text);
+                    errorBox.textContent = `Server error (${res.status}). Check console for details.`;
+                    errorBox.classList.remove('d-none');
+                    return;
+                }
+
                 const data = await res.json();
+                console.log('Response data:', data);
                 if (data.success) {
                     window.location.href = data.redirect;
                 } else {
@@ -304,6 +315,7 @@
                     errorBox.classList.remove('d-none');
                 }
             } catch (err) {
+                console.error('Login error:', err);
                 errorBox.textContent = 'Sign-in failed. Please try again.';
                 errorBox.classList.remove('d-none');
             } finally {

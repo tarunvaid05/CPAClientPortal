@@ -157,16 +157,38 @@ using (var scope = app.Services.CreateScope())
         var seedPassword = Environment.GetEnvironmentVariable("Seed__AdminPassword");
         if (!string.IsNullOrWhiteSpace(seedEmail) && !string.IsNullOrWhiteSpace(seedPassword))
         {
+            Console.WriteLine($"[Seed] Attempting to seed admin user: {seedEmail}");
             var existing = await userManager.FindByEmailAsync(seedEmail);
             if (existing == null)
             {
-                var admin = new ApplicationUser { UserName = seedEmail, Email = seedEmail, EmailConfirmed = true, FirstName = "Admin", LastName = "User" };
+                var admin = new ApplicationUser { UserName = seedEmail, Email = seedEmail, EmailConfirmed = true, FirstName = "Admin", LastName = "User", ClientType = "Admin", ProfilePictureUrl = "" };
                 var res = await userManager.CreateAsync(admin, seedPassword);
                 if (res.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "Admin");
+                    Console.WriteLine($"[Seed] Admin user created successfully: {seedEmail}");
+                }
+                else
+                {
+                    Console.WriteLine($"[Seed] Failed to create admin user. Errors:");
+                    foreach (var error in res.Errors)
+                        Console.WriteLine($"  - {error.Code}: {error.Description}");
                 }
             }
+            else
+            {
+                Console.WriteLine($"[Seed] Admin user already exists: {seedEmail}");
+                // Ensure existing user has Admin role
+                if (!await userManager.IsInRoleAsync(existing, "Admin"))
+                {
+                    await userManager.AddToRoleAsync(existing, "Admin");
+                    Console.WriteLine($"[Seed] Added Admin role to existing user: {seedEmail}");
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("[Seed] No Seed__AdminEmail/Seed__AdminPassword environment variables found.");
         }
     }
     catch (Exception ex)
