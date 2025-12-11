@@ -18,6 +18,7 @@ namespace JyotiIyerCPA.Services
         Task SendWorkflowResponseNotificationAsync(string toEmail, string clientName, string documentName, string? responseText, bool hasAttachment);
         Task SendClientMessageAsync(string adminEmail, string clientName, string clientEmail, string subject, string message);
         Task SendAppointmentRequestAsync(string adminEmail, string clientName, string clientEmail, string preferredDate, string? notes);
+        Task SendContactFormNotificationAsync(string adminEmail, string senderName, string senderEmail, string? senderPhone, string subject, string message);
     }
 
     public class EmailService : IEmailSender
@@ -290,6 +291,51 @@ namespace JyotiIyerCPA.Services
             catch (Exception ex)
             {
                 _logger.LogWarning(ex, "[Email AppointmentRequest:{OpId}] Failed to send notification", opId);
+                throw;
+            }
+        }
+
+        public async Task SendContactFormNotificationAsync(string adminEmail, string name, string email, string phone, string subject, string message)
+        {
+            var opId = Guid.NewGuid().ToString("N");
+            _logger.LogInformation("[Email ContactForm:{OpId}] Preparing notification. To={To}, From={From}", opId, adminEmail, email);
+
+            var emailSubject = $"Contact Form: {subject}";
+            var body = $@"
+<h2>New Contact Form Submission</h2>
+<table style=""border-collapse: collapse; width: 100%; max-width: 600px;"">
+    <tr>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold; width: 120px;"">Name:</td>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{name}</td>
+    </tr>
+    <tr>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;"">Email:</td>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd;""><a href=""mailto:{email}"">{email}</a></td>
+    </tr>
+    <tr>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;"">Phone:</td>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{phone ?? "Not provided"}</td>
+    </tr>
+    <tr>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;"">Subject:</td>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{subject}</td>
+    </tr>
+</table>
+<h3>Message:</h3>
+<blockquote style=""border-left: 4px solid #dc3545; padding-left: 15px; margin: 15px 0; color: #555;"">
+{message.Replace("\n", "<br>")}
+</blockquote>
+<hr>
+<p style=""color: #888; font-size: 12px;"">Reply directly to this email or contact at <a href=""mailto:{email}"">{email}</a></p>
+";
+            try
+            {
+                await SendEmailAsync(adminEmail, emailSubject, body);
+                _logger.LogInformation("[Email ContactForm:{OpId}] Notification sent successfully", opId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "[Email ContactForm:{OpId}] Failed to send notification", opId);
                 throw;
             }
         }

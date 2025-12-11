@@ -1,16 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using JyotiIyerCPA.Data;
 using JyotiIyerCPA.Models;
-using System.Diagnostics;
+using JyotiIyerCPA.Services;
 
 namespace JyotiIyerCPA.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _db;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IEmailSender emailSender,
+            ApplicationDbContext db,
+            IConfiguration configuration)
         {
             _logger = logger;
+            _emailSender = emailSender;
+            _db = db;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
@@ -47,15 +59,61 @@ namespace JyotiIyerCPA.Controllers
         }
 
         [HttpPost]
-        public IActionResult ContactUs(ContactViewModel model)
+        public async Task<IActionResult> ContactUs(ContactViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // Process contact form
+                return View(model);
+            }
+
+            // Rate limiting: Check if this email has submitted in the last 24 hours
+            var oneDayAgo = DateTimeOffset.UtcNow.AddDays(-1);
+            var recentSubmission = await _db.ContactSubmissions
+                .Where(c => c.Email.ToLower() == model.Email.ToLower() && c.SubmittedAt > oneDayAgo)
+                .FirstOrDefaultAsync();
+
+            if (recentSubmission != null)
+            {
+                TempData["Error"] = "You have already submitted a message today. Please try again tomorrow.";
+                return View(model);
+            }
+
+            try
+            {
+                // Save to database
+                var submission = new ContactSubmission
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    Subject = model.Subject,
+                    Message = model.Message,
+                    IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString()
+                };
+                _db.ContactSubmissions.Add(submission);
+                await _db.SaveChangesAsync();
+
+                // Send email notification to admin
+                var adminEmail = _configuration["Email:AdminNotificationEmail"] ?? "admin@example.com";
+                await _emailSender.SendContactFormNotificationAsync(
+                    adminEmail,
+                    model.Name,
+                    model.Email,
+                    model.Phone,
+                    model.Subject,
+                    model.Message
+                );
+
+                _logger.LogInformation("Contact form submitted successfully from {Email}", model.Email);
                 TempData["Success"] = "Thank you for your message. We'll get back to you soon!";
                 return RedirectToAction("ContactUs");
             }
-            return View(model);
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to process contact form from {Email}", model.Email);
+                TempData["Error"] = "An error occurred while sending your message. Please try again later.";
+                return View(model);
+            }
         }
 
         private List<TestimonialViewModel> GetTestimonials()

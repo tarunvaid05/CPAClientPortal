@@ -13,6 +13,7 @@ namespace JyotiIyerCPA.Data
 
         public DbSet<JyotiIyerCPA.Models.Document> Documents { get; set; }
         public DbSet<JyotiIyerCPA.Models.DocumentWorkflow> DocumentWorkflows { get; set; }
+        public DbSet<JyotiIyerCPA.Models.ContactSubmission> ContactSubmissions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
