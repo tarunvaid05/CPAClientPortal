@@ -7,6 +7,7 @@ namespace JyotiIyerCPA.Models
         public string ClientName { get; set; } = string.Empty;
         public List<RecentUploadViewModel> RecentUploads { get; set; } = new();
         public UploadStatsViewModel UploadStats { get; set; } = new();
+        public Dictionary<string, int> CategoryCounts { get; set; } = new();
     }
 
     public class FileUploadViewModel
@@ -24,6 +25,10 @@ namespace JyotiIyerCPA.Models
 
     public class UserProfileViewModel
     {
+        public string FirstName { get; set; } = string.Empty;
+
+        public string LastName { get; set; } = string.Empty;
+
         [Required]
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
@@ -50,6 +55,7 @@ namespace JyotiIyerCPA.Models
 
     public class RecentUploadViewModel
     {
+        public Guid Id { get; set; }
         public string FileName { get; set; } = string.Empty;
         public string FileType { get; set; } = string.Empty;
         public DateTime UploadDate { get; set; }

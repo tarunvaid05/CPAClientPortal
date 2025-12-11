@@ -12,7 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        // Enable retry on transient failures (required for Azure SQL)
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null);
+    }));
 
 // Add Identity services
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -67,12 +74,29 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
+// Configure security stamp validation interval (validates session every 30 seconds)
+// When a user logs in on another device/tab, the security stamp changes and old sessions are invalidated
+builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+{
+    options.ValidationInterval = TimeSpan.FromSeconds(30);
+});
+
 // Register the email service (custom interface)
 builder.Services.AddTransient<JyotiIyerCPA.Services.IEmailSender, JyotiIyerCPA.Services.EmailService>();
 
 // File storage options and encrypted storage service
 builder.Services.Configure<JyotiIyerCPA.Options.FileStorageOptions>(builder.Configuration.GetSection("Storage"));
-builder.Services.AddSingleton<JyotiIyerCPA.Services.IFileStorage, JyotiIyerCPA.Services.LocalEncryptedFileStorage>();
+
+// Choose storage provider based on configuration (default: Local, or Azure if configured)
+var storageProvider = builder.Configuration.GetValue<string>("Storage:Provider") ?? "Local";
+if (storageProvider.Equals("Azure", StringComparison.OrdinalIgnoreCase))
+{
+    builder.Services.AddSingleton<JyotiIyerCPA.Services.IFileStorage, JyotiIyerCPA.Services.AzureBlobFileStorage>();
+}
+else
+{
+    builder.Services.AddSingleton<JyotiIyerCPA.Services.IFileStorage, JyotiIyerCPA.Services.LocalEncryptedFileStorage>();
+}
 
 // Antiforgery for JSON fetches
 builder.Services.AddAntiforgery(o =>

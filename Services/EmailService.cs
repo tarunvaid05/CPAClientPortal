@@ -13,6 +13,11 @@ namespace JyotiIyerCPA.Services
         Task SendInviteEmail(string toEmail, string link);
         Task SendEmailAsync(string email, string subject, string htmlMessage);
         Task SendPasswordResetEmailAsync(string email, string resetLink);
+        Task SendDocumentUploadNotificationAsync(string toEmail, string clientName, string category, string fileName, DateTime uploadTime);
+        Task SendDocumentSentNotificationAsync(string toEmail, string clientName, string category, string fileName, string? adminNotes);
+        Task SendWorkflowResponseNotificationAsync(string toEmail, string clientName, string documentName, string? responseText, bool hasAttachment);
+        Task SendClientMessageAsync(string adminEmail, string clientName, string clientEmail, string subject, string message);
+        Task SendAppointmentRequestAsync(string adminEmail, string clientName, string clientEmail, string preferredDate, string? notes);
     }
 
     public class EmailService : IEmailSender
@@ -20,12 +25,14 @@ namespace JyotiIyerCPA.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<EmailService> _logger;
         private readonly IHostEnvironment _env;
+        private readonly string _baseUrl;
 
         public EmailService(IConfiguration configuration, ILogger<EmailService> logger, IHostEnvironment env)
         {
             _configuration = configuration;
             _logger = logger;
             _env = env;
+            _baseUrl = configuration["Email:BaseUrl"] ?? "https://localhost:5001";
         }
 
         public async Task SendInviteEmail(string toEmail, string link)
@@ -136,6 +143,153 @@ namespace JyotiIyerCPA.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "[SMTP] Unexpected exception while sending email: {Message}", ex.Message);
+                throw;
+            }
+        }
+
+        public async Task SendDocumentUploadNotificationAsync(string toEmail, string clientName, string category, string fileName, DateTime uploadTime)
+        {
+            var opId = Guid.NewGuid().ToString("N");
+            _logger.LogInformation("[Email DocUpload:{OpId}] Preparing document upload notification. To={To}", opId, toEmail);
+
+            var subject = $"New Document Upload - {clientName}";
+            var body = $@"
+<h2>New Document Upload</h2>
+<p><strong>{clientName}</strong> uploaded a document:</p>
+<ul>
+    <li><strong>Category:</strong> {category}</li>
+    <li><strong>File:</strong> {fileName}</li>
+    <li><strong>Date:</strong> {uploadTime:MMM dd, yyyy 'at' h:mm tt}</li>
+</ul>
+<p><a href=""{_baseUrl}/Admin/Dashboard"">View in Portal</a></p>
+";
+            try
+            {
+                await SendEmailAsync(toEmail, subject, body);
+                _logger.LogInformation("[Email DocUpload:{OpId}] Document upload notification sent. To={To}", opId, toEmail);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "[Email DocUpload:{OpId}] Failed to send document upload notification. To={To}", opId, toEmail);
+            }
+        }
+
+        public async Task SendDocumentSentNotificationAsync(string toEmail, string clientName, string category, string fileName, string? adminNotes)
+        {
+            var opId = Guid.NewGuid().ToString("N");
+            _logger.LogInformation("[Email DocSent:{OpId}] Preparing document sent notification. To={To}", opId, toEmail);
+
+            var subject = "New Document from Jyoti Iyer CPA";
+            var notesSection = string.IsNullOrWhiteSpace(adminNotes) ? "" : $@"
+<p><strong>Message from your CPA:</strong></p>
+<blockquote style=""border-left: 3px solid #ccc; padding-left: 10px; margin: 10px 0;"">{adminNotes}</blockquote>
+";
+            var body = $@"
+<h2>New Document Available</h2>
+<p>Your CPA has sent you a document:</p>
+<ul>
+    <li><strong>Category:</strong> {category}</li>
+    <li><strong>File:</strong> {fileName}</li>
+</ul>
+{notesSection}
+<p><a href=""{_baseUrl}/ClientPortal/Dashboard"">View in Portal</a></p>
+";
+            try
+            {
+                await SendEmailAsync(toEmail, subject, body);
+                _logger.LogInformation("[Email DocSent:{OpId}] Document sent notification sent. To={To}", opId, toEmail);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "[Email DocSent:{OpId}] Failed to send document sent notification. To={To}", opId, toEmail);
+            }
+        }
+
+        public async Task SendWorkflowResponseNotificationAsync(string toEmail, string clientName, string documentName, string? responseText, bool hasAttachment)
+        {
+            var opId = Guid.NewGuid().ToString("N");
+            _logger.LogInformation("[Email WorkflowResponse:{OpId}] Preparing workflow response notification. To={To}", opId, toEmail);
+
+            var subject = $"Client Response - {clientName}";
+            var responseSection = string.IsNullOrWhiteSpace(responseText) ? "" : $@"
+<p><strong>Response:</strong></p>
+<blockquote style=""border-left: 3px solid #ccc; padding-left: 10px; margin: 10px 0;"">{responseText}</blockquote>
+";
+            var attachmentNote = hasAttachment ? "<p><em>Client attached a document</em></p>" : "";
+            var body = $@"
+<h2>Client Response Received</h2>
+<p><strong>{clientName}</strong> responded to: <em>{documentName}</em></p>
+{responseSection}
+{attachmentNote}
+<p><a href=""{_baseUrl}/Admin/Dashboard"">View in Portal</a></p>
+";
+            try
+            {
+                await SendEmailAsync(toEmail, subject, body);
+                _logger.LogInformation("[Email WorkflowResponse:{OpId}] Workflow response notification sent. To={To}", opId, toEmail);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "[Email WorkflowResponse:{OpId}] Failed to send workflow response notification. To={To}", opId, toEmail);
+            }
+        }
+
+        public async Task SendClientMessageAsync(string adminEmail, string clientName, string clientEmail, string subject, string message)
+        {
+            var opId = Guid.NewGuid().ToString("N");
+            _logger.LogInformation("[Email ClientMessage:{OpId}] Preparing notification. To={To}, From={From}", opId, adminEmail, clientEmail);
+
+            var emailSubject = $"Client Message from {clientName}: {subject}";
+            var body = $@"
+<h2>New Message from Client</h2>
+<p><strong>From:</strong> {clientName} ({clientEmail})</p>
+<p><strong>Subject:</strong> {subject}</p>
+<hr>
+<blockquote style=""border-left: 4px solid #dc3545; padding-left: 15px; margin: 15px 0; color: #555;"">
+{message.Replace("\n", "<br>")}
+</blockquote>
+<hr>
+<p>Reply directly to this email or contact the client at <a href=""mailto:{clientEmail}"">{clientEmail}</a></p>
+";
+            try
+            {
+                await SendEmailAsync(adminEmail, emailSubject, body);
+                _logger.LogInformation("[Email ClientMessage:{OpId}] Notification sent successfully", opId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "[Email ClientMessage:{OpId}] Failed to send notification", opId);
+                throw;
+            }
+        }
+
+        public async Task SendAppointmentRequestAsync(string adminEmail, string clientName, string clientEmail, string preferredDate, string? notes)
+        {
+            var opId = Guid.NewGuid().ToString("N");
+            _logger.LogInformation("[Email AppointmentRequest:{OpId}] Preparing notification. To={To}, From={From}", opId, adminEmail, clientEmail);
+
+            var subject = $"Appointment Request from {clientName}";
+            var body = $@"
+<h2>New Appointment Request</h2>
+<p><strong>Client:</strong> {clientName} ({clientEmail})</p>
+<p><strong>Preferred Date/Time:</strong> {preferredDate}</p>
+{(string.IsNullOrWhiteSpace(notes) ? "" : $@"
+<p><strong>Additional Notes:</strong></p>
+<blockquote style=""border-left: 4px solid #dc3545; padding-left: 15px; margin: 15px 0; color: #555;"">
+{notes.Replace("\n", "<br>")}
+</blockquote>
+")}
+<hr>
+<p>Please contact the client at <a href=""mailto:{clientEmail}"">{clientEmail}</a> to confirm the appointment.</p>
+";
+            try
+            {
+                await SendEmailAsync(adminEmail, subject, body);
+                _logger.LogInformation("[Email AppointmentRequest:{OpId}] Notification sent successfully", opId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "[Email AppointmentRequest:{OpId}] Failed to send notification", opId);
                 throw;
             }
         }

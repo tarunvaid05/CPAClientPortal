@@ -14,12 +14,15 @@ namespace JyotiIyerCPA.Models
 
     public class AdminUploadViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
+        public string OwnerUserId { get; set; }
+        public string Category { get; set; }
         public string FileName { get; set; }
         public string FileType { get; set; }
         public string ClientName { get; set; }
         public DateTime UploadDate { get; set; }
         public string Status { get; set; }
+        public string UploadSource { get; set; } = "Client Upload"; // "Client Upload" or "Sent to Client"
     }
 
     public class AdminUploadStatsViewModel

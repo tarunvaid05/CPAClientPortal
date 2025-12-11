@@ -2,11 +2,20 @@ namespace JyotiIyerCPA.Options
 {
     public class FileStorageOptions
     {
-        // Root directory where encrypted files are stored (outside web root recommended)
+        // Root directory where encrypted files are stored (for local storage, outside web root recommended)
         public string RootPath { get; set; } = "App_Data/Uploads";
 
         // Base64-encoded 32-byte key for AES-256 (required for encryption at rest)
         public string EncryptionKey { get; set; } = string.Empty;
+
+        // Azure Blob Storage connection string (required for Azure storage)
+        public string ConnectionString { get; set; } = string.Empty;
+
+        // Azure Blob Storage container name
+        public string ContainerName { get; set; } = string.Empty;
+
+        // Storage provider: "Local" or "Azure"
+        public string Provider { get; set; } = "Local";
     }
 }
 
