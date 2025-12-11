@@ -61,6 +61,12 @@ namespace JyotiIyerCPA.Controllers
         [HttpPost]
         public async Task<IActionResult> ContactUs(ContactViewModel model)
         {
+            // Server-side validation for services (list Required attribute doesn't work with default initialization)
+            if (model.Services == null || model.Services.Count == 0)
+            {
+                ModelState.AddModelError("Services", "Please select at least one service.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -80,7 +86,7 @@ namespace JyotiIyerCPA.Controllers
 
             try
             {
-                // Save to database
+                // Save to database - Subject is now a computed property that joins services
                 var submission = new ContactSubmission
                 {
                     Name = model.Name,

@@ -128,26 +128,45 @@
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Phone" class="form-label">Phone Number *</label>
-                                <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" />
-                                <span asp-validation-for="Phone" class="text-danger"></span>
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label">Phone Number *</label>
+                            <input asp-for="Phone" class="form-control" placeholder="Enter your phone number" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Services of Interest <span class="text-danger">*</span></label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="Services" value="Tax Preparation" id="serviceTax">
+                                        <label class="form-check-label" for="serviceTax">Tax Preparation</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="Services" value="Tax Planning" id="servicePlanning">
+                                        <label class="form-check-label" for="servicePlanning">Tax Planning</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="Services" value="Bookkeeping" id="serviceBookkeeping">
+                                        <label class="form-check-label" for="serviceBookkeeping">Bookkeeping</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="Services" value="Payroll Services" id="servicePayroll">
+                                        <label class="form-check-label" for="servicePayroll">Payroll Services</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="Services" value="Business Consulting" id="serviceConsulting">
+                                        <label class="form-check-label" for="serviceConsulting">Business Consulting</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" name="Services" value="Other" id="serviceOther">
+                                        <label class="form-check-label" for="serviceOther">Other</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Subject" class="form-label">Subject *</label>
-                                <select asp-for="Subject" class="form-select">
-                                    <option value="">Select a subject</option>
-                                    <option value="Tax Preparation">Tax Preparation</option>
-                                    <option value="Bookkeeping Services">Bookkeeping Services</option>
-                                    <option value="Financial Consulting">Financial Consulting</option>
-                                    <option value="Business Formation">Business Formation</option>
-                                    <option value="Audit Services">Audit Services</option>
-                                    <option value="General Inquiry">General Inquiry</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                                <span asp-validation-for="Subject" class="text-danger"></span>
-                            </div>
+                            <span class="text-danger" id="servicesError" style="display: none;">Please select at least one service.</span>
+                            <span asp-validation-for="Services" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Message" class="form-label">Message *</label>
@@ -274,12 +293,38 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // Form enhancement
+        // Form enhancement with services validation
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form');
             const submitBtn = form.querySelector('button[type="submit"]');
+            const servicesCheckboxes = document.querySelectorAll('input[name="Services"]');
+            const servicesError = document.getElementById('servicesError');
 
-            form.addEventListener('submit', function() {
+            // Validate at least one service is selected
+            function validateServices() {
+                const checkedServices = document.querySelectorAll('input[name="Services"]:checked');
+                if (checkedServices.length === 0) {
+                    servicesError.style.display = 'block';
+                    return false;
+                }
+                servicesError.style.display = 'none';
+                return true;
+            }
+
+            // Hide error when a checkbox is selected
+            servicesCheckboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    if (document.querySelectorAll('input[name="Services"]:checked').length > 0) {
+                        servicesError.style.display = 'none';
+                    }
+                });
+            });
+
+            form.addEventListener('submit', function(e) {
+                if (!validateServices()) {
+                    e.preventDefault();
+                    return false;
+                }
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
                 submitBtn.disabled = true;
             });

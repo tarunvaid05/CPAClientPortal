@@ -42,8 +42,11 @@ namespace JyotiIyerCPA.Models
         [Phone]
         public string Phone { get; set; } = string.Empty;
 
-        [Required]
-        public string Subject { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Please select at least one service.")]
+        public List<string> Services { get; set; } = new();
+
+        // Computed property for backward compatibility - joins services into a single string
+        public string Subject => Services.Count > 0 ? string.Join(", ", Services) : string.Empty;
 
         [Required]
         [StringLength(2000)]
