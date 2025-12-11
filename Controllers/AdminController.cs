@@ -1,4 +1,5 @@
 using JyotiIyerCPA.Models;
+using JyotiIyerCPA.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using JyotiIyerCPA.Data;
 using System.Data.Common;
 using Microsoft.Extensions.Logging;
+using System.Text.Json.Serialization;
 
 namespace JyotiIyerCPA.Controllers
 {
@@ -22,23 +24,29 @@ namespace JyotiIyerCPA.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _db;
         private readonly ILogger<AdminController> _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly IFileStorage _storage;
 
-        public AdminController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext db, ILogger<AdminController> logger)
+        public AdminController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext db, ILogger<AdminController> logger, IEmailSender emailSender, IFileStorage storage)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _db = db;
             _logger = logger;
+            _emailSender = emailSender;
+            _storage = storage;
         }
 
         [HttpGet]
         public async Task<IActionResult> Clients(string query = null)
         {
-            var users = await _userManager.Users
+            // Only return users in the Client role (exclude Admins)
+            var clientUsers = await _userManager.GetUsersInRoleAsync("Client");
+            var users = clientUsers
                 .Where(u => u.EmailConfirmed)
                 .OrderBy(u => u.Email)
                 .Select(u => new { id = u.Id, name = (u.FirstName + " " + u.LastName).Trim(), email = u.Email })
-                .ToListAsync();
+                .ToList();
             if (!string.IsNullOrWhiteSpace(query))
             {
                 var q = query.ToLowerInvariant();
@@ -67,9 +75,10 @@ namespace JyotiIyerCPA.Controllers
                 .Select(g => new { OwnerUserId = g.Key, Count = g.Count(), LastUpload = g.Max(x => x.UploadedAt) })
                 .ToDictionary(x => x.OwnerUserId, x => new { x.Count, x.LastUpload });
 
-            var users = await _userManager.Users.AsNoTracking()
+            // Only show users in the Client role (exclude Admins from client list)
+            var users = (await _userManager.GetUsersInRoleAsync("Client"))
                 .OrderBy(u => u.Email)
-                .ToListAsync();
+                .ToList();
 
             var clientCards = users.Select(u => new ClientViewModel
             {
@@ -81,19 +90,22 @@ namespace JyotiIyerCPA.Controllers
                 LastUpload = docGroups.TryGetValue(u.Id, out var g2) ? g2.LastUpload.LocalDateTime : DateTime.MinValue
             }).ToList();
 
-            // Recent uploads pane
+            // Recent uploads pane - includes both client uploads and admin-sent documents
             var recentUploads = documents
                 .Where(d => !d.IsDeleted)
                 .OrderByDescending(d => d.UploadedAt)
-                .Take(12)
+                .Take(50)
                 .Join(users, d => d.OwnerUserId, u => u.Id, (d, u) => new AdminUploadViewModel
                 {
-                    Id = 0,
+                    Id = d.Id,
+                    OwnerUserId = d.OwnerUserId,
+                    Category = string.IsNullOrEmpty(d.Category) ? "Other" : d.Category,
                     FileName = d.OriginalFileName,
                     FileType = string.IsNullOrEmpty(d.Category) ? "Document" : d.Category,
                     ClientName = string.IsNullOrWhiteSpace(($"{u.FirstName} {u.LastName}").Trim()) ? (u.Email ?? "Client") : ($"{u.FirstName} {u.LastName}").Trim(),
                     UploadDate = d.UploadedAt.LocalDateTime,
-                    Status = "Uploaded"
+                    Status = "Uploaded",
+                    UploadSource = d.OwnerUserId == d.UploadedByUserId ? "Client Upload" : "Sent to Client"
                 }).ToList();
 
             // Stats
@@ -179,12 +191,182 @@ namespace JyotiIyerCPA.Controllers
             return Ok(new { success = true, documents = docs });
         }
 
+        /// <summary>
+        /// Returns documents sent by admin to a specific client.
+        /// Per Section 3.6: Documents where OwnerUserId = userId AND UploadedByUserId != userId (admin-sent).
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> SentDocuments(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return BadRequest(new { success = false, message = "Missing userId" });
+            }
+
+            var documents = await SafeLoadDocumentsAsync();
+            var sentDocs = documents
+                .Where(d => d.OwnerUserId == userId && d.UploadedByUserId != userId && !d.IsDeleted)
+                .OrderByDescending(d => d.UploadedAt)
+                .Select(d => new
+                {
+                    id = d.Id,
+                    fileName = d.OriginalFileName,
+                    uploadDate = d.UploadedAt,
+                    fileSize = d.Size,
+                    category = d.Category,
+                    status = "Sent"
+                })
+                .ToList();
+
+            return Ok(new { success = true, documents = sentDocs });
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetWorkflows(string? status = null)
+        {
+            var query = _db.DocumentWorkflows
+                .Include(w => w.Document)
+                .AsNoTracking();
+
+            if (!string.IsNullOrEmpty(status))
+                query = query.Where(w => w.Status.ToLower() == status.ToLower());
+
+            var workflows = await query
+                .OrderByDescending(w => w.RespondedAt ?? w.CreatedAt)
+                .Take(20)
+                .Select(w => new
+                {
+                    id = w.Id,
+                    clientUserId = w.ClientUserId,
+                    documentId = w.DocumentId,
+                    clientResponseDocumentId = w.ClientResponseDocumentId,
+                    documentName = w.Document != null ? w.Document.OriginalFileName : "Unknown",
+                    category = w.Document != null ? w.Document.Category : "",
+                    adminNotes = w.AdminNotes,
+                    clientResponseText = w.ClientResponseText,
+                    hasResponseDocument = w.ClientResponseDocumentId != null,
+                    status = w.Status,
+                    createdAt = w.CreatedAt,
+                    respondedAt = w.RespondedAt
+                })
+                .ToListAsync();
+
+            // Get client names
+            var clientIds = workflows.Select(w => w.clientUserId).Distinct().ToList();
+            var clients = await _userManager.Users
+                .Where(u => clientIds.Contains(u.Id))
+                .ToDictionaryAsync(u => u.Id, u => $"{u.FirstName} {u.LastName}");
+
+            var result = workflows.Select(w => new
+            {
+                w.id,
+                clientName = clients.GetValueOrDefault(w.clientUserId, "Unknown"),
+                w.documentId,
+                w.clientResponseDocumentId,
+                w.documentName,
+                w.category,
+                w.adminNotes,
+                w.clientResponseText,
+                w.hasResponseDocument,
+                w.status,
+                w.createdAt,
+                w.respondedAt
+            });
+
+            return Json(new { success = true, workflows = result });
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SendReminder([FromBody] List<string> clientIds, string emailContent)
+        public async Task<IActionResult> ResolveWorkflow(Guid id)
         {
-            // Stub only for now
-            return Ok(new { success = true, message = $"Reminders queued for {clientIds?.Count ?? 0} clients" });
+            var workflow = await _db.DocumentWorkflows.FindAsync(id);
+            if (workflow == null) return NotFound();
+
+            workflow.Status = "Resolved";
+            workflow.ResolvedAt = DateTimeOffset.UtcNow;
+            await _db.SaveChangesAsync();
+
+            return Json(new { success = true });
+        }
+
+        public class SendReminderRequest
+        {
+            [JsonPropertyName("clientIds")]
+            public List<string> ClientIds { get; set; } = new();
+
+            [JsonPropertyName("subject")]
+            public string Subject { get; set; } = string.Empty;
+
+            [JsonPropertyName("body")]
+            public string Body { get; set; } = string.Empty;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendReminder([FromBody] SendReminderRequest request)
+        {
+            if (request?.ClientIds == null || request.ClientIds.Count == 0)
+            {
+                return BadRequest(new { success = false, message = "No clients selected" });
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Body))
+            {
+                return BadRequest(new { success = false, message = "Email body is required" });
+            }
+
+            var successCount = 0;
+            var failedEmails = new List<string>();
+
+            foreach (var clientId in request.ClientIds)
+            {
+                var user = await _userManager.FindByIdAsync(clientId);
+                if (user == null || string.IsNullOrWhiteSpace(user.Email))
+                {
+                    _logger.LogWarning("[Reminder] Client not found or no email: {ClientId}", clientId);
+                    continue;
+                }
+
+                try
+                {
+                    // Replace [Client Name] placeholder with actual name
+                    var clientName = $"{user.FirstName} {user.LastName}".Trim();
+                    if (string.IsNullOrWhiteSpace(clientName)) clientName = "Client";
+
+                    var personalizedBody = request.Body.Replace("[Client Name]", clientName);
+
+                    // Convert plain text to HTML (preserve line breaks)
+                    var htmlBody = $@"
+                        <div style='font-family: Arial, sans-serif; max-width: 600px;'>
+                            {System.Text.RegularExpressions.Regex.Replace(
+                                System.Net.WebUtility.HtmlEncode(personalizedBody),
+                                @"\r?\n",
+                                "<br/>")}
+                        </div>";
+
+                    await _emailSender.SendEmailAsync(user.Email, request.Subject, htmlBody);
+                    successCount++;
+                    _logger.LogInformation("[Reminder] Email sent to {Email}", user.Email);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "[Reminder] Failed to send email to {Email}", user.Email);
+                    failedEmails.Add(user.Email ?? clientId);
+                }
+            }
+
+            if (successCount == 0)
+            {
+                return Ok(new { success = false, message = "Failed to send any reminders. Check SMTP configuration." });
+            }
+
+            var message = successCount == request.ClientIds.Count
+                ? $"Reminders sent successfully to {successCount} client(s)!"
+                : $"Sent {successCount} of {request.ClientIds.Count} reminders. Failed: {string.Join(", ", failedEmails)}";
+
+            return Ok(new { success = true, message, sentCount = successCount, failedCount = failedEmails.Count });
         }
 
         [HttpPost]
@@ -315,6 +497,62 @@ namespace JyotiIyerCPA.Controllers
             {
                 _logger.LogError(ex, "Unexpected error loading documents.");
                 return new List<Document>();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteClient(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return Json(new { success = false, message = "Client ID is required." });
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+                return Json(new { success = false, message = "Client not found." });
+
+            // Verify user is a Client, not Admin
+            if (await _userManager.IsInRoleAsync(user, "Admin"))
+                return Json(new { success = false, message = "Cannot delete admin accounts." });
+
+            try
+            {
+                // Get all documents owned by this client
+                var documents = await _db.Documents
+                    .Where(d => d.OwnerUserId == id && !d.IsDeleted)
+                    .ToListAsync();
+
+                // Delete physical files and soft-delete documents
+                foreach (var doc in documents)
+                {
+                    try
+                    {
+                        await _storage.DeleteAsync(doc.StoredFileName);
+                    }
+                    catch { /* best-effort file deletion */ }
+                    
+                    doc.IsDeleted = true;
+                    doc.DeletedAt = DateTimeOffset.UtcNow;
+                }
+
+                // Delete all workflows involving this client
+                var workflows = await _db.DocumentWorkflows
+                    .Where(w => w.ClientUserId == id)
+                    .ToListAsync();
+                _db.DocumentWorkflows.RemoveRange(workflows);
+
+                // Deactivate the user account
+                user.IsActive = false;
+                await _userManager.UpdateAsync(user);
+
+                await _db.SaveChangesAsync();
+
+                return Json(new { success = true, message = "Client account deactivated and all documents deleted." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting client {ClientId}", id);
+                return Json(new { success = false, message = "An error occurred while deleting the client." });
             }
         }
     }

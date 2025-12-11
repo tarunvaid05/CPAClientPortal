@@ -56,14 +56,27 @@ namespace JyotiIyerCPA.Controllers
 
             if (ModelState.IsValid)
             {
+                // First, find the user to check IsActive status before sign-in
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                
+                // Check if user is deactivated
+                if (user != null && !user.IsActive)
+                {
+                    TempData["LoginError"] = "This account has been deactivated. Please contact your administrator.";
+                    return RedirectToAction("ClientPortal", "Home");
+                }
+                
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
+                    // Update security stamp to invalidate other sessions
+                    await _userManager.UpdateSecurityStampAsync(user);
+                    await _signInManager.RefreshSignInAsync(user);
+
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);
 
-                    var user = await _userManager.FindByEmailAsync(model.Email);
                     if (await _userManager.IsInRoleAsync(user, "Admin"))
                         return RedirectToAction("Dashboard", "Admin");
                     else
@@ -98,6 +111,11 @@ namespace JyotiIyerCPA.Controllers
             }
 
             var user = await _userManager.FindByEmailAsync(request.Email);
+
+            // Update security stamp to invalidate other sessions
+            await _userManager.UpdateSecurityStampAsync(user);
+            await _signInManager.RefreshSignInAsync(user);
+
             var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
             var redirectUrl = Url.Action("Dashboard", isAdmin ? "Admin" : "ClientPortal");
             return Ok(new { success = true, redirect = redirectUrl });
@@ -194,8 +212,35 @@ namespace JyotiIyerCPA.Controllers
             var existingUser = await _userManager.FindByEmailAsync(model.Email);
             if (existingUser != null)
             {
-                _logger.LogWarning("[Invite/Ajax] User already exists: {Email}", model.Email);
-                return Ok(new { success = false, message = "User with this email already exists." });
+                // If user completed setup (EmailConfirmed = true), block re-invite
+                if (existingUser.EmailConfirmed)
+                {
+                    _logger.LogWarning("[Invite/Ajax] User already has active account: {Email}", model.Email);
+                    return Ok(new { success = false, message = "A user with this email already exists and has an active account." });
+                }
+                
+                // User is pending (never completed setup) - allow re-invite
+                _logger.LogInformation("[Invite/Ajax] Re-inviting pending user: {Email}", model.Email);
+                var resendToken = await _userManager.GeneratePasswordResetTokenAsync(existingUser);
+                var resendCallbackUrl = Url.Action("SetPassword", "Account", 
+                    new { userId = existingUser.Id, code = resendToken }, protocol: Request.Scheme);
+                _logger.LogInformation("[Invite/Ajax] Generated re-invite token (len={Len}) for user {UserId}.", resendToken?.Length ?? 0, existingUser.Id);
+                
+                bool resendEmailSent = true;
+                string resendMsg = "A new invitation has been sent. The previous invitation link is no longer valid.";
+                try
+                {
+                    await _emailSender.SendInviteEmail(existingUser.Email, resendCallbackUrl);
+                    _logger.LogInformation("[Invite/Ajax] Re-invite email sent to {Email}", existingUser.Email);
+                }
+                catch (Exception ex)
+                {
+                    resendEmailSent = false;
+                    resendMsg = $"Failed to resend invitation email: {ex.Message}";
+                    _logger.LogError(ex, "[Invite/Ajax] Failed to resend invite email to {Email}: {Message}", existingUser.Email, ex.Message);
+                }
+                
+                return Ok(new { success = true, isResend = true, message = resendMsg, emailSent = resendEmailSent });
             }
 
             var user = new ApplicationUser
@@ -241,7 +286,7 @@ namespace JyotiIyerCPA.Controllers
                 _logger.LogError(ex, "[Invite/Ajax] Failed to send invite email to {Email}: {Message}", model.Email, ex.Message);
             }
 
-            return Ok(new { success = true, message = msg, emailSent });
+            return Ok(new { success = true, isResend = false, message = msg, emailSent });
         }
 
         [HttpGet]
@@ -331,7 +376,7 @@ namespace JyotiIyerCPA.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ClientPortal", "Home");
         }
 
         [HttpGet]
