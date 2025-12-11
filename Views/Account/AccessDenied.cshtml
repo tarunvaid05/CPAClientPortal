@@ -1,17 +1,83 @@
 @{
     ViewData["Title"] = "Access Denied";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAuthenticated = User?.Identity?.IsAuthenticated ?? false;
 }
 
-<div class="container mt-5">
-    <h2 class="text-danger">Access Denied</h2>
-    <p>You do not have permission to access this resource.</p>
-    <a class="btn btn-primary" href="/">Return Home</a>
-    @if (User?.Identity?.IsAuthenticated ?? false)
-    {
-        <a class="btn btn-outline-secondary ms-2" href="/Account/Logout">Sign out</a>
+<div class="access-denied-page">
+    <div class="container">
+        <div class="row justify-content-center min-vh-75 align-items-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body text-center p-5">
+                        <div class="access-denied-icon mb-4">
+                            @if (isAuthenticated)
+                            {
+                                <i class="fas fa-lock fa-4x text-warning"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-clock fa-4x text-secondary"></i>
+                            }
+                        </div>
+                        @if (isAuthenticated)
+                        {
+                            <h2 class="text-warning mb-3">Access Denied</h2>
+                            <p class="text-muted mb-4">
+                                You do not have permission to access this resource.
+                                Please contact an administrator if you believe this is an error.
+                            </p>
+                        }
+                        else
+                        {
+                            <h2 class="text-secondary mb-3">Session Expired</h2>
+                            <p class="text-muted mb-4">
+                                Your session has expired or you've signed in from another location.
+                                Please sign in again to continue.
+                            </p>
+                        }
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            @if (isAuthenticated)
+                            {
+                                <a class="btn btn-primary" href="/">
+                                    <i class="fas fa-home me-2"></i>Return Home
+                                </a>
+                                <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Logout">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Sign Out
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-primary" asp-controller="Home" asp-action="ClientPortal">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In Again
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .access-denied-page {
+        min-height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 2rem 0;
     }
-    else
-    {
-        <a class="btn btn-outline-secondary ms-2" href="/Account/Login">Sign in</a>
+
+    .min-vh-75 {
+        min-height: 60vh;
     }
-}
+
+    .access-denied-icon {
+        opacity: 0.9;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+</style>

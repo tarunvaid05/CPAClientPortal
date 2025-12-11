@@ -1,8 +1,11 @@
 @using JyotiIyerCPA.Models
 @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @{ var tokens = Xsrf.GetAndStoreTokens(ViewContext.HttpContext); }
+    <meta name="request-verification-token" content="@tokens.RequestToken" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Jyoti Iyer CPA Admin Portal</title>

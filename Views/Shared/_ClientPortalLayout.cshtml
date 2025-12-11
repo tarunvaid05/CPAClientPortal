@@ -1,8 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using JyotiIyerCPA.Models
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> UserManager
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="request-verification-token" content="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
     <title>@ViewData["Title"] - Jyoti Iyer CPA Client Portal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -23,10 +27,47 @@
                 <!-- User Profile Dropdown -->
                 <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="user-avatar me-2">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span class="user-name">John Doe</span>
+                        @{
+                            var displayName = "Client";
+                            var initials = "C";
+                            var userFirstName = "";
+                            var userLastName = "";
+                            var userEmail = "";
+                            var userPhone = "";
+                            if (User?.Identity?.IsAuthenticated ?? false)
+                            {
+                                var usr = await UserManager.GetUserAsync(User);
+                                if (usr != null)
+                                {
+                                    userFirstName = usr.FirstName ?? string.Empty;
+                                    userLastName = usr.LastName ?? string.Empty;
+                                    userEmail = usr.Email ?? string.Empty;
+                                    userPhone = usr.PhoneNumber ?? string.Empty;
+
+                                    var fn = userFirstName.Trim();
+                                    var ln = userLastName.Trim();
+                                    var full = ($"{fn} {ln}").Trim();
+                                    displayName = string.IsNullOrWhiteSpace(full) ? (usr.Email ?? usr.UserName ?? "Client") : full;
+
+                                    char? fch = !string.IsNullOrWhiteSpace(fn) ? char.ToUpperInvariant(fn[0]) : (char?)null;
+                                    char? lch = !string.IsNullOrWhiteSpace(ln) ? char.ToUpperInvariant(ln[0]) : (char?)null;
+                                    if (fch.HasValue || lch.HasValue)
+                                    {
+                                        initials = $"{(fch.HasValue ? fch.Value.ToString() : string.Empty)}{(lch.HasValue ? lch.Value.ToString() : string.Empty)}";
+                                    }
+                                    else if (!string.IsNullOrWhiteSpace(usr.Email))
+                                    {
+                                        initials = char.ToUpperInvariant(usr.Email.Trim()[0]).ToString();
+                                    }
+                                    else if (!string.IsNullOrWhiteSpace(usr.UserName))
+                                    {
+                                        initials = char.ToUpperInvariant(usr.UserName.Trim()[0]).ToString();
+                                    }
+                                }
+                            }
+                        }
+                        <div class="user-avatar me-2">@initials</div>
+                        <span class="user-name">@displayName</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><h6 class="dropdown-header">Account Settings</h6></li>
@@ -86,12 +127,20 @@
                 <form id="profileForm">
                     <div class="modal-body">
                         <div class="mb-3">
+                            <label for="profileFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="profileFirstName" value="@userFirstName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="profileLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="profileLastName" value="@userLastName">
+                        </div>
+                        <div class="mb-3">
                             <label for="profileEmail" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="profileEmail" value="john.doe@email.com">
+                            <input type="email" class="form-control" id="profileEmail" value="@userEmail" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="profilePhone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="profilePhone" value="(555) 123-4567">
+                            <input type="tel" class="form-control" id="profilePhone" value="@userPhone">
                         </div>
                     </div>
                     <div class="modal-footer">
