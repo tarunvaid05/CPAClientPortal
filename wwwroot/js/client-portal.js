@@ -15,9 +15,46 @@ function initializeClientPortal() {
     initializeContactForm()
     initializeAppointmentForm()
 
-    // Load received documents with initial filter value
-    const initialStatus = document.getElementById("cpaDocsStatusFilter")?.value || "pending"
-    loadReceivedDocuments(initialStatus)
+    // Load received documents with smart default filter
+    initializeCpaDocsWithSmartDefault()
+}
+
+// Initialize CPA Documents section with smart default filter
+// Priority: Pending (if any exist) -> Responded (if any exist) -> Pending (fallback)
+async function initializeCpaDocsWithSmartDefault() {
+    const filterDropdown = document.getElementById("cpaDocsStatusFilter")
+
+    try {
+        // Fetch pending and responded counts in parallel
+        const [pendingResponse, respondedResponse] = await Promise.all([
+            fetch("/ClientPortal/GetWorkflows?status=pending"),
+            fetch("/ClientPortal/GetWorkflows?status=responded")
+        ])
+
+        const pendingData = await pendingResponse.json()
+        const respondedData = await respondedResponse.json()
+
+        const pendingCount = pendingData.success ? pendingData.workflows.length : 0
+        const respondedCount = respondedData.success ? respondedData.workflows.length : 0
+
+        // Determine smart default: pending if any exist, else responded if any exist, else pending
+        let defaultStatus = "pending"
+        if (pendingCount === 0 && respondedCount > 0) {
+            defaultStatus = "responded"
+        }
+
+        // Update dropdown to match smart default
+        if (filterDropdown) {
+            filterDropdown.value = defaultStatus
+        }
+
+        // Load documents with the smart default
+        loadReceivedDocuments(defaultStatus)
+    } catch (error) {
+        console.error("Error determining smart default filter:", error)
+        // Fallback to pending on error
+        loadReceivedDocuments("pending")
+    }
 }
 
 // Initialize CPA Documents filter
