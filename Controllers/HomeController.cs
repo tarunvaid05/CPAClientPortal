@@ -156,7 +156,7 @@ namespace JyotiIyerCPA.Controllers
             {
                 new ServiceViewModel
                 {
-                    Title = "Tax Preparation & Planning",
+                    Title = "Tax Compliance & Planning",
                     Icon = "fas fa-calculator",
                     Description = "Comprehensive tax preparation for individuals and businesses, including strategic tax planning to minimize your tax liability and maximize deductions."
                 },
@@ -165,18 +165,6 @@ namespace JyotiIyerCPA.Controllers
                     Title = "Bookkeeping Services",
                     Icon = "fas fa-book",
                     Description = "Professional bookkeeping services to keep your financial records accurate and up-to-date, including QuickBooks setup and training."
-                },
-                new ServiceViewModel
-                {
-                    Title = "Financial Consulting",
-                    Icon = "fas fa-chart-line",
-                    Description = "Expert financial advice and consulting services to help you make informed business decisions and achieve your financial goals."
-                },
-                new ServiceViewModel
-                {
-                    Title = "Audit & Assurance",
-                    Icon = "fas fa-shield-alt",
-                    Description = "Independent audit and assurance services to provide confidence in your financial statements and compliance with regulations."
                 },
                 new ServiceViewModel
                 {
