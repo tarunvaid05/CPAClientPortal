@@ -8,8 +8,26 @@ function initializeClientPortal() {
     initializeFileUploads()
     initializeUploadsSearch()
     initializeDocumentCards()
+    initDocumentTypeSearch()
     initializeModals()
     initializeDragAndDrop()
+    initializeCpaDocsFilter()
+    initializeContactForm()
+    initializeAppointmentForm()
+
+    // Load received documents with initial filter value
+    const initialStatus = document.getElementById("cpaDocsStatusFilter")?.value || "pending"
+    loadReceivedDocuments(initialStatus)
+}
+
+// Initialize CPA Documents filter
+function initializeCpaDocsFilter() {
+    const cpaDocsFilter = document.getElementById("cpaDocsStatusFilter")
+    if (cpaDocsFilter) {
+        cpaDocsFilter.addEventListener("change", () => {
+            loadReceivedDocuments(cpaDocsFilter.value)
+        })
+    }
 }
 
 // File Upload Functionality
@@ -67,6 +85,36 @@ function initializeDocumentCards() {
                 openUploadModal(documentType)
             }
         })
+    })
+}
+
+// Document Type Search Functionality
+function initDocumentTypeSearch() {
+    const searchInput = document.getElementById("documentTypeSearch")
+    if (!searchInput) return
+
+    searchInput.addEventListener("input", function () {
+        const searchTerm = this.value.toLowerCase().trim()
+        const documentCards = document.querySelectorAll(".document-type-card")
+        const miscCard = document.querySelector(".document-type-card[data-fallback='true']")
+        let visibleCount = 0
+
+        documentCards.forEach((card) => {
+            const title = card.querySelector("h5")?.textContent.toLowerCase() || ""
+            const description = card.querySelector("p")?.textContent.toLowerCase() || ""
+
+            if (!searchTerm || title.includes(searchTerm) || description.includes(searchTerm)) {
+                card.style.display = ""
+                visibleCount++
+            } else {
+                card.style.display = "none"
+            }
+        })
+
+        // If no matches found, show only Miscellaneous
+        if (visibleCount === 0 && miscCard) {
+            miscCard.style.display = ""
+        }
     })
 }
 
@@ -191,32 +239,74 @@ function uploadSelectedFiles() {
     uploadFiles(fileInput.files, finalDocumentType, fileName)
 }
 
-function uploadFiles(files, documentType, customFileName) {
-    const formData = new FormData()
+async function uploadFiles(files, documentType, customFileName) {
+    if (!files || files.length === 0) {
+        showAlert("No files selected", "error")
+        return
+    }
 
-    Array.from(files).forEach((file, index) => {
-        formData.append(`files[${index}]`, file)
-    })
-
-    formData.append("documentType", documentType)
-    formData.append("customFileName", customFileName)
-
-    // Show loading state
     showLoadingState(true)
 
-    // Simulate upload (replace with actual API call)
-    setTimeout(() => {
-        showLoadingState(false)
-        showAlert(`Successfully uploaded ${files.length} file(s) for ${documentType}`, "success")
-        updateUploadCount(documentType, files.length)
-        clearFileInputs()
+    // Get antiforgery token
+    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ||
+                  document.querySelector('meta[name="request-verification-token"]')?.content || ''
 
-        // Close modal if open
-        const modal = window.bootstrap.Modal.getInstance(document.getElementById("uploadModal"))
-        if (modal) {
-            modal.hide()
+    let successCount = 0
+    let errorMessages = []
+
+    // Upload each file individually (controller expects single file)
+    for (const file of files) {
+        const formData = new FormData()
+        formData.append("file", file)
+        formData.append("category", documentType)
+
+        try {
+            const response = await fetch('/Documents/Upload', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'RequestVerificationToken': token
+                }
+            })
+
+            const data = await response.json()
+
+            if (response.ok && data.success) {
+                successCount++
+            } else {
+                errorMessages.push(data.message || `Failed to upload ${file.name}`)
+            }
+        } catch (error) {
+            errorMessages.push(`Error uploading ${file.name}: ${error.message}`)
         }
-    }, 2000)
+    }
+
+    showLoadingState(false)
+
+    if (successCount > 0) {
+        showAlert(`Successfully uploaded ${successCount} file(s) for ${documentType}`, "success")
+        updateUploadCount(documentType, successCount)
+
+        // Refresh the uploads list
+        if (typeof refreshUploadsList === 'function') {
+            refreshUploadsList()
+        } else {
+            // Reload page to show new uploads
+            setTimeout(() => window.location.reload(), 1500)
+        }
+    }
+
+    if (errorMessages.length > 0) {
+        showAlert(errorMessages.join(". "), "error")
+    }
+
+    clearFileInputs()
+
+    // Close modal if open
+    const modal = window.bootstrap.Modal.getInstance(document.getElementById("uploadModal"))
+    if (modal) {
+        modal.hide()
+    }
 }
 
 // Uploads Search Functions
@@ -241,6 +331,18 @@ function performUploadsSearch() {
             item.style.display = "none"
         }
     })
+
+    // Show/hide search empty state
+    const searchEmptyState = document.getElementById("searchEmptyState")
+    const hasUploads = uploadItems.length > 0
+
+    if (searchEmptyState) {
+        if (visibleCount === 0 && hasUploads && (searchTerm || filterType)) {
+            searchEmptyState.style.display = "block"
+        } else {
+            searchEmptyState.style.display = "none"
+        }
+    }
 
     // Optional: Show search results count
     if (searchTerm || filterType) {
@@ -386,16 +488,15 @@ function showLoadingState(show) {
 }
 
 function showAlert(message, type) {
-    const alertContainer = document.querySelector(".container-fluid")
     const alertElement = document.createElement("div")
-    alertElement.className = `alert alert-${type === "error" ? "danger" : type} alert-dismissible fade show`
+    alertElement.className = `alert alert-${type === "error" ? "danger" : type} alert-dismissible alert-notification`
     alertElement.innerHTML = `
         <i class="fas fa-${getAlertIcon(type)} me-2"></i>
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `
 
-    alertContainer.insertBefore(alertElement, alertContainer.firstChild)
+    document.body.appendChild(alertElement)
 
     // Auto-dismiss after 5 seconds
     setTimeout(() => {
@@ -437,15 +538,729 @@ function removeFile(index) {
     console.log("Removing file at index:", index)
 }
 
-// Quick Action Functions
-function scheduleAppointment() {
-    showAlert("Redirecting to appointment scheduling...", "info")
-    // This would redirect to a scheduling system
+// Document deletion
+async function deleteDocument(documentId, fileName) {
+    if (!confirm(`Are you sure you want to delete "${fileName}"? This action cannot be undone.`)) {
+        return
+    }
+
+    // Get antiforgery token
+    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value ||
+                  document.querySelector('meta[name="request-verification-token"]')?.content || ''
+
+    try {
+        const response = await fetch(`/Documents/Delete/${documentId}`, {
+            method: 'DELETE',
+            headers: {
+                'RequestVerificationToken': token
+            }
+        })
+
+        const data = await response.json()
+
+        if (response.ok && data.success) {
+            showAlert('Document deleted successfully', 'success')
+            // Reload page to refresh counts and list
+            setTimeout(() => window.location.reload(), 1000)
+        } else {
+            showAlert(data.message || 'Failed to delete document', 'error')
+        }
+    } catch (error) {
+        showAlert('Error deleting document: ' + error.message, 'error')
+    }
 }
 
-function contactCPA() {
-    showAlert("Opening contact form...", "info")
-    // This would open a contact modal or redirect to contact page
+// ==========================================
+// Quick Actions Functions
+// ==========================================
+
+function openQuickUpload() {
+    // Open upload modal with default category
+    const uploadModal = document.getElementById("uploadModal")
+    if (uploadModal) {
+        // Reset form and set default category
+        const form = uploadModal.querySelector("form")
+        if (form) form.reset()
+        const categorySelect = document.getElementById("uploadCategory")
+        if (categorySelect) categorySelect.value = "Miscellaneous"
+        const modal = new bootstrap.Modal(uploadModal)
+        modal.show()
+    }
+}
+
+function openContactModal() {
+    const contactModal = document.getElementById("contactModal")
+    if (contactModal) {
+        // Reset form
+        document.getElementById("contactForm").reset()
+        const modal = new bootstrap.Modal(contactModal)
+        modal.show()
+    }
+}
+
+function openAppointmentModal() {
+    const appointmentModal = document.getElementById("appointmentModal")
+    if (appointmentModal) {
+        // Reset form
+        document.getElementById("appointmentForm").reset()
+        const modal = new bootstrap.Modal(appointmentModal)
+        modal.show()
+    }
+}
+
+function scrollToPending() {
+    // Set filter to pending and scroll to CPA documents section
+    const filter = document.getElementById("cpaDocsStatusFilter")
+    if (filter) {
+        filter.value = "pending"
+        loadReceivedDocuments("pending")
+    }
+    const section = document.querySelector(".cpa-documents-section")
+    if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+}
+
+// Contact Form Submission
+function initializeContactForm() {
+    const contactForm = document.getElementById("contactForm")
+    if (contactForm) {
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault()
+
+            const submitBtn = document.getElementById("sendMessageBtn")
+            const originalText = submitBtn.innerHTML
+            submitBtn.disabled = true
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Sending...'
+
+            const formData = new FormData(contactForm)
+
+            try {
+                const response = await fetch("/ClientPortal/SendMessage", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                })
+
+                const result = await response.json()
+
+                bootstrap.Modal.getInstance(document.getElementById("contactModal")).hide()
+
+                if (result.success) {
+                    showAlert(result.message, "success")
+                } else {
+                    showAlert(result.message || "Failed to send message.", "error")
+                }
+            } catch (error) {
+                showAlert("An error occurred. Please try again.", "error")
+            } finally {
+                submitBtn.disabled = false
+                submitBtn.innerHTML = originalText
+            }
+        })
+    }
+}
+
+// Appointment Form Submission
+function initializeAppointmentForm() {
+    const appointmentForm = document.getElementById("appointmentForm")
+    if (appointmentForm) {
+        appointmentForm.addEventListener("submit", async (e) => {
+            e.preventDefault()
+
+            const submitBtn = document.getElementById("requestAppointmentBtn")
+            const originalText = submitBtn.innerHTML
+            submitBtn.disabled = true
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Sending...'
+
+            const formData = new FormData(appointmentForm)
+
+            try {
+                const response = await fetch("/ClientPortal/RequestAppointment", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                    }
+                })
+
+                const result = await response.json()
+
+                bootstrap.Modal.getInstance(document.getElementById("appointmentModal")).hide()
+
+                if (result.success) {
+                    showAlert(result.message, "success")
+                } else {
+                    showAlert(result.message || "Failed to send request.", "error")
+                }
+            } catch (error) {
+                showAlert("An error occurred. Please try again.", "error")
+            } finally {
+                submitBtn.disabled = false
+                submitBtn.innerHTML = originalText
+            }
+        })
+    }
+}
+
+// ==========================================
+// Documents from Your CPA Section
+// ==========================================
+
+// Category display order and configuration
+const cpaDocumentCategories = {
+    "Requires Signature": {
+        icon: "fa-pen-nib",
+        badgeClass: "bg-warning text-dark",
+        highlight: true,
+        displayName: "Requires Your Signature"
+    },
+    "Tax Return - For Review": {
+        icon: "fa-file-alt",
+        badgeClass: "bg-info",
+        highlight: false,
+        displayName: "Tax Returns for Review"
+    },
+    "Tax Return - Finalized": {
+        icon: "fa-check-circle",
+        badgeClass: "bg-success",
+        highlight: false,
+        displayName: "Finalized Tax Returns"
+    }
+}
+
+// Global variable to store workflows
+let clientWorkflows = []
+
+// Get empty state message based on filter status
+function getEmptyStateMessage(status) {
+    switch(status) {
+        case "pending":
+            return "No documents require your attention"
+        case "responded":
+            return "No documents awaiting CPA review"
+        case "resolved":
+            return "No resolved documents"
+        default:
+            return "No documents from your CPA"
+    }
+}
+
+// Update pending count badge
+function updatePendingCountBadge(count) {
+    const badge = document.getElementById("pendingCountBadge")
+    if (badge) {
+        if (count > 0) {
+            badge.textContent = count
+            badge.style.display = "inline-block"
+        } else {
+            badge.style.display = "none"
+        }
+    }
+}
+
+// Load received documents from the server
+async function loadReceivedDocuments(status = "pending") {
+    const loadingEl = document.getElementById("cpaDocsLoading")
+    const emptyEl = document.getElementById("cpaDocsEmpty")
+    const listEl = document.getElementById("cpaDocsList")
+
+    // Skip if elements don't exist (not on dashboard page)
+    if (!loadingEl || !emptyEl || !listEl) return
+
+    try {
+        // Build workflows URL with status filter
+        const workflowsUrl = status ? `/ClientPortal/GetWorkflows?status=${status}` : "/ClientPortal/GetWorkflows"
+
+        // Fetch both documents and workflows in parallel
+        const [docsResponse, workflowsResponse, pendingCountResponse] = await Promise.all([
+            fetch("/ClientPortal/ReceivedDocuments"),
+            fetch(workflowsUrl),
+            fetch("/ClientPortal/GetWorkflows?status=pending") // Always get pending count for badge
+        ])
+
+        const docsData = await docsResponse.json()
+        const workflowsData = await workflowsResponse.json()
+        const pendingCountData = await pendingCountResponse.json()
+
+        // Store workflows globally for later use
+        clientWorkflows = workflowsData.success ? workflowsData.workflows : []
+
+        // Update pending count badge
+        const pendingCount = pendingCountData.success ? pendingCountData.workflows.length : 0
+        updatePendingCountBadge(pendingCount)
+
+        // Hide loading
+        loadingEl.style.display = "none"
+
+        if (!docsData.success || !docsData.documents || docsData.documents.length === 0) {
+            emptyEl.innerHTML = `
+                <i class="fas fa-folder-open fa-2x mb-2 text-muted"></i>
+                <p class="mb-0">${getEmptyStateMessage(status)}</p>
+            `
+            emptyEl.style.display = "block"
+            listEl.innerHTML = ""
+            return
+        }
+
+        // Merge workflow info into documents
+        const documentsWithWorkflow = docsData.documents.map(doc => {
+            const workflow = clientWorkflows.find(w => w.documentId === doc.id)
+            return {
+                ...doc,
+                workflow: workflow || null
+            }
+        })
+
+        // Filter documents based on status - only show documents that have matching workflows
+        let filteredDocuments = documentsWithWorkflow
+        if (status) {
+            filteredDocuments = documentsWithWorkflow.filter(doc => doc.workflow !== null)
+        }
+
+        // Check if we have documents to display after filtering
+        if (filteredDocuments.length === 0) {
+            emptyEl.innerHTML = `
+                <i class="fas fa-folder-open fa-2x mb-2 text-muted"></i>
+                <p class="mb-0">${getEmptyStateMessage(status)}</p>
+            `
+            emptyEl.style.display = "block"
+            listEl.innerHTML = ""
+            return
+        }
+
+        // Hide empty state and render the documents with workflow info
+        emptyEl.style.display = "none"
+        renderReceivedDocuments(filteredDocuments, listEl)
+    } catch (error) {
+        console.error("Error loading received documents:", error)
+        loadingEl.style.display = "none"
+        emptyEl.innerHTML = `
+            <i class="fas fa-exclamation-triangle fa-2x mb-2 text-warning"></i>
+            <p class="mb-0">Unable to load documents.</p>
+            <small>Please refresh the page to try again.</small>
+        `
+        emptyEl.style.display = "block"
+    }
+}
+
+// Render received documents grouped by category
+function renderReceivedDocuments(documents, container) {
+    // Group documents by category
+    const groupedDocs = {}
+
+    documents.forEach(doc => {
+        const category = doc.category || "Other"
+        if (!groupedDocs[category]) {
+            groupedDocs[category] = []
+        }
+        groupedDocs[category].push(doc)
+    })
+
+    // Define category order (Requires Signature first, then others)
+    const categoryOrder = ["Requires Signature", "Tax Return - For Review", "Tax Return - Finalized"]
+
+    // Get all categories and sort them
+    const allCategories = Object.keys(groupedDocs)
+    const sortedCategories = [
+        ...categoryOrder.filter(cat => allCategories.includes(cat)),
+        ...allCategories.filter(cat => !categoryOrder.includes(cat))
+    ]
+
+    let html = '<div class="cpa-docs-grid">'
+
+    sortedCategories.forEach(category => {
+        const docs = groupedDocs[category]
+        const config = cpaDocumentCategories[category] || {
+            icon: "fa-file",
+            badgeClass: "bg-secondary",
+            highlight: false,
+            displayName: category
+        }
+
+        const highlightClass = config.highlight ? "cpa-category-highlight" : ""
+
+        html += `
+            <div class="cpa-category-group ${highlightClass}">
+                <div class="cpa-category-header">
+                    <span class="badge ${config.badgeClass} me-2">
+                        <i class="fas ${config.icon} me-1"></i>
+                        ${config.displayName}
+                    </span>
+                    <span class="text-muted small">${docs.length} document${docs.length !== 1 ? 's' : ''}</span>
+                </div>
+                <div class="cpa-docs-list">
+        `
+
+        docs.forEach(doc => {
+            const sentDate = new Date(doc.sentDate).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            })
+
+            // Check for workflow info
+            const workflow = doc.workflow
+            const hasAdminNotes = workflow && workflow.adminNotes
+            const canRespond = workflow && workflow.canRespond
+            const hasResponded = workflow && workflow.status === "Responded"
+
+            // Build admin notes display
+            let adminNotesHtml = ''
+            if (hasAdminNotes) {
+                adminNotesHtml = `
+                    <div class="admin-notes-inline mt-1">
+                        <small class="text-primary"><i class="fas fa-comment-alt me-1"></i>${escapeHtml(workflow.adminNotes)}</small>
+                    </div>
+                `
+            }
+
+            // Build status badge
+            let statusBadgeHtml = ''
+            if (hasResponded) {
+                statusBadgeHtml = `<span class="badge bg-success workflow-status-badge ms-2"><i class="fas fa-check me-1"></i>Responded</span>`
+            } else if (workflow && workflow.status === "Pending") {
+                statusBadgeHtml = `<span class="badge bg-warning text-dark workflow-status-badge ms-2">Pending</span>`
+            }
+
+            // Build action buttons
+            let actionsHtml = `<a href="/Documents/Download/${doc.id}" class="btn btn-sm btn-outline-primary" title="Download"><i class="fas fa-download"></i></a>`
+
+            // Add View button if workflow exists
+            if (workflow) {
+                actionsHtml = `<button class="btn btn-sm btn-outline-info me-1" onclick="viewWorkflowDetails('${workflow.id}')" title="View Details"><i class="fas fa-eye"></i></button>` + actionsHtml
+            }
+
+            if (canRespond) {
+                const escapedFileName = escapeHtml(doc.fileName).replace(/'/g, "\\'")
+                const escapedNotes = hasAdminNotes ? escapeHtml(workflow.adminNotes).replace(/'/g, "\\'") : ''
+                actionsHtml = `
+                    <button type="button" class="btn btn-sm btn-primary me-1" onclick="openResponseModal('${workflow.id}', '${escapedFileName}', '${escapedNotes}')" title="Respond">
+                        <i class="fas fa-reply me-1"></i>Respond
+                    </button>
+                    <button class="btn btn-sm btn-outline-info me-1" onclick="viewWorkflowDetails('${workflow.id}')" title="View Details"><i class="fas fa-eye"></i></button>
+                    <a href="/Documents/Download/${doc.id}" class="btn btn-sm btn-outline-primary" title="Download"><i class="fas fa-download"></i></a>
+                `
+            }
+
+            html += `
+                <div class="cpa-doc-item">
+                    <div class="cpa-doc-info">
+                        <div class="cpa-doc-icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="cpa-doc-details">
+                            <h6 class="mb-0">${escapeHtml(doc.fileName)}${statusBadgeHtml}</h6>
+                            <small class="text-muted">Sent ${sentDate}</small>
+                            ${adminNotesHtml}
+                        </div>
+                    </div>
+                    <div class="cpa-doc-actions">
+                        ${actionsHtml}
+                    </div>
+                </div>
+            `
+        })
+
+        html += `
+                </div>
+            </div>
+        `
+    })
+
+    html += '</div>'
+    container.innerHTML = html
+}
+
+// Helper function to escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div')
+    div.textContent = text
+    return div.innerHTML
+}
+
+// ==========================================
+// Workflow Details Modal Functions
+// ==========================================
+
+// Get badge class based on workflow status
+function getStatusBadgeClass(status) {
+    const statusLower = (status || "").toLowerCase()
+    switch (statusLower) {
+        case "pending":
+            return "bg-warning text-dark"
+        case "responded":
+            return "bg-info"
+        case "resolved":
+            return "bg-success"
+        default:
+            return "bg-secondary"
+    }
+}
+
+// Build timeline HTML for workflow
+function buildWorkflowTimeline(workflow) {
+    let timelineHtml = ""
+
+    // Sent date (createdAt)
+    if (workflow.createdAt) {
+        const sentDate = new Date(workflow.createdAt).toLocaleString()
+        timelineHtml += `
+            <div class="d-flex align-items-center mb-2">
+                <span class="badge bg-primary me-2"><i class="fas fa-paper-plane"></i></span>
+                <span><strong>Sent:</strong> ${sentDate}</span>
+            </div>
+        `
+    }
+
+    // Responded date
+    if (workflow.respondedAt) {
+        const respondedDate = new Date(workflow.respondedAt).toLocaleString()
+        timelineHtml += `
+            <div class="d-flex align-items-center mb-2">
+                <span class="badge bg-info me-2"><i class="fas fa-reply"></i></span>
+                <span><strong>Responded:</strong> ${respondedDate}</span>
+            </div>
+        `
+    }
+
+    // Resolved date
+    if (workflow.resolvedAt) {
+        const resolvedDate = new Date(workflow.resolvedAt).toLocaleString()
+        timelineHtml += `
+            <div class="d-flex align-items-center mb-2">
+                <span class="badge bg-success me-2"><i class="fas fa-check"></i></span>
+                <span><strong>Resolved:</strong> ${resolvedDate}</span>
+            </div>
+        `
+    }
+
+    return timelineHtml || '<p class="text-muted">No timeline data available.</p>'
+}
+
+// View workflow details in modal
+function viewWorkflowDetails(workflowId) {
+    // Find the workflow in cached data
+    const workflow = clientWorkflows.find(w => w.id === workflowId)
+    if (!workflow) {
+        showAlert("Workflow not found.", "error")
+        return
+    }
+
+    // Populate status badge
+    const statusBadge = document.getElementById("workflowStatusBadge")
+    if (statusBadge) {
+        statusBadge.textContent = workflow.status
+        statusBadge.className = "badge ms-2 " + getStatusBadgeClass(workflow.status)
+    }
+
+    // Build timeline
+    const timeline = document.getElementById("workflowTimeline")
+    if (timeline) {
+        timeline.innerHTML = buildWorkflowTimeline(workflow)
+    }
+
+    // Populate document info
+    const docNameEl = document.getElementById("workflowDocumentName")
+    if (docNameEl) {
+        docNameEl.textContent = workflow.documentName || "Unknown"
+    }
+
+    const categoryEl = document.getElementById("workflowCategory")
+    if (categoryEl) {
+        categoryEl.textContent = workflow.category || "Unknown"
+    }
+
+    // Admin notes
+    const adminNotesSection = document.getElementById("adminNotesSection")
+    const adminNotesText = document.getElementById("workflowAdminNotes")
+    if (adminNotesSection && adminNotesText) {
+        if (workflow.adminNotes) {
+            adminNotesSection.style.display = "block"
+            adminNotesText.textContent = workflow.adminNotes
+        } else {
+            adminNotesSection.style.display = "none"
+        }
+    }
+
+    // Download original document button
+    const downloadOriginalBtn = document.getElementById("downloadOriginalBtn")
+    if (downloadOriginalBtn) {
+        if (workflow.documentId) {
+            downloadOriginalBtn.onclick = () => {
+                window.location.href = `/Documents/Download/${workflow.documentId}`
+            }
+            downloadOriginalBtn.style.display = "inline-block"
+        } else {
+            downloadOriginalBtn.style.display = "none"
+        }
+    }
+
+    // Client response section
+    const status = (workflow.status || "").toLowerCase()
+    const clientResponseSection = document.getElementById("clientResponseSection")
+    const responseTextSection = document.getElementById("responseTextSection")
+    const workflowResponseText = document.getElementById("workflowResponseText")
+    const downloadResponseBtn = document.getElementById("downloadResponseBtn")
+
+    if (clientResponseSection) {
+        if (status === "responded" || status === "resolved") {
+            clientResponseSection.style.display = "block"
+
+            // Response text
+            if (responseTextSection && workflowResponseText) {
+                if (workflow.clientResponseText) {
+                    responseTextSection.style.display = "block"
+                    workflowResponseText.textContent = workflow.clientResponseText
+                } else {
+                    responseTextSection.style.display = "none"
+                }
+            }
+
+            // Response document download
+            if (downloadResponseBtn) {
+                if (workflow.clientResponseDocumentId) {
+                    downloadResponseBtn.onclick = () => {
+                        window.location.href = `/Documents/Download/${workflow.clientResponseDocumentId}`
+                    }
+                    downloadResponseBtn.style.display = "inline-block"
+                } else {
+                    downloadResponseBtn.style.display = "none"
+                }
+            }
+        } else {
+            clientResponseSection.style.display = "none"
+        }
+    }
+
+    // Respond button (only for Pending)
+    const respondBtn = document.getElementById("respondToWorkflowBtn")
+    if (respondBtn) {
+        if (workflow.status === "Pending" && workflow.canRespond) {
+            respondBtn.style.display = "inline-block"
+            respondBtn.onclick = () => {
+                // Close this modal and open response modal
+                const detailsModal = bootstrap.Modal.getInstance(document.getElementById("workflowDetailsModal"))
+                if (detailsModal) {
+                    detailsModal.hide()
+                }
+                openResponseModal(workflow.id, workflow.documentName, workflow.adminNotes || '')
+            }
+        } else {
+            respondBtn.style.display = "none"
+        }
+    }
+
+    // Show modal
+    const modalElement = document.getElementById("workflowDetailsModal")
+    if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement)
+        modal.show()
+    }
+}
+
+// ==========================================
+// Workflow Response Functions
+// ==========================================
+
+// Open the response modal for a workflow
+function openResponseModal(workflowId, documentName, adminNotes) {
+    // Set the workflow ID
+    document.getElementById("responseWorkflowId").value = workflowId
+
+    // Set the document name
+    document.getElementById("responseModalDocName").textContent = documentName
+
+    // Show/hide admin notes
+    const notesContainer = document.getElementById("responseModalNotes")
+    const notesContent = document.getElementById("responseModalNotesContent")
+
+    if (adminNotes && adminNotes.trim()) {
+        notesContent.textContent = adminNotes
+        notesContainer.style.display = "block"
+    } else {
+        notesContainer.style.display = "none"
+    }
+
+    // Clear form fields
+    document.getElementById("responseText").value = ""
+    document.getElementById("responseFile").value = ""
+
+    // Show the modal
+    const modalElement = document.getElementById("responseModal")
+    if (modalElement) {
+        const modal = window.bootstrap.Modal.getOrCreateInstance(modalElement)
+        modal.show()
+    }
+}
+
+// Submit the workflow response
+async function submitWorkflowResponse() {
+    const workflowId = document.getElementById("responseWorkflowId").value
+    const responseText = document.getElementById("responseText").value
+    const responseFile = document.getElementById("responseFile").files[0]
+
+    // Validate input
+    if (!responseText.trim() && !responseFile) {
+        showAlert("Please provide a response message or attach a file.", "warning")
+        return
+    }
+
+    // Get antiforgery token
+    const token = document.querySelector('#workflowResponseForm input[name="__RequestVerificationToken"]')?.value ||
+                  document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+
+    // Create form data
+    const formData = new FormData()
+    formData.append("workflowId", workflowId)
+    if (responseText.trim()) {
+        formData.append("responseText", responseText)
+    }
+    if (responseFile) {
+        formData.append("responseFile", responseFile)
+    }
+
+    // Show loading state
+    const submitBtn = document.querySelector('#responseModal .btn-primary')
+    const originalBtnHtml = submitBtn.innerHTML
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Submitting...'
+    submitBtn.disabled = true
+
+    try {
+        const response = await fetch('/ClientPortal/SubmitWorkflowResponse', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'RequestVerificationToken': token
+            }
+        })
+
+        const data = await response.json()
+
+        if (response.ok && data.success) {
+            // Close the modal
+            const modal = window.bootstrap.Modal.getInstance(document.getElementById("responseModal"))
+            if (modal) {
+                modal.hide()
+            }
+
+            showAlert(data.message || "Response submitted successfully!", "success")
+
+            // Reload the documents to show updated status
+            loadReceivedDocuments()
+        } else {
+            showAlert(data.message || "Failed to submit response.", "error")
+        }
+    } catch (error) {
+        console.error("Error submitting response:", error)
+        showAlert("Error submitting response: " + error.message, "error")
+    } finally {
+        // Restore button state
+        submitBtn.innerHTML = originalBtnHtml
+        submitBtn.disabled = false
+    }
 }
 
 // Ensure Bootstrap is available

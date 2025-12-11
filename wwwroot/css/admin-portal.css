@@ -1,5 +1,9 @@
 /* Admin Portal Specific Styles */
 
+html {
+    background-color: #f8f9fa !important;
+}
+
 .admin-portal-body {
   background-color: #f8f9fa;
   padding-top: 80px;
@@ -117,11 +121,16 @@
 .upload-filter-controls {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
   align-items: flex-start;
-  margin-top: 0.75rem;
+  margin-top: 0;
   margin-left: auto;
   width: fit-content;
+}
+
+/* Reduce bottom padding for uploads stat card only */
+.stat-card.stat-card-uploads {
+  padding: 1.5rem 1.5rem 1.2rem 1.5rem;
 }
 
 .upload-filter-controls .form-select,
@@ -301,6 +310,7 @@
 .all-uploads {
   max-height: 300px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .upload-item {
@@ -692,4 +702,87 @@
 
 .upload-error .upload-icon {
   color: #dc3545;
+}
+
+/* Clickable upload items in All Uploads */
+.clickable-upload {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clickable-upload:hover {
+  background-color: rgba(220, 53, 69, 0.06);
+}
+
+.clickable-upload:hover .upload-info h6 {
+  color: var(--primary-color);
+}
+
+/* Document highlight animation */
+.highlight-document {
+  animation: highlightPulse 2s ease-out;
+}
+
+@keyframes highlightPulse {
+  0% {
+    background-color: rgba(220, 53, 69, 0.3);
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.2);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+/* Client Responses Section */
+.client-responses-list {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.response-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+  gap: 0.5rem;
+}
+
+.response-item:last-child {
+  border-bottom: none;
+}
+
+.response-item:hover {
+  background-color: rgba(220, 53, 69, 0.04);
+}
+
+.response-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.response-info h6 {
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.response-preview {
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.response-actions {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.response-filters {
+  margin-bottom: 0.5rem;
 }
