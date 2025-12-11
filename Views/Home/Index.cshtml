@@ -33,71 +33,33 @@
     </div>
 </section>
 
-
-<!-- Qualifications Section -->
-<section class="qualifications-section py-5 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="section-title mb-5">Professional Qualifications</h2>
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="qualification-card">
-                            <div class="qualification-icon">
-                                <i class="fas fa-certificate text-primary"></i>
-                            </div>
-                            <h4>CPA Licensed</h4>
-                            <p>Certified Public Accountant with active license and continuing education</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="qualification-card">
-                            <div class="qualification-icon">
-                                <i class="fas fa-graduation-cap text-primary"></i>
-                            </div>
-                            <h4>Advanced Degree</h4>
-                            <p>Master's in Accounting with specialized focus on tax and financial planning</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="qualification-card">
-                            <div class="qualification-icon">
-                                <i class="fas fa-award text-primary"></i>
-                            </div>
-                            <h4>15+ Years Experience</h4>
-                            <p>Extensive experience serving diverse clients across multiple industries</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Testimonials Section -->
-<section class="testimonials-section py-5">
+<section class="testimonials-section py-5 bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
+            <div class="col-lg-10 mx-auto text-center">
                 <h2 class="section-title mb-5">What Our Clients Say</h2>
                 <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         @for (int i = 0; i < Model.Testimonials.Count; i++)
                         {
                             <div class="carousel-item @(i == 0 ? "active" : "")">
-                                <div class="testimonial-card">
+                                <div class="testimonial-card bg-white rounded-3 shadow-sm p-5 mx-auto" style="max-width: 800px;">
+                                    <div class="quote-icon mb-4">
+                                        <i class="fas fa-quote-left fa-3x text-primary opacity-25"></i>
+                                    </div>
+                                    <blockquote class="blockquote mb-4">
+                                        <p class="fs-5 mb-0">"@Model.Testimonials[i].Message"</p>
+                                    </blockquote>
                                     <div class="stars mb-3">
                                         @for (int j = 0; j < Model.Testimonials[i].Rating; j++)
                                         {
                                             <i class="fas fa-star text-warning"></i>
                                         }
                                     </div>
-                                    <blockquote class="blockquote">
-                                        <p>"@Model.Testimonials[i].Message"</p>
-                                    </blockquote>
-                                    <footer class="blockquote-footer">
+                                    <footer class="blockquote-footer mb-0">
                                         <strong>@Model.Testimonials[i].Name</strong>
-                                        <cite title="Source Title">@Model.Testimonials[i].Company</cite>
+                                        <span class="d-block text-muted">@Model.Testimonials[i].Company</span>
                                     </footer>
                                 </div>
                             </div>
@@ -118,7 +80,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="cta-section bg-light text-dark" style="padding: 3rem 0 3.925rem;">
+<section class="cta-section text-dark" style="padding: 3rem 0 3.925rem;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
