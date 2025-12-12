@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Tests.Storage;
@@ -40,7 +41,9 @@ namespace Tests
         {
             var (db, userMgr, _) = SetupIdentity();
             var storage = new FakeFileStorage();
-            var controller = new DocumentsController(db, storage, userMgr, new NullLogger<DocumentsController>());
+            var emailSender = new Mock<IEmailSender>();
+            var configuration = new Mock<IConfiguration>();
+            var controller = new DocumentsController(db, storage, userMgr, new NullLogger<DocumentsController>(), emailSender.Object, configuration.Object);
             var admin = new ApplicationUser { Id = "admin", Email = "a@a" };
 
             // Fake identity context
