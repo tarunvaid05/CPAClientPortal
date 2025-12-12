@@ -158,25 +158,25 @@ namespace JyotiIyerCPA.Controllers
                 {
                     Title = "Tax Compliance & Planning",
                     Icon = "fas fa-calculator",
-                    Description = "Comprehensive tax preparation for individuals and businesses, including strategic tax planning to minimize your tax liability and maximize deductions."
+                    Description = "Comprehensive tax preparation for individuals and businesses."
                 },
                 new ServiceViewModel
                 {
                     Title = "Bookkeeping Services",
                     Icon = "fas fa-book",
-                    Description = "Professional bookkeeping services to keep your financial records accurate and up-to-date, including QuickBooks setup and training."
+                    Description = "Professional Bookkeeping services to keep your financial records accurate and up to date."
                 },
                 new ServiceViewModel
                 {
                     Title = "Business Formation",
                     Icon = "fas fa-building",
-                    Description = "Guidance on business structure selection, incorporation services, and ongoing compliance requirements for new businesses."
+                    Description = "Guidance on business structure selection, incorporation services and ongoing compliance requirements for new businesses."
                 },
                 new ServiceViewModel
                 {
                     Title = "Payroll Services",
                     Icon = "fas fa-users",
-                    Description = "Complete payroll processing services including tax withholdings, direct deposits, and quarterly reporting."
+                    Description = "Complete payroll processing services including tax withholdings, direct deposits, and quarterly payroll tax filings."
                 }
             };
         }
