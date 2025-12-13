@@ -12,17 +12,20 @@ namespace JyotiIyerCPA.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ApplicationDbContext _db;
         private readonly IConfiguration _configuration;
+        private readonly IServiceScopeFactory _scopeFactory;
 
         public HomeController(
             ILogger<HomeController> logger,
             IEmailSender emailSender,
             ApplicationDbContext db,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IServiceScopeFactory scopeFactory)
         {
             _logger = logger;
             _emailSender = emailSender;
             _db = db;
             _configuration = configuration;
+            _scopeFactory = scopeFactory;
         }
 
         public IActionResult Index()
@@ -50,7 +53,33 @@ namespace JyotiIyerCPA.Controllers
 
         public IActionResult ClientPortal()
         {
+            // Fire-and-forget: Wake up Azure SQL database (which may be auto-paused)
+            // This runs in background so the page loads instantly, but DB is resuming
+            // By the time user types credentials and clicks login, DB should be ready
+            _ = WarmupDatabaseAsync();
+
             return View();
+        }
+
+        /// <summary>
+        /// Wakes up the Azure SQL database if it's in auto-pause state.
+        /// Uses its own DI scope so it can run after the HTTP request completes.
+        /// </summary>
+        private async Task WarmupDatabaseAsync()
+        {
+            try
+            {
+                using var scope = _scopeFactory.CreateScope();
+                var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                var canConnect = await db.Database.CanConnectAsync();
+                _logger.LogDebug("Database warmup completed. CanConnect: {CanConnect}", canConnect);
+            }
+            catch (Exception ex)
+            {
+                // Silently log - warmup failure should never affect the user experience
+                _logger.LogWarning(ex, "Database warmup failed (non-critical)");
+            }
         }
 
         public IActionResult ContactUs()
