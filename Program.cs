@@ -156,17 +156,29 @@ using (var scope = app.Services.CreateScope())
         var database = db.Database;
         var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
 
-        // Always apply EF Core migrations when they exist in the assembly.
-        // This ensures __EFMigrationsHistory is created and schema (e.g., Documents) is up to date
-        // even if the database was previously created via EnsureCreated.
-        if (database.GetMigrations().Any())
+        // Only auto-migrate in Development for fast iteration
+        if (app.Environment.IsDevelopment())
         {
-            await database.MigrateAsync();
+            logger.LogInformation("Development mode: Applying pending migrations...");
+            if (database.GetMigrations().Any())
+            {
+                await database.MigrateAsync();
+            }
+            else
+            {
+                await database.EnsureCreatedAsync();
+            }
         }
         else
         {
-            // No migrations were added to the assembly; fall back to creating the schema for dev scenarios.
-            await database.EnsureCreatedAsync();
+            // Production: Verify connection only (migrations applied manually via SQL)
+            var canConnect = await database.CanConnectAsync();
+            if (!canConnect)
+            {
+                logger.LogError("Cannot connect to production database!");
+                throw new InvalidOperationException("Database connection failed");
+            }
+            logger.LogInformation("Production mode: Database connection verified. Migrations managed manually.");
         }
 
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
