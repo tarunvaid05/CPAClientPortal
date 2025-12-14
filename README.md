@@ -68,14 +68,23 @@ Security was a primary focus given the sensitive nature of financial documents:
 
 ## Screenshots
 
-### Public Pages
-<!-- Add screenshots of Home, About, Services, Contact pages -->
+### Admin Dashboard
+Centralized client management with document oversight, workflow tracking, and batch operations.
+
+![Admin Dashboard - Top](readme_pics/adminview1.png)
+*Admin dashboard showing client grid, stats, and filters*
+
+![Admin Dashboard - Bottom](readme_pics/adminview2.png)
+*Upload list with status tracking and client response management*
 
 ### Client Portal
-<!-- Add screenshots of client dashboard, document upload/download -->
+Professional document upload interface with organized tax document categories and CPA communication.
 
-### Admin Dashboard
-<!-- Add screenshots of admin dashboard, client management, document management -->
+![Client Dashboard - Top](readme_pics/userview1.png)
+*Client dashboard with welcome message, stats, and document type grid*
+
+![Client Dashboard - Bottom](readme_pics/userview2.png)
+*Document management with uploads sidebar and quick actions*
 
 ## Getting Started
 
