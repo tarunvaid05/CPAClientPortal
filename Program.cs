@@ -1,4 +1,5 @@
 using JyotiIyerCPA.Data;
+using JyotiIyerCPA.Filters;
 using JyotiIyerCPA.Models;
 using JyotiIyerCPA.Services;
 using Microsoft.AspNetCore.Identity;
@@ -301,6 +302,7 @@ app.MapGet("/warmup", async (ApplicationDbContext db, ILogger<Program> logger) =
             timestamp = DateTime.UtcNow
         }, statusCode: 503);
     }
-});
+})
+.AddEndpointFilter<WarmupAuthenticationFilter>();
 
 app.Run();
