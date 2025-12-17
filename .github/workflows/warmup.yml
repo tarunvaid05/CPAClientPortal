@@ -13,6 +13,7 @@ jobs:
       - name: Ping warmup endpoint
         env:
           WARMUP_URL: ${{ secrets.WARMUP_URL }}
+          WARMUP_API_KEY: ${{ secrets.WARMUP_API_KEY }}
         run: |
           set -e
 
@@ -25,10 +26,11 @@ jobs:
 
           # Ping the warmup endpoint
           # -L: Follow redirects
-          # -m: Max time in seconds (60s to handle slow resume)
+          # -m: Max time in seconds (240s to match EF Core retry config)
+          # -H: Include API key header for authentication
           # -w: Write HTTP status code to stdout
           # -o: Save response body to file
-          code=$(curl -sS -L -m 60 -o response.json -w "%{http_code}" "$WARMUP_URL" || true)
+          code=$(curl -sS -L -m 240 -H "X-Warmup-Key: $WARMUP_API_KEY" -o response.json -w "%{http_code}" "$WARMUP_URL" || true)
 
           echo "HTTP Status: $code"
           echo ""
