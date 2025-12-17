@@ -14,11 +14,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString, sqlOptions =>
     {
-        // Enable retry on transient failures (required for Azure SQL)
+        // Enhanced retry for Azure SQL auto-pause resume (30-60 seconds)
+        // 10 retries with exponential backoff = ~3-4 minutes total
         sqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5,
+            maxRetryCount: 10,
             maxRetryDelay: TimeSpan.FromSeconds(30),
-            errorNumbersToAdd: null);
+            errorNumbersToAdd: new[] { 40613 }); // Error 40613: Database is resuming from auto-pause
     }));
 
 // Add Identity services
@@ -261,6 +262,45 @@ app.MapGet("/health/db/documents", async (ApplicationDbContext db) =>
         appliedMigrations = applied,
         pendingMigrations = pending
     });
+});
+
+// Warmup endpoint for external pingers (UptimeRobot, etc.)
+// Keeps database awake by periodic pings, returns proper status during resume
+app.MapGet("/warmup", async (ApplicationDbContext db, ILogger<Program> logger) =>
+{
+    var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+    try
+    {
+        // Simple query to wake up the database - will retry automatically via EF Core config
+        var canConnect = await db.Database.CanConnectAsync();
+        stopwatch.Stop();
+
+        logger.LogInformation("Warmup: Database connected in {ElapsedMs}ms", stopwatch.ElapsedMilliseconds);
+
+        return Results.Ok(new
+        {
+            status = "ok",
+            database = canConnect ? "connected" : "unavailable",
+            warmupTimeMs = stopwatch.ElapsedMilliseconds,
+            timestamp = DateTime.UtcNow
+        });
+    }
+    catch (Exception ex)
+    {
+        stopwatch.Stop();
+        logger.LogWarning(ex, "Warmup: Database still resuming after {ElapsedMs}ms", stopwatch.ElapsedMilliseconds);
+
+        // Return 503 so external pingers know to retry
+        return Results.Json(new
+        {
+            status = "warming_up",
+            database = "resuming",
+            warmupTimeMs = stopwatch.ElapsedMilliseconds,
+            message = "Database is resuming from auto-pause. Retry in 30 seconds.",
+            timestamp = DateTime.UtcNow
+        }, statusCode: 503);
+    }
 });
 
 app.Run();
