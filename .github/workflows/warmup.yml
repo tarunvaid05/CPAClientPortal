@@ -1,0 +1,51 @@
+name: Warm Up CPA Portal Database
+
+on:
+  schedule:
+    # Run every 5 minutes to prevent Azure SQL auto-pause
+    - cron: "*/5 * * * *"
+  workflow_dispatch: # Allow manual trigger from Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping warmup endpoint
+        env:
+          WARMUP_URL: ${{ secrets.WARMUP_URL }}
+        run: |
+          set -e
+
+          echo "==================================="
+          echo "Warming up CPA Portal Database"
+          echo "==================================="
+          echo "Target: $WARMUP_URL"
+          echo "Time: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo ""
+
+          # Ping the warmup endpoint
+          # -L: Follow redirects
+          # -m: Max time in seconds (60s to handle slow resume)
+          # -w: Write HTTP status code to stdout
+          # -o: Save response body to file
+          code=$(curl -sS -L -m 60 -o response.json -w "%{http_code}" "$WARMUP_URL" || true)
+
+          echo "HTTP Status: $code"
+          echo ""
+          echo "Response Body:"
+          cat response.json 2>/dev/null || echo "(no response body)"
+          echo ""
+
+          # Success codes:
+          # 200 = Database connected successfully
+          # 503 = Database is resuming (acceptable, will succeed on next ping)
+          if [ "$code" = "200" ]; then
+            echo "✅ Success: Database is warm and ready"
+            exit 0
+          elif [ "$code" = "503" ]; then
+            echo "⏳ Database is resuming from auto-pause (expected, will retry in 5 min)"
+            exit 0
+          else
+            echo "❌ Unexpected status code: $code"
+            exit 1
+          fi
