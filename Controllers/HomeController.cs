@@ -157,23 +157,9 @@ namespace JyotiIyerCPA.Controllers
             {
                 new TestimonialViewModel
                 {
-                    Name = "Sarah Johnson",
-                    Company = "Johnson Enterprises",
-                    Message = "Jyoti's expertise in tax planning saved our company thousands. Her attention to detail is exceptional.",
-                    Rating = 5
-                },
-                new TestimonialViewModel
-                {
-                    Name = "Michael Chen",
-                    Company = "Tech Startup Inc.",
-                    Message = "Professional, reliable, and always available when we need guidance. Highly recommended!",
-                    Rating = 5
-                },
-                new TestimonialViewModel
-                {
-                    Name = "Lisa Rodriguez",
-                    Company = "Rodriguez Consulting",
-                    Message = "Outstanding service and clear communication. Jyoti makes complex tax matters easy to understand.",
+                    Name = "Ashish Tiwari",
+                    Company = "Managing Director, Nodeq Consulting, LLC",
+                    Message = "Jyoti has been our CPA for more than ten years now, she has been someone I've relied on without hesitation. She is always available to answer my questions and always guided me through every tax season, every curveball, and every big decision with patience, clarity, and genuine care. Her diligence and honesty have earned my trust and referrals over years, and I'm grateful to have had such a steady, dependable CPA by my side for so long.",
                     Rating = 5
                 }
             };
