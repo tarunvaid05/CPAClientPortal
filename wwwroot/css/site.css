@@ -32,7 +32,7 @@ body {
     font-family: var(--font-family);
     line-height: 1.6;
     color: var(--secondary-color);
-    padding-top: 80px; /* Account for fixed navbar */
+    padding-top: 96px; /* Account for fixed navbar (50px logo + brand & navbar padding + border) */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -707,6 +707,14 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 991.98px) {
+    /* When hero columns stack, content sits at the top of the section
+       instead of vertically centered - give the heading clearance */
+    .hero-section {
+        padding-top: 1.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-section {
         text-align: center;
