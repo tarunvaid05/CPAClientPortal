@@ -276,6 +276,11 @@
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Signing In...';
             submitBtn.disabled = true;
 
+            // If sign-in is slow, the database is resuming from auto-pause - tell the user
+            const wakeNotice = setTimeout(() => {
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Waking secure portal (up to 1 min)...';
+            }, 5000);
+
             try {
                 const tokenMeta = document.querySelector('meta[name="request-verification-token"]')
                 const token = tokenMeta ? tokenMeta.getAttribute('content') : ''
@@ -308,10 +313,28 @@
                 errorBox.textContent = 'Sign-in failed. Please try again.';
                 errorBox.classList.remove('d-none');
             } finally {
+                clearTimeout(wakeNotice);
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             }
         });
+
+        // Wake the auto-paused database on the first interaction with the login form,
+        // so it's resuming while the user types. Crawlers load this page but never
+        // interact with the form, so they no longer wake the database.
+        let warmupFired = false;
+        const fireWarmup = () => {
+            if (warmupFired) return;
+            warmupFired = true;
+            const tokenMeta = document.querySelector('meta[name="request-verification-token"]');
+            fetch('@Url.Action("WarmupDb", "Home")', {
+                method: 'POST',
+                headers: { 'RequestVerificationToken': tokenMeta ? tokenMeta.getAttribute('content') : '' }
+            }).catch(() => {});
+        };
+        const loginFormEl = document.getElementById('loginForm');
+        loginFormEl.addEventListener('focusin', fireWarmup);
+        loginFormEl.addEventListener('pointerdown', fireWarmup);
 
         // Add some visual feedback for form interactions
         document.querySelectorAll('.form-control').forEach(input => {

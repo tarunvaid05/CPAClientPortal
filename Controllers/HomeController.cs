@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using JyotiIyerCPA.Data;
 using JyotiIyerCPA.Models;
@@ -53,12 +54,26 @@ namespace JyotiIyerCPA.Controllers
 
         public IActionResult ClientPortal()
         {
-            // Fire-and-forget: Wake up Azure SQL database (which may be auto-paused)
-            // This runs in background so the page loads instantly, but DB is resuming
-            // By the time user types credentials and clicks login, DB should be ready
-            _ = WarmupDatabaseAsync();
-
+            // No DB warmup on GET: bots crawl this page via the nav link, and a
+            // GET-triggered warmup resumed the auto-paused Azure SQL database
+            // (billing vCore-seconds) on every crawl. The login form fires
+            // POST WarmupDb on first user interaction instead.
             return View();
+        }
+
+        /// <summary>
+        /// Called by the login form's JavaScript on first user interaction so the
+        /// auto-paused database is resuming while the user types their credentials.
+        /// Antiforgery validation stops crawlers/scanners from waking the database
+        /// with bare POSTs; the rate limiter caps deliberate hammering.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [EnableRateLimiting("auth")]
+        public IActionResult WarmupDb()
+        {
+            _ = WarmupDatabaseAsync();
+            return NoContent();
         }
 
         /// <summary>
