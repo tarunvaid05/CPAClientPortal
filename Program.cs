@@ -149,38 +149,31 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-// Ensure database and roles exist. Admin user/password will be provisioned via DB, not in code.
-using (var scope = app.Services.CreateScope())
+// Startup database work runs in Development only. Production deliberately does no DB work
+// here: Azure SQL (free serverless tier) auto-pauses when idle, and connecting at startup
+// would resume it - billing vCore-seconds - on every app restart, even for visitors who
+// only need static pages. Roles/admin are provisioned manually via the scripts in sql/.
+if (!app.Environment.IsDevelopment())
 {
+    app.Logger.LogInformation("Production mode: skipping startup database work; database stays paused until a request needs it.");
+}
+else
+{
+    using var scope = app.Services.CreateScope();
     try
     {
         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var database = db.Database;
         var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
 
-        // Only auto-migrate in Development for fast iteration
-        if (app.Environment.IsDevelopment())
+        logger.LogInformation("Development mode: Applying pending migrations...");
+        if (database.GetMigrations().Any())
         {
-            logger.LogInformation("Development mode: Applying pending migrations...");
-            if (database.GetMigrations().Any())
-            {
-                await database.MigrateAsync();
-            }
-            else
-            {
-                await database.EnsureCreatedAsync();
-            }
+            await database.MigrateAsync();
         }
         else
         {
-            // Production: Verify connection only (migrations applied manually via SQL)
-            var canConnect = await database.CanConnectAsync();
-            if (!canConnect)
-            {
-                logger.LogError("Cannot connect to production database!");
-                throw new InvalidOperationException("Database connection failed");
-            }
-            logger.LogInformation("Production mode: Database connection verified. Migrations managed manually.");
+            await database.EnsureCreatedAsync();
         }
 
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -236,7 +229,8 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Optional health endpoint to verify 'Documents' table and migration status
+// Diagnostic endpoint to verify 'Documents' table and migration status.
+// Requires X-Warmup-Key: it opens a DB connection, which resumes a paused database.
 app.MapGet("/health/db/documents", async (ApplicationDbContext db) =>
 {
     var applied = db.Database.GetAppliedMigrations().ToArray();
@@ -263,7 +257,8 @@ app.MapGet("/health/db/documents", async (ApplicationDbContext db) =>
         appliedMigrations = applied,
         pendingMigrations = pending
     });
-});
+})
+.AddEndpointFilter<WarmupAuthenticationFilter>();
 
 // Warmup endpoint for external pingers (UptimeRobot, etc.)
 // Keeps database awake by periodic pings, returns proper status during resume
