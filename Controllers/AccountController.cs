@@ -2,6 +2,7 @@ using JyotiIyerCPA.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.Tasks;
 using System;
 using System.Linq;
@@ -50,6 +51,7 @@ namespace JyotiIyerCPA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("auth")]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -58,15 +60,21 @@ namespace JyotiIyerCPA.Controllers
             {
                 // First, find the user to check IsActive status before sign-in
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                
+
                 // Check if user is deactivated
                 if (user != null && !user.IsActive)
                 {
                     TempData["LoginError"] = "This account has been deactivated. Please contact your administrator.";
                     return RedirectToAction("ClientPortal", "Home");
                 }
-                
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
+
+                if (result.IsLockedOut)
+                {
+                    TempData["LoginError"] = "Too many failed sign-in attempts. Please try again in 10 minutes.";
+                    return RedirectToAction("ClientPortal", "Home");
+                }
 
                 if (result.Succeeded)
                 {
@@ -94,6 +102,7 @@ namespace JyotiIyerCPA.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("auth")]
         public async Task<IActionResult> AjaxLogin([FromBody] AjaxLoginRequest request)
         {
             if (!ModelState.IsValid)
@@ -102,15 +111,30 @@ namespace JyotiIyerCPA.Controllers
             }
 
             _logger.LogInformation("AjaxLogin attempt for: {Email}", request.Email);
-            var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, lockoutOnFailure: true);
             _logger.LogInformation("SignIn result: Succeeded={Succeeded}, IsLockedOut={IsLockedOut}, IsNotAllowed={IsNotAllowed}, RequiresTwoFactor={RequiresTwoFactor}",
                 result.Succeeded, result.IsLockedOut, result.IsNotAllowed, result.RequiresTwoFactor);
+
+            if (result.IsLockedOut)
+            {
+                return Ok(new { success = false, message = "Too many failed sign-in attempts. Please try again in 10 minutes." });
+            }
+
             if (!result.Succeeded)
             {
                 return Ok(new { success = false, message = "Invalid email or password." });
             }
 
             var user = await _userManager.FindByEmailAsync(request.Email);
+
+            // Deactivated accounts must not hold a session. Checked only after the password
+            // verifies, so this never reveals whether an address has an account.
+            if (user == null || !user.IsActive)
+            {
+                await _signInManager.SignOutAsync();
+                _logger.LogWarning("[Login] Blocked sign-in for deactivated or missing account: {Email}", request.Email);
+                return Ok(new { success = false, message = "This account has been deactivated. Please contact your administrator." });
+            }
 
             // Update security stamp to invalidate other sessions
             await _userManager.UpdateSecurityStampAsync(user);

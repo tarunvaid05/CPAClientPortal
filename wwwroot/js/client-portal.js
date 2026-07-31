@@ -458,8 +458,8 @@ function createFileItem(file, index) {
                 <i class="fas fa-file-${getFileIcon(file.type)}"></i>
             </div>
             <div class="file-details">
-                <h6>${file.name}</h6>
-                <p>${formatFileSize(file.size)} • ${file.type || "Unknown type"}</p>
+                <h6>${escapeHtml(file.name)}</h6>
+                <p>${formatFileSize(file.size)} • ${escapeHtml(file.type || "Unknown type")}</p>
             </div>
         </div>
         <div class="file-actions">
@@ -529,7 +529,7 @@ function showAlert(message, type) {
     alertElement.className = `alert alert-${type === "error" ? "danger" : type} alert-dismissible alert-notification`
     alertElement.innerHTML = `
         <i class="fas fa-${getAlertIcon(type)} me-2"></i>
-        ${message}
+        ${escapeHtml(message)}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `
 
@@ -1013,6 +1013,7 @@ function renderReceivedDocuments(documents, container) {
 
 // Helper function to escape HTML to prevent XSS
 function escapeHtml(text) {
+    if (text === null || text === undefined) return ''
     const div = document.createElement('div')
     div.textContent = text
     return div.innerHTML

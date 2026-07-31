@@ -292,6 +292,12 @@
                 });
 
                 console.log('Response status:', res.status);
+                if (res.status === 429) {
+                    errorBox.textContent = 'Too many sign-in attempts. Please wait a minute and try again.';
+                    errorBox.classList.remove('d-none');
+                    return;
+                }
+
                 if (!res.ok) {
                     const text = await res.text();
                     console.log('Error response:', text);

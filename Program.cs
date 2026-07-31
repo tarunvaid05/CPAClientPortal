@@ -106,15 +106,27 @@ builder.Services.AddAntiforgery(o =>
     o.HeaderName = "RequestVerificationToken";
 });
 
-// Rate limiting for login/invite endpoints
+// Rate limiting for login/password-reset endpoints.
+// Partitioned per client IP so one attacker cannot exhaust the budget for everyone.
+// Behind App Service the caller's address arrives in X-Forwarded-For.
 builder.Services.AddRateLimiter(options =>
 {
-    options.AddFixedWindowLimiter("auth", limiterOptions =>
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.AddPolicy("auth", httpContext =>
     {
-        limiterOptions.AutoReplenishment = true;
-        limiterOptions.PermitLimit = 10; // 10 requests per minute
-        limiterOptions.Window = TimeSpan.FromMinutes(1);
-        limiterOptions.QueueLimit = 0;
+        var forwarded = httpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+        var partitionKey = !string.IsNullOrWhiteSpace(forwarded)
+            ? forwarded.Split(',')[0].Trim()
+            : httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        return RateLimitPartition.GetFixedWindowLimiter(partitionKey, _ => new FixedWindowRateLimiterOptions
+        {
+            AutoReplenishment = true,
+            PermitLimit = 10, // 10 requests per minute per client
+            Window = TimeSpan.FromMinutes(1),
+            QueueLimit = 0
+        });
     });
 });
 

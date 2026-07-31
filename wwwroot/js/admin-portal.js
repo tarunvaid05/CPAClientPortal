@@ -198,9 +198,9 @@ function displayDocumentCategories(categories) {
       <div class="category-icon">
         <i class="${category.icon}"></i>
       </div>
-      <h6>${category.category}</h6>
-      <p>${category.count} documents</p>
-      <small class="text-muted">Updated ${category.lastUpdated}</small>
+      <h6>${escapeHtml(category.category)}</h6>
+      <p>${escapeHtml(category.count)} documents</p>
+      <small class="text-muted">Updated ${escapeHtml(category.lastUpdated)}</small>
     `
         grid.appendChild(categoryCard)
     })
@@ -260,8 +260,8 @@ function displayCategoryDocuments(documents) {
         documentItem.className = "document-item"
         documentItem.innerHTML = `
       <div class="document-item-info">
-        <h6>${doc.fileName}</h6>
-        <p>Uploaded: ${doc.uploadDate} - Size: ${doc.fileSize || ''}</p>
+        <h6>${escapeHtml(doc.fileName)}</h6>
+        <p>Uploaded: ${escapeHtml(doc.uploadDate)} - Size: ${escapeHtml(doc.fileSize || '')}</p>
       </div>
       <div class="document-item-actions">
         <div class="btn-group btn-group-sm" role="group">
@@ -840,7 +840,7 @@ function showAlert(message, type) {
     alertElement.className = `alert alert-${type === "error" ? "danger" : type} alert-dismissible alert-notification`
     alertElement.innerHTML = `
         <i class="fas fa-${getAlertIcon(type)} me-2"></i>
-        ${message}
+        ${escapeHtml(message)}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `
 
@@ -1037,10 +1037,10 @@ function displaySentDocuments(documents) {
 
         documentItem.innerHTML = `
             <div class="document-item-info">
-                <h6>${doc.fileName || doc.originalFileName}</h6>
+                <h6>${escapeHtml(doc.fileName || doc.originalFileName)}</h6>
                 <p>
-                    <span class="badge ${categoryBadgeClass} me-2">${signatureIcon}${doc.category || 'Unknown'}</span>
-                    Sent: ${uploadDate}${fileSize ? ' - Size: ' + fileSize : ''}
+                    <span class="badge ${categoryBadgeClass} me-2">${signatureIcon}${escapeHtml(doc.category || 'Unknown')}</span>
+                    Sent: ${escapeHtml(uploadDate)}${fileSize ? ' - Size: ' + escapeHtml(fileSize) : ''}
                 </p>
             </div>
             <div class="document-item-actions">
@@ -1190,7 +1190,7 @@ function displayClientResponses(workflows) {
                 statusBadge = '<span class="badge bg-success">Resolved</span>'
                 break
             default:
-                statusBadge = `<span class="badge bg-secondary">${workflow.status}</span>`
+                statusBadge = `<span class="badge bg-secondary">${escapeHtml(workflow.status)}</span>`
         }
 
         // Response preview (truncated)
@@ -1199,7 +1199,7 @@ function displayClientResponses(workflows) {
             const truncatedText = workflow.clientResponseText.length > 80
                 ? workflow.clientResponseText.substring(0, 80) + "..."
                 : workflow.clientResponseText
-            responsePreview = `<p class="response-preview text-muted small mb-0">"${truncatedText}"</p>`
+            responsePreview = `<p class="response-preview text-muted small mb-0">"${escapeHtml(truncatedText)}"</p>`
         }
 
         // Resolve button (only show for Responded status)
@@ -1210,8 +1210,8 @@ function displayClientResponses(workflows) {
 
         responseItem.innerHTML = `
             <div class="response-info">
-                <h6 class="mb-1">${workflow.clientName} - ${workflow.documentName}</h6>
-                <p class="text-muted small mb-1">${timeAgo} ${statusBadge}</p>
+                <h6 class="mb-1">${escapeHtml(workflow.clientName)} - ${escapeHtml(workflow.documentName)}</h6>
+                <p class="text-muted small mb-1">${escapeHtml(timeAgo)} ${statusBadge}</p>
                 ${responsePreview}
             </div>
             <div class="response-actions">
@@ -1427,5 +1427,15 @@ if (typeof bootstrap === "undefined") {
     console.error("Bootstrap is not loaded")
 } else {
     console.log("Bootstrap loaded successfully")
+}
+
+// Escape HTML before interpolating into innerHTML. Client-supplied values reach this
+// dashboard (file names, response text, client names), so they must never be treated
+// as markup - otherwise a client can run script in the admin's authenticated session.
+function escapeHtml(text) {
+    if (text === null || text === undefined) return ''
+    const div = document.createElement('div')
+    div.textContent = text
+    return div.innerHTML
 }
 

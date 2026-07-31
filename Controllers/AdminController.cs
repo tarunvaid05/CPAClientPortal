@@ -474,8 +474,9 @@ namespace JyotiIyerCPA.Controllers
             return Json(new { success = true, message = "Notification settings updated!" });
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
