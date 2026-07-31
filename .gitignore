@@ -107,3 +107,6 @@ tests/**/obj/
 
 # SQL scripts with sensitive data
 sql/*.local.sql
+
+# Local-only working notes (never commit - repo is public)
+TODO.md
