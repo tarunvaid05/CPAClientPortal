@@ -944,6 +944,13 @@ async function handleAdminUploadSubmit(event) {
         return
     }
 
+    // Keep in sync with Services/UploadPolicy.cs; the server enforces this too
+    const maxUploadMb = 25
+    if (file.size > maxUploadMb * 1024 * 1024) {
+        showAlert(`That file is ${(file.size / (1024 * 1024)).toFixed(1)} MB. The maximum size is ${maxUploadMb} MB.`, "warning")
+        return
+    }
+
     // Show loading state
     submitBtn.disabled = true
     submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Uploading...'
@@ -959,6 +966,11 @@ async function handleAdminUploadSubmit(event) {
             },
             body: formData
         })
+
+        if (response.status === 413) {
+            showAlert(`That file is too large. The maximum size is ${maxUploadMb} MB.`, "error")
+            return
+        }
 
         const data = await response.json()
 

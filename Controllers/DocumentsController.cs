@@ -39,8 +39,7 @@ namespace JyotiIyerCPA.Controllers
 
         // Clients upload only (per requirements). Admins are forbidden to upload.
         [HttpPost]
-        [RequestSizeLimit(long.MaxValue)] // per requirement: uncapped size (note: still subject to server limits)
-        [DisableRequestSizeLimit]
+        [RequestSizeLimit(UploadPolicy.MaxBytes)]
         public async Task<IActionResult> Upload(IFormFile file, string category = "", CancellationToken ct = default)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -52,9 +51,10 @@ namespace JyotiIyerCPA.Controllers
                 return Forbid(); // admins cannot upload
             }
 
-            if (file == null || file.Length == 0)
+            var uploadError = UploadPolicy.Validate(file);
+            if (uploadError != null)
             {
-                return BadRequest(new { success = false, message = "No file provided." });
+                return BadRequest(new { success = false, message = uploadError });
             }
 
             var (storedFileName, size, sha) = await _storage.SaveEncryptedAsync(user.Id, file, ct);
@@ -93,18 +93,17 @@ namespace JyotiIyerCPA.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        [RequestSizeLimit(long.MaxValue)]
-        [DisableRequestSizeLimit]
+        [RequestSizeLimit(UploadPolicy.MaxBytes)]
         public async Task<IActionResult> AdminUpload(IFormFile file, string clientUserId, string category, string? adminNotes = null, CancellationToken ct = default)
         {
             // Validate admin is logged in
             var admin = await _userManager.GetUserAsync(User);
             if (admin == null) return Unauthorized();
 
-            // Validate file
-            if (file == null || file.Length == 0)
+            var uploadError = UploadPolicy.Validate(file);
+            if (uploadError != null)
             {
-                return BadRequest(new { success = false, message = "No file provided." });
+                return BadRequest(new { success = false, message = uploadError });
             }
 
             // Validate category is one of the allowed admin categories (Section 3.6)

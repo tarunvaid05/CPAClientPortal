@@ -214,11 +214,12 @@ namespace JyotiIyerCPA.Controllers
             }
             catch (Exception ex)
             {
+                // Report the failure. The account exists but the client never received a
+                // link, so the admin needs to know to resend rather than assume delivery.
                 _logger.LogError(ex, "[Invite] Failed to send invite email to {Email}: {Message}", model.Email, ex.Message);
-                TempData["Error"] = $"User created, but failed to send invite email: {ex.Message}";
+                TempData["Error"] = $"Account created for {model.Email}, but the invitation email could not be sent. Use Resend Invitation to try again.";
             }
 
-            TempData["Success"] = $"Invitation email sent to {model.Email}";
             return RedirectToAction(nameof(InviteUser));
         }
 

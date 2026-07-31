@@ -156,10 +156,10 @@ namespace JyotiIyerCPA.Services
             var subject = $"New Document Upload - {clientName}";
             var body = $@"
 <h2>New Document Upload</h2>
-<p><strong>{clientName}</strong> uploaded a document:</p>
+<p><strong>{Enc(clientName)}</strong> uploaded a document:</p>
 <ul>
-    <li><strong>Category:</strong> {category}</li>
-    <li><strong>File:</strong> {fileName}</li>
+    <li><strong>Category:</strong> {Enc(category)}</li>
+    <li><strong>File:</strong> {Enc(fileName)}</li>
     <li><strong>Date:</strong> {uploadTime:MMM dd, yyyy 'at' h:mm tt}</li>
 </ul>
 <p><a href=""{_baseUrl}/Admin/Dashboard"">View in Portal</a></p>
@@ -183,14 +183,14 @@ namespace JyotiIyerCPA.Services
             var subject = "New Document from Jyoti Iyer CPA";
             var notesSection = string.IsNullOrWhiteSpace(adminNotes) ? "" : $@"
 <p><strong>Message from your CPA:</strong></p>
-<blockquote style=""border-left: 3px solid #ccc; padding-left: 10px; margin: 10px 0;"">{adminNotes}</blockquote>
+<blockquote style=""border-left: 3px solid #ccc; padding-left: 10px; margin: 10px 0;"">{EncLines(adminNotes)}</blockquote>
 ";
             var body = $@"
 <h2>New Document Available</h2>
 <p>Your CPA has sent you a document:</p>
 <ul>
-    <li><strong>Category:</strong> {category}</li>
-    <li><strong>File:</strong> {fileName}</li>
+    <li><strong>Category:</strong> {Enc(category)}</li>
+    <li><strong>File:</strong> {Enc(fileName)}</li>
 </ul>
 {notesSection}
 <p><a href=""{_baseUrl}/ClientPortal/Dashboard"">View in Portal</a></p>
@@ -214,12 +214,12 @@ namespace JyotiIyerCPA.Services
             var subject = $"Client Response - {clientName}";
             var responseSection = string.IsNullOrWhiteSpace(responseText) ? "" : $@"
 <p><strong>Response:</strong></p>
-<blockquote style=""border-left: 3px solid #ccc; padding-left: 10px; margin: 10px 0;"">{responseText}</blockquote>
+<blockquote style=""border-left: 3px solid #ccc; padding-left: 10px; margin: 10px 0;"">{EncLines(responseText)}</blockquote>
 ";
             var attachmentNote = hasAttachment ? "<p><em>Client attached a document</em></p>" : "";
             var body = $@"
 <h2>Client Response Received</h2>
-<p><strong>{clientName}</strong> responded to: <em>{documentName}</em></p>
+<p><strong>{Enc(clientName)}</strong> responded to: <em>{Enc(documentName)}</em></p>
 {responseSection}
 {attachmentNote}
 <p><a href=""{_baseUrl}/Admin/Dashboard"">View in Portal</a></p>
@@ -243,14 +243,14 @@ namespace JyotiIyerCPA.Services
             var emailSubject = $"Client Message from {clientName}: {subject}";
             var body = $@"
 <h2>New Message from Client</h2>
-<p><strong>From:</strong> {clientName} ({clientEmail})</p>
-<p><strong>Subject:</strong> {subject}</p>
+<p><strong>From:</strong> {Enc(clientName)} ({Enc(clientEmail)})</p>
+<p><strong>Subject:</strong> {Enc(subject)}</p>
 <hr>
 <blockquote style=""border-left: 4px solid #dc3545; padding-left: 15px; margin: 15px 0; color: #555;"">
-{message.Replace("\n", "<br>")}
+{EncLines(message)}
 </blockquote>
 <hr>
-<p>Reply directly to this email or contact the client at <a href=""mailto:{clientEmail}"">{clientEmail}</a></p>
+<p>Reply directly to this email or contact the client at <a href=""mailto:{Enc(clientEmail)}"">{Enc(clientEmail)}</a></p>
 ";
             try
             {
@@ -272,16 +272,16 @@ namespace JyotiIyerCPA.Services
             var subject = $"Appointment Request from {clientName}";
             var body = $@"
 <h2>New Appointment Request</h2>
-<p><strong>Client:</strong> {clientName} ({clientEmail})</p>
-<p><strong>Preferred Date/Time:</strong> {preferredDate}</p>
+<p><strong>Client:</strong> {Enc(clientName)} ({Enc(clientEmail)})</p>
+<p><strong>Preferred Date/Time:</strong> {Enc(preferredDate)}</p>
 {(string.IsNullOrWhiteSpace(notes) ? "" : $@"
 <p><strong>Additional Notes:</strong></p>
 <blockquote style=""border-left: 4px solid #dc3545; padding-left: 15px; margin: 15px 0; color: #555;"">
-{notes.Replace("\n", "<br>")}
+{EncLines(notes)}
 </blockquote>
 ")}
 <hr>
-<p>Please contact the client at <a href=""mailto:{clientEmail}"">{clientEmail}</a> to confirm the appointment.</p>
+<p>Please contact the client at <a href=""mailto:{Enc(clientEmail)}"">{Enc(clientEmail)}</a> to confirm the appointment.</p>
 ";
             try
             {
@@ -306,27 +306,27 @@ namespace JyotiIyerCPA.Services
 <table style=""border-collapse: collapse; width: 100%; max-width: 600px;"">
     <tr>
         <td style=""padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold; width: 120px;"">Name:</td>
-        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{name}</td>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{Enc(name)}</td>
     </tr>
     <tr>
         <td style=""padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;"">Email:</td>
-        <td style=""padding: 10px; border-bottom: 1px solid #ddd;""><a href=""mailto:{email}"">{email}</a></td>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd;""><a href=""mailto:{Enc(email)}"">{Enc(email)}</a></td>
     </tr>
     <tr>
         <td style=""padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;"">Phone:</td>
-        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{phone ?? "Not provided"}</td>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{Enc(phone ?? "Not provided")}</td>
     </tr>
     <tr>
         <td style=""padding: 10px; border-bottom: 1px solid #ddd; font-weight: bold;"">Subject:</td>
-        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{subject}</td>
+        <td style=""padding: 10px; border-bottom: 1px solid #ddd;"">{Enc(subject)}</td>
     </tr>
 </table>
 <h3>Message:</h3>
 <blockquote style=""border-left: 4px solid #dc3545; padding-left: 15px; margin: 15px 0; color: #555;"">
-{message.Replace("\n", "<br>")}
+{EncLines(message)}
 </blockquote>
 <hr>
-<p style=""color: #888; font-size: 12px;"">Reply directly to this email or contact at <a href=""mailto:{email}"">{email}</a></p>
+<p style=""color: #888; font-size: 12px;"">Reply directly to this email or contact at <a href=""mailto:{Enc(email)}"">{Enc(email)}</a></p>
 ";
             try
             {
@@ -339,6 +339,18 @@ namespace JyotiIyerCPA.Services
                 throw;
             }
         }
+
+        /// <summary>
+        /// HTML-encodes a value before it is interpolated into an email body. Names, file
+        /// names, subjects and message text all originate from users - the contact form is
+        /// public - so without this they could inject working markup and links into mail
+        /// that appears to come from the portal.
+        /// </summary>
+        private static string Enc(string? value) => WebUtility.HtmlEncode(value ?? string.Empty);
+
+        /// <summary>Encodes a value, then restores the author's line breaks as markup.</summary>
+        private static string EncLines(string? value) =>
+            Enc(value).Replace("\r\n", "<br/>").Replace("\n", "<br/>");
 
         private static string Mask(string input)
         {

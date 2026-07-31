@@ -178,6 +178,7 @@ namespace JyotiIyerCPA.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RequestSizeLimit(UploadPolicy.MaxBytes)]
         public async Task<IActionResult> SubmitWorkflowResponse(Guid workflowId, string? responseText, IFormFile? responseFile, CancellationToken ct = default)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -199,6 +200,12 @@ namespace JyotiIyerCPA.Controllers
             // If file provided, save it as a document
             if (responseFile != null && responseFile.Length > 0)
             {
+                var uploadError = UploadPolicy.Validate(responseFile);
+                if (uploadError != null)
+                {
+                    return BadRequest(new { success = false, message = uploadError });
+                }
+
                 var (storedFileName, size, sha) = await _storage.SaveEncryptedAsync(user.Id, responseFile, ct);
 
                 var responseDoc = new Document

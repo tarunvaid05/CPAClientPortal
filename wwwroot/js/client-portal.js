@@ -1,5 +1,9 @@
 ﻿// Client Portal JavaScript
 
+// Keep in sync with Services/UploadPolicy.cs
+const MAX_UPLOAD_MB = 25
+const MAX_UPLOAD_BYTES = MAX_UPLOAD_MB * 1024 * 1024
+
 document.addEventListener("DOMContentLoaded", () => {
     initializeClientPortal()
 })
@@ -293,6 +297,14 @@ async function uploadFiles(files, documentType, customFileName) {
 
     // Upload each file individually (controller expects single file)
     for (const file of files) {
+        // Reject oversized files here so the user isn't left waiting on an upload
+        // the server will refuse. The server enforces the same limit regardless.
+        if (file.size > MAX_UPLOAD_BYTES) {
+            const sizeMb = (file.size / (1024 * 1024)).toFixed(1)
+            errorMessages.push(`${file.name} is ${sizeMb} MB. The maximum size is ${MAX_UPLOAD_MB} MB.`)
+            continue
+        }
+
         const formData = new FormData()
         formData.append("file", file)
         formData.append("category", documentType)
@@ -305,6 +317,11 @@ async function uploadFiles(files, documentType, customFileName) {
                     'RequestVerificationToken': token
                 }
             })
+
+            if (response.status === 413) {
+                errorMessages.push(`${file.name} is too large. The maximum size is ${MAX_UPLOAD_MB} MB.`)
+                continue
+            }
 
             const data = await response.json()
 
